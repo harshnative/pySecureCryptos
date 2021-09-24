@@ -85,6 +85,8 @@ class OnetimepadWrapper:
 
 
         6. return the chunks as a joint string 
+
+        Visit - https://www.blog.letscodeofficial.com/@harshnative/pysecurecryptos-module-documentation-secure-your-data-using-python/ for more details
         """
 
         # validate type
@@ -200,6 +202,8 @@ class OnetimepadWrapper:
 
 
         6. return the chunks as a joint string 
+
+        Visit - https://www.blog.letscodeofficial.com/@harshnative/pysecurecryptos-module-documentation-secure-your-data-using-python/ for more details
         """
 
         # validate type
