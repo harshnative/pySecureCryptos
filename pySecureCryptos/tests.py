@@ -1,7 +1,7 @@
 import string
 import random
 import time
-
+import secrets
 
 
 from colored import fg
@@ -13,11 +13,12 @@ whiteColor = fg('white')
 
 
 import stringEncryptor
+import byteEncryptor
 
 
 
 
-def OnetimepadWrapperTester_password():
+def stringEncryptor_OnetimepadWrapperTester_password():
 
     
     def testEncryptionDecryption_password(howMany):
@@ -57,7 +58,7 @@ def OnetimepadWrapperTester_password():
 
             if(decryptedString != randomString):
                 error = error + 1 
-                errorList.append(randomString , decryptedString , randomPassword , specificSHA)
+                errorList.append([randomString , decryptedString , randomPassword , specificSHA])
 
         avgTime = avgTime / howMany
 
@@ -67,17 +68,17 @@ def OnetimepadWrapperTester_password():
     print("\n\n")
 
     # testing determinant function 
-    print(whiteColor + "Testing encryption decryption password in onetimewrapper")
+    print(whiteColor + "on stringEncryptor_OnetimepadWrapperTester_password")
 
     error , errorList , avgTime = testEncryptionDecryption_password(1000)
 
     print()
 
     if(error == 0):
-        print(blueColor + "avg time taken by testEncryptionDecryption_password function per encryption decyption cycle per 1000 chars = {}".format(avgTime))
-        print(greenColor + "testEncryptionDecryption_password function test passed")
+        print(blueColor + "avg time taken by stringEncryptor_OnetimepadWrapperTester_password function per encryption decyption cycle per 1000 chars = {}".format(avgTime))
+        print(greenColor + "stringEncryptor_OnetimepadWrapperTester_password function test passed")
     else:
-        print(redColor + "testEncryptionDecryption_password function test failed")
+        print(redColor + "stringEncryptor_OnetimepadWrapperTester_password function test failed")
         print(redColor + "error = {} / {}".format(error , 1000))
         print(redColor + "error list = {}".format(errorList))
 
@@ -92,7 +93,7 @@ def OnetimepadWrapperTester_password():
 
 
 
-def OnetimepadWrapperTester():
+def stringEncryptor_OnetimepadWrapperTester():
 
     
     def testEncryptionDecryption(howMany):
@@ -131,7 +132,7 @@ def OnetimepadWrapperTester():
 
             if(decryptedString != randomString):
                 error = error + 1 
-                errorList.append(randomString , decryptedString , randomPassword , specificSHA)
+                errorList.append([randomString , decryptedString , randomPassword])
 
         avgTime = avgTime / howMany
 
@@ -141,19 +142,25 @@ def OnetimepadWrapperTester():
     print("\n\n")
 
     # testing determinant function 
-    print(whiteColor + "Testing encryption decryption in onetimewrapper")
+    print(whiteColor + "on stringEncryptor_OnetimepadWrapperTester")
 
     error , errorList , avgTime = testEncryptionDecryption(1000)
 
     print()
 
     if(error == 0):
-        print(blueColor + "avg time taken by testEncryptionDecryption function per encryption decyption cycle per 1000 chars = {}".format(avgTime))
-        print(greenColor + "testEncryptionDecryption function test passed")
+        print(blueColor + "avg time taken by stringEncryptor_OnetimepadWrapperTester function per encryption decyption cycle per 1000 chars = {}".format(avgTime))
+        print(greenColor + "stringEncryptor_OnetimepadWrapperTester function test passed")
     else:
-        print(redColor + "testEncryptionDecryption function test failed")
+        print(redColor + "stringEncryptor_OnetimepadWrapperTester function test failed")
         print(redColor + "error = {} / {}".format(error , 1000))
         print(redColor + "error list = {}".format(errorList))
+
+
+
+
+
+
 
 
 
@@ -168,9 +175,9 @@ def OnetimepadWrapperTester():
 if __name__ == "__main__":
 
     testsDict = {
-        1 : OnetimepadWrapperTester_password , 
-        2 : OnetimepadWrapperTester , 
-        # 3 : transposeFuncTest , 
+        1 : stringEncryptor_OnetimepadWrapperTester_password , 
+        2 : stringEncryptor_OnetimepadWrapperTester , 
+        # 3 : byteEncryptor_OnetimepadWrapperTester_password , 
         # 4 : meanFunctionTest , 
         # 5 : multiplyFunctionTest ,
         # 6 : sortingTester ,
