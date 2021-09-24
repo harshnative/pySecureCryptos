@@ -69,7 +69,7 @@ class OnetimepadWrapper:
                 Note - do not store the sha of your password you are using here anywhere else. Ex - if you are using SHA256 here , then you can store SHA512 or SHA384 but don't store SHA256
                 Note - do not store the md5 hashed value of your password anywhere else
 
-           The string to converted to SHA to increase the length of the key as the encryption of onetimepad is strong only when length of key > length of message
+           The password is converted to SHA to increase the length of the key as the encryption of onetimepad is strong only when length of key > length of message
         
         
         2. convert the password to md5 hash
@@ -186,7 +186,7 @@ class OnetimepadWrapper:
                 Note - do not store the sha of your password you are using here anywhere else. Ex - if you are using SHA256 here , then you can store SHA512 or SHA384 but don't store SHA256
                 Note - do not store the md5 hashed value of your password anywhere else
 
-           The string to converted to SHA to increase the length of the key as the encryption of onetimepad is strong only when length of key > length of message
+           The password is converted to SHA to increase the length of the key as the encryption of onetimepad is strong only when length of key > length of message
         
         
         2. convert the password to md5 hash
@@ -198,7 +198,7 @@ class OnetimepadWrapper:
         4. break the string to decrypt into chunks into size = len(SHA hashed password)
 
 
-        5. shuffle them individually and decrypt the individual chunks using one time pad
+        5. deshuffle them individually and decrypt the individual chunks using one time pad
 
 
         6. return the chunks as a joint string 
@@ -288,6 +288,142 @@ class OnetimepadWrapper:
 
         return result
 
+
+    # function to encrypt a string using a key using onetimepad encryption tech
+    @classmethod
+    def encryptString(cls , stringToEncrypt , key):
+
+        """
+        ALGO  - 
+
+        1. convert the key to md5 hash
+
+        2. break the string to encrypt into chunks into size = half of len(key)
+
+        3. encrypt the individual chunks using one time pad and shuffle them individually with seed = md5 hash value 
+
+        4. return the chunks as a joint string 
+
+        Visit - https://www.blog.letscodeofficial.com/@harshnative/pysecurecryptos-module-documentation-secure-your-data-using-python/ for more details
+        """
+
+        # validate type
+        stringToEncrypt = str(stringToEncrypt)
+        key = str(key)
+
+        lenStringToEncrypt = len(stringToEncrypt)
+        lenKey = len(key)
+
+        if(lenKey % 2 != 0):
+            key = key + key[0]
+            lenKey = len(key)
+
+        lenKeyby2 = lenKey // 2
+
+        # step 1 - 
+        md5HashedKey = hashlib.md5(key.encode()).hexdigest()
+
+
+        # step 2 - 
+
+        # split in the string to chunks each of len lenKeyby2
+        chunkList = []
+    
+        for i in range(0 , lenStringToEncrypt , lenKeyby2):
+            
+            # if the string is not about to end
+            # means string still as greator number of elements left than lenStringToEncry pt
+            if((i + lenKeyby2) < lenStringToEncrypt):
+
+                # string from i to i + hashedLengthby2 
+                chunkList.append(stringToEncrypt[i : i + lenKeyby2]) 
+            else:
+                chunkList.append(stringToEncrypt[i : ]) 
+
+        result = ""
+
+        # step 3 -
+        
+        for i in chunkList:
+            
+            # output string is of double the length of input string
+            encryptedChunk = onetimepad.encrypt(i , key)
+            encryptedChunkShuffled = Shuffler.shuffleString(encryptedChunk , md5HashedKey)
+            
+            
+            # step 4 - 
+
+            result = result + encryptedChunkShuffled
+
+        return result
+
+
+
+    # function to decrypt a string encrypted using encryptString method of this class
+    @classmethod
+    def decryptString(cls , stringToDecrypt , key):
+        
+        """
+        ALGO  - 
+
+        1. convert the key to md5 hash
+
+        2. break the string to decrypt into chunks into size = len(key)
+
+        3. deshuffle them individually with seed = md5 hash value and decrypt the individual chunks using one time pad 
+
+        4. return the chunks as a joint string  
+
+        Visit - https://www.blog.letscodeofficial.com/@harshnative/pysecurecryptos-module-documentation-secure-your-data-using-python/ for more details
+        """
+
+
+        # validate type
+        stringToDecrypt = str(stringToDecrypt)
+        key = str(key)
+
+        lenStringToDecrypt = len(stringToDecrypt)
+        lenKey = len(key)
+
+        if(lenKey % 2 != 0):
+            key = key + key[0]
+            lenKey = len(key)
+
+        # step 1 - 
+        md5HashedKey = hashlib.md5(key.encode()).hexdigest()
+
+        # step 2 - 
+
+        # split in the string to chunks each of len hashedLength
+        chunkList = []
+    
+        for i in range(0 , lenStringToDecrypt , lenKey):
+            
+            # if the string is not about to end
+            # means string still as greator number of elements left than lenStringToDecrypt
+            if((i + lenKey) < lenStringToDecrypt):
+
+                # string from i to i + hashedLength (remember output string is 2 times the length of input string) 
+                chunkList.append(stringToDecrypt[i : i + lenKey]) 
+            else:
+                chunkList.append(stringToDecrypt[i : ]) 
+
+        result = ""
+
+        # step 3 -
+        
+        for i in chunkList:
+
+            # output string is of half the length of input string
+            chunkDeShuffled = Shuffler.deShuffleString(i , md5HashedKey)
+            decryptedChunk = onetimepad.decrypt(chunkDeShuffled , key)
+
+            
+            # step 4 - 
+
+            result = result + decryptedChunk
+
+        return result
         
 
 
@@ -296,10 +432,16 @@ class OnetimepadWrapper:
 
 
 if __name__ == "__main__":
-    encryptedString = OnetimepadWrapper.encryptString_password("hello world " * 100 , "hello" , 224)
-    
-    print(encryptedString)
+    # stringToEncrypt = "hello world " * 100
+    # encryptedString = OnetimepadWrapper.encryptString_password(stringToEncrypt , "password" , 224)
+    # decryptedString = OnetimepadWrapper.decryptString_password(encryptedString , "password" , 224)
 
-    decryptedString = OnetimepadWrapper.decryptString_password(encryptedString , "hello" , 224)
+    # if(decryptedString == stringToEncrypt):
+    #     print("DONE")
 
-    print(decryptedString)
+    stringToEncrypt = "hello world " * 100
+    encryptedString = OnetimepadWrapper.encryptString(stringToEncrypt , "password")
+    decryptedString = OnetimepadWrapper.decryptString(encryptedString , "password")
+
+    if(decryptedString == stringToEncrypt):
+        print("DONE")
