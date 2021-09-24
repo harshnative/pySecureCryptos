@@ -655,9 +655,11 @@ if __name__ == "__main__":
     # if(decryptedString == stringToEncrypt):
     #     print("DONE")
 
-    stringToEncrypt = "hello world " * 100
-    encryptedString = OnetimepadWrapper.encryptString(stringToEncrypt , "password")
-    decryptedString = OnetimepadWrapper.decryptString(encryptedString , "password")
+    # stringToEncrypt = "hello world " * 100
+    # encryptedString = OnetimepadWrapper.encryptString(stringToEncrypt , "password")
+    # decryptedString = OnetimepadWrapper.decryptString(encryptedString , "password")
 
-    if(decryptedString == stringToEncrypt):
-        print("DONE")
+    # if(decryptedString == stringToEncrypt):
+    #     print("DONE")
+
+    pass
