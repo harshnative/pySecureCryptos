@@ -172,13 +172,285 @@ def stringEncryptor_OnetimepadWrapperTester():
 
 
 
+def byteEncryptor_OnetimepadWrapperTester_password():
+
+    
+    def testEncryptionDecryption_password(howMany):
+
+        avgTime = 0
+        error = 0
+        errorList = []
+
+        for k in range(howMany):
+
+            print(f"\ron {k} / {howMany}" , end = "")
+
+            stringPool = []
+
+            for i in range(32 , 126):
+                stringPool.append(chr(i))
+
+            byteLength = random.randint(1 , 100000)
+
+            randomBytes = secrets.token_bytes(byteLength)
+
+            randomPassword = ""
+            for i in range(random.randint(1 , 100)):
+                randomPassword = randomPassword + random.choice(stringPool)
+
+            specificSHA = random.choice([224,256,384,512])
+
+            start = time.time()
+            encryptedString = byteEncryptor.OnetimepadWrapper.encryptByte_password(randomBytes , randomPassword , specificSHA , returnString=True)
+
+            decryptedByte = byteEncryptor.OnetimepadWrapper.decryptByte_password(encryptedString , randomPassword , specificSHA)
+            end = time.time()
+
+            avgTime = avgTime + (((end - start) / byteLength) * 1000)
+
+            if(decryptedByte != randomBytes):
+                error = error + 1 
+                errorList.append([randomBytes , decryptedByte , randomPassword , specificSHA])
+
+        avgTime = avgTime / howMany
+
+        return error , errorList , avgTime
+
+
+    print("\n\n")
+
+    # testing determinant function 
+    print(whiteColor + "on byteEncryptor_OnetimepadWrapperTester_password")
+
+    error , errorList , avgTime = testEncryptionDecryption_password(100)
+
+    print()
+
+    if(error == 0):
+        print(blueColor + "avg time taken by byteEncryptor_OnetimepadWrapperTester_password function per encryption decyption cycle per 1000 chars = {}".format(avgTime))
+        print(greenColor + "byteEncryptor_OnetimepadWrapperTester_password function test passed")
+    else:
+        print(redColor + "byteEncryptor_OnetimepadWrapperTester_password function test failed")
+        print(redColor + "error = {} / {}".format(error , 1000))
+        print(redColor + "error list = {}".format(errorList))
+
+
+
+
+
+
+    def testEncryptionDecryption_password_2(howMany):
+
+        avgTime = 0
+        error = 0
+        errorList = []
+
+        for k in range(howMany):
+
+            print(f"\ron {k} / {howMany}" , end = "")
+
+            stringPool = []
+
+            for i in range(32 , 126):
+                stringPool.append(chr(i))
+
+            byteLength = random.randint(1 , 100000)
+
+            randomBytes = secrets.token_bytes(byteLength)
+
+            randomPassword = ""
+            for i in range(random.randint(1 , 100)):
+                randomPassword = randomPassword + random.choice(stringPool)
+
+            specificSHA = random.choice([224,256,384,512])
+
+            start = time.time()
+            encryptedByte = byteEncryptor.OnetimepadWrapper.encryptByte_password(randomBytes , randomPassword , specificSHA , returnString=False)
+
+            decryptedByte = byteEncryptor.OnetimepadWrapper.decryptByte_password_byte(encryptedByte , randomPassword , specificSHA)
+            end = time.time()
+
+            avgTime = avgTime + (((end - start) / byteLength) * 1000)
+
+            if(decryptedByte != randomBytes):
+                error = error + 1 
+                errorList.append([randomBytes , decryptedByte , randomPassword , specificSHA])
+
+        avgTime = avgTime / howMany
+
+        return error , errorList , avgTime
+
+
+    print("\n\n")
+
+    # testing determinant function 
+    print(whiteColor + "on byteEncryptor_OnetimepadWrapperTester_password 2")
+
+    error , errorList , avgTime = testEncryptionDecryption_password_2(100)
+
+    print()
+
+    if(error == 0):
+        print(blueColor + "avg time taken by byteEncryptor_OnetimepadWrapperTester_password function per encryption decyption cycle per 1000 chars = {}".format(avgTime))
+        print(greenColor + "byteEncryptor_OnetimepadWrapperTester_password function test passed")
+    else:
+        print(redColor + "byteEncryptor_OnetimepadWrapperTester_password function test failed")
+        print(redColor + "error = {} / {}".format(error , 1000))
+        print(redColor + "error list = {}".format(errorList))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def byteEncryptor_OnetimepadWrapperTester():
+
+    
+    def testEncryptionDecryption_password(howMany):
+
+        avgTime = 0
+        error = 0
+        errorList = []
+
+        for k in range(howMany):
+
+            print(f"\ron {k} / {howMany}" , end = "")
+
+            stringPool = []
+
+            for i in range(32 , 126):
+                stringPool.append(chr(i))
+
+            byteLength = random.randint(1 , 100000)
+
+            randomBytes = secrets.token_bytes(byteLength)
+
+            randomPassword = ""
+            for i in range(random.randint(1 , 100)):
+                randomPassword = randomPassword + random.choice(stringPool)
+
+            start = time.time()
+            encryptedString = byteEncryptor.OnetimepadWrapper.encryptByte(randomBytes , randomPassword , returnString=True)
+
+            decryptedByte = byteEncryptor.OnetimepadWrapper.decryptByte(encryptedString , randomPassword)
+            end = time.time()
+
+            avgTime = avgTime + (((end - start) / byteLength) * 1000)
+
+            if(decryptedByte != randomBytes):
+                error = error + 1 
+                errorList.append([randomBytes , decryptedByte , randomPassword])
+
+        avgTime = avgTime / howMany
+
+        return error , errorList , avgTime
+
+
+    print("\n\n")
+
+    # testing determinant function 
+    print(whiteColor + "on byteEncryptor_OnetimepadWrapperTester")
+
+    error , errorList , avgTime = testEncryptionDecryption_password(100)
+
+    print()
+
+    if(error == 0):
+        print(blueColor + "avg time taken by byteEncryptor_OnetimepadWrapperTester function per encryption decyption cycle per 1000 chars = {}".format(avgTime))
+        print(greenColor + "byteEncryptor_OnetimepadWrapperTester function test passed")
+    else:
+        print(redColor + "byteEncryptor_OnetimepadWrapperTester function test failed")
+        print(redColor + "error = {} / {}".format(error , 1000))
+        print(redColor + "error list = {}".format(errorList))
+
+
+
+
+
+
+    def testEncryptionDecryption_password_2(howMany):
+
+        avgTime = 0
+        error = 0
+        errorList = []
+
+        for k in range(howMany):
+
+            print(f"\ron {k} / {howMany}" , end = "")
+
+            stringPool = []
+
+            for i in range(32 , 126):
+                stringPool.append(chr(i))
+
+            byteLength = random.randint(1 , 100000)
+
+            randomBytes = secrets.token_bytes(byteLength)
+
+            randomPassword = ""
+            for i in range(random.randint(1 , 100)):
+                randomPassword = randomPassword + random.choice(stringPool)
+
+            start = time.time()
+            encryptedByte = byteEncryptor.OnetimepadWrapper.encryptByte(randomBytes , randomPassword , returnString=False)
+
+            decryptedByte = byteEncryptor.OnetimepadWrapper.decryptByte_byte(encryptedByte , randomPassword)
+            end = time.time()
+
+            avgTime = avgTime + (((end - start) / byteLength) * 1000)
+
+            if(decryptedByte != randomBytes):
+                error = error + 1 
+                errorList.append([randomBytes , decryptedByte , randomPassword])
+
+        avgTime = avgTime / howMany
+
+        return error , errorList , avgTime
+
+
+    print("\n\n")
+
+    # testing determinant function 
+    print(whiteColor + "on byteEncryptor_OnetimepadWrapperTester 2")
+
+    error , errorList , avgTime = testEncryptionDecryption_password_2(100)
+
+    print()
+
+    if(error == 0):
+        print(blueColor + "avg time taken by byteEncryptor_OnetimepadWrapperTester function per encryption decyption cycle per 1000 chars = {}".format(avgTime))
+        print(greenColor + "byteEncryptor_OnetimepadWrapperTester function test passed")
+    else:
+        print(redColor + "byteEncryptor_OnetimepadWrapperTester function test failed")
+        print(redColor + "error = {} / {}".format(error , 1000))
+        print(redColor + "error list = {}".format(errorList))
+
+
+
+
+
+
 if __name__ == "__main__":
 
     testsDict = {
         1 : stringEncryptor_OnetimepadWrapperTester_password , 
         2 : stringEncryptor_OnetimepadWrapperTester , 
-        # 3 : byteEncryptor_OnetimepadWrapperTester_password , 
-        # 4 : meanFunctionTest , 
+        3 : byteEncryptor_OnetimepadWrapperTester_password , 
+        4 : byteEncryptor_OnetimepadWrapperTester , 
         # 5 : multiplyFunctionTest ,
         # 6 : sortingTester ,
         # 7 : binarySearchIterativeFuncTest ,
