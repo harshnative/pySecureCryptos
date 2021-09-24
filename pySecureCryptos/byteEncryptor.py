@@ -176,7 +176,7 @@ class OnetimepadWrapper:
 
         # if the bytes is need to be returned
         if(not(returnString)):
-            result = ByteEncoderDecoder.decodeString2Byte(result)
+            result = ByteEncoderDecoder.encodeString2Byte(result)
 
         return result
 
@@ -297,7 +297,7 @@ class OnetimepadWrapper:
             result = result + decryptedChunk
 
         # convert the string back to byte
-        result = ByteEncoderDecoder.decodeString2Byte(result)
+        result = ByteEncoderDecoder.decodeString2Byte_for_encodeByte2String(result)
 
         return result
 
@@ -338,7 +338,7 @@ class OnetimepadWrapper:
         Visit - https://www.blog.letscodeofficial.com/@harshnative/pysecurecryptos-module-documentation-secure-your-data-using-python/ for more details
         """
 
-        stringToDecrypt = ByteEncoderDecoder.encodeByte2String(byteToDecrypt)
+        stringToDecrypt = ByteEncoderDecoder.decodeByte2String_for_encodeString2Byte(byteToDecrypt)
 
         # validate type
         password = str(password)
@@ -420,7 +420,7 @@ class OnetimepadWrapper:
             result = result + decryptedChunk
 
         # convert string back to byte
-        result = ByteEncoderDecoder.decodeString2Byte(result)
+        result = ByteEncoderDecoder.decodeString2Byte_for_encodeByte2String(result)
 
         return result
 
@@ -495,7 +495,7 @@ class OnetimepadWrapper:
             result = result + encryptedChunkShuffled
 
         if(not(returnString)):
-            result = ByteEncoderDecoder.decodeString2Byte(result)
+            result = ByteEncoderDecoder.encodeString2Byte(result)
 
         return result
 
@@ -566,7 +566,7 @@ class OnetimepadWrapper:
 
             result = result + decryptedChunk
         
-        result = ByteEncoderDecoder.decodeString2Byte(result)
+        result = ByteEncoderDecoder.decodeString2Byte_for_encodeByte2String(result)
 
         return result
 
@@ -591,7 +591,7 @@ class OnetimepadWrapper:
         Visit - https://www.blog.letscodeofficial.com/@harshnative/pysecurecryptos-module-documentation-secure-your-data-using-python/ for more details
         """
 
-        stringToDecrypt = ByteEncoderDecoder.encodeByte2String(byteToDecrypt)
+        stringToDecrypt = ByteEncoderDecoder.decodeByte2String_for_encodeString2Byte(byteToDecrypt)
 
         # validate type
         key = str(key)
@@ -637,7 +637,7 @@ class OnetimepadWrapper:
 
             result = result + decryptedChunk
         
-        result = ByteEncoderDecoder.decodeString2Byte(result)
+        result = ByteEncoderDecoder.decodeString2Byte_for_encodeByte2String(result)
 
         return result
         
