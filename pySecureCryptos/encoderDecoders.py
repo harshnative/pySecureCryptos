@@ -28,7 +28,7 @@ class ByteEncoderDecoder:
     # method to convert the output string from above method into byte again
     # returns a bytearray type object
     @classmethod
-    def decodeString2Byte(cls , string):
+    def decodeString2Byte_for_encodeByte2String(cls , string):
 
         """
         ALGO - 
@@ -47,6 +47,37 @@ class ByteEncoderDecoder:
             intList.append(toAppend)
 
         return bytearray(intList)
+
+
+    # method to convert string to byte
+    # returns bytearray
+    @classmethod
+    def encodeString2Byte(cls , string):
+
+        """
+        convert each char in string to corresponding ASCII value (int)
+
+        convert this intList to byteArray
+        """
+        intList = []
+
+        for i in string:
+            intList.append(ord(i))
+
+        return bytearray(intList)
+
+
+    @classmethod
+    def decodeByte2String_for_encodeString2Byte(cls , byte):
+        string = ""
+
+        for i in byte:
+            i = chr(i)
+            string = string + i
+
+        return string
+
+        
 
 
 
