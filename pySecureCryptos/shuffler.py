@@ -67,3 +67,43 @@ class Shuffler:
         # convert the deshuffled list back to string
         stringFromList = "".join(deshuffledList)
         return stringFromList
+
+
+
+if __name__ == "__main__":
+    myList = [1,7,2,4,6,9]
+    seed = "hello"
+    print("list = {} , seed = {}".format(myList , seed))
+
+    shuffledList = Shuffler.shuffe_list(myList , seed , copyList = True)
+
+    print("shuffledList = {}".format(shuffledList))
+
+    deShuffledList = Shuffler.unShuffle_list(shuffledList , seed)
+
+    print("deShuffledList = {}".format(deShuffledList))
+
+    if(myList == deShuffledList):
+        print("ok")
+    else:
+        print("error")
+
+
+    myString = "hello world"
+    seed = "hello"
+    print("string = {} , seed = {}".format(myString , seed))
+
+    shuffledString = Shuffler.shuffle_string(myString , seed)
+
+    print("shuffledString = {}".format(shuffledString))
+
+    deShuffledString = Shuffler.unShuffle_string(shuffledString , seed)
+
+    print("deShuffledString = {}".format(deShuffledString))
+
+    if(myString == deShuffledString):
+        print("ok")
+    else:
+        print("error")
+    
+

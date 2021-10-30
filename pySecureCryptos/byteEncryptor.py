@@ -648,12 +648,40 @@ class OnetimepadWrapper:
 
 
 if __name__ == "__main__":
-    # stringToEncrypt = "hello world " * 100
-    # encryptedString = OnetimepadWrapper.encryptString_password(stringToEncrypt , "password" , 224)
-    # decryptedString = OnetimepadWrapper.decryptString_password(encryptedString , "password" , 224)
+    byteToEncrypt = b"hello world " * 100
+    encryptedString = OnetimepadWrapper.encryptByte_password(byteToEncrypt , "password" , 224 , returnString=True)
+    decryptedByte = OnetimepadWrapper.decryptByte_password(encryptedString , "password" , 224)
 
-    # if(decryptedString == stringToEncrypt):
-    #     print("DONE")
+    if(decryptedByte == byteToEncrypt):
+        print("DONE")
+
+    
+    # with returnString = False
+    encryptedByte = OnetimepadWrapper.encryptByte_password(byteToEncrypt , "password" , 224 , returnString=False)
+    decryptedByte = OnetimepadWrapper.decryptByte_password_byte(encryptedByte , "password" , 224)
+
+    if(decryptedByte == byteToEncrypt):
+        print("DONE")
+
+
+
+    byteToEncrypt = b"hello world " * 100
+    encryptedString = OnetimepadWrapper.encryptByte(byteToEncrypt , "password" , returnString=True)
+    decryptedByte = OnetimepadWrapper.decryptByte(encryptedString , "password")
+
+    if(decryptedByte == byteToEncrypt):
+        print("DONE")
+
+    
+    # with returnString = False
+    encryptedByte = OnetimepadWrapper.encryptByte(byteToEncrypt , "password" , returnString=False)
+    decryptedByte = OnetimepadWrapper.decryptByte_byte(encryptedByte , "password")
+
+    if(decryptedByte == byteToEncrypt):
+        print("DONE")
+
+
+    
 
     # stringToEncrypt = "hello world " * 100
     # encryptedString = OnetimepadWrapper.encryptString(stringToEncrypt , "password")
@@ -662,4 +690,4 @@ if __name__ == "__main__":
     # if(decryptedString == stringToEncrypt):
     #     print("DONE")
 
-    pass
+    # pass

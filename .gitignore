@@ -2,6 +2,12 @@ myvirtual/
 
 apis.txt
 
+myTest/
+
+temp/
+
+*.txt
+
 JarvisData/
 
 pytests/

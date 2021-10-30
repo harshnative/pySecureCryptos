@@ -72,7 +72,7 @@ class ByteEncoderDecoder:
         string = ""
 
         for i in byte:
-            i = chr(i)
+            i = chr(int(i))
             string = string + i
 
         return string
