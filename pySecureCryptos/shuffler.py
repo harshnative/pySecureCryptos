@@ -6,8 +6,14 @@ class Shuffler:
     
     # method to shuffle a passed list using a seed
     @classmethod
-    def shuffe_list(cls , ls, seed , copyList = True):
-        
+    def shuffe_list(cls , ls , seed , copyList = True):
+
+        if(type(ls) != list):
+            raise ValueError("ls parameter expected to be of list type instead got {} type".format(type(ls)))
+
+        if(type(seed) != str):
+            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+
         # copy list so that the original list stays the same
         if(copyList):
             ls = copy.deepcopy(ls)
@@ -22,6 +28,14 @@ class Shuffler:
     # seed should be same for both the methods
     @classmethod
     def unShuffle_list(cls , shuffled_ls, seed):
+
+        if(type(shuffled_ls) != list):
+            raise ValueError("shuffled_ls parameter expected to be of list type instead got {} type".format(type(shuffled_ls)))
+
+        if(type(seed) != str):
+            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+
+
         n = len(shuffled_ls)
 
         # reference list containing numbers from 0 to n - 1
@@ -48,7 +62,13 @@ class Shuffler:
     # method to shuffle a string
     @classmethod
     def shuffle_string(cls , string , seed):
-        
+
+        if(type(string) != str):
+            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
+        if(type(seed) != str):
+            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+
         # convert the string to list and pass to main method
         shuffledList =  cls.shuffe_list(list(string) , seed)
 
@@ -61,12 +81,24 @@ class Shuffler:
     @classmethod
     def unShuffle_string(cls , shuffledString , seed):
 
+        if(type(shuffledString) != str):
+            raise ValueError("shuffledString parameter expected to be of str type instead got {} type".format(type(shuffledString)))
+
+        if(type(seed) != str):
+            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+
+
         # convert the shuffledString to list and pass to main method
         deshuffledList = cls.unShuffle_list(list(shuffledString) , seed)
         
         # convert the deshuffled list back to string
         stringFromList = "".join(deshuffledList)
         return stringFromList
+
+
+
+
+
 
 
 def __test():
