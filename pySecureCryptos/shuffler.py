@@ -6,7 +6,7 @@ class Shuffler:
     
     # method to shuffle a passed list using a seed
     @classmethod
-    def shuffe_list(cls , ls , seed , copyList = True):
+    def shuffe_list(cls , ls :list , seed :str , copyList :bool = True):
 
         if(type(ls) != list):
             raise ValueError("ls parameter expected to be of list type instead got {} type".format(type(ls)))
@@ -27,7 +27,7 @@ class Shuffler:
     # method to unshuffel a list shuffled using shuffe_list() method of this class
     # seed should be same for both the methods
     @classmethod
-    def unShuffle_list(cls , shuffled_ls, seed):
+    def unShuffle_list(cls , shuffled_ls :list , seed :str):
 
         if(type(shuffled_ls) != list):
             raise ValueError("shuffled_ls parameter expected to be of list type instead got {} type".format(type(shuffled_ls)))
@@ -61,7 +61,7 @@ class Shuffler:
 
     # method to shuffle a string
     @classmethod
-    def shuffle_string(cls , string , seed):
+    def shuffle_string(cls , string :str , seed :str):
 
         if(type(string) != str):
             raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
@@ -79,7 +79,7 @@ class Shuffler:
 
     # function to shuffle a string
     @classmethod
-    def unShuffle_string(cls , shuffledString , seed):
+    def unShuffle_string(cls , shuffledString :str , seed :str):
 
         if(type(shuffledString) != str):
             raise ValueError("shuffledString parameter expected to be of str type instead got {} type".format(type(shuffledString)))
