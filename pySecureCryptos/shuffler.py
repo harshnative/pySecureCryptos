@@ -69,8 +69,7 @@ class Shuffler:
         return stringFromList
 
 
-
-if __name__ == "__main__":
+def __test():
     myList = [1,7,2,4,6,9]
     seed = "hello"
     print("list = {} , seed = {}".format(myList , seed))
@@ -107,3 +106,7 @@ if __name__ == "__main__":
         print("error")
     
 
+
+
+if __name__ == "__main__":
+    __test()
