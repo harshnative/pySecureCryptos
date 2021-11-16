@@ -1,6 +1,10 @@
+import sys
+sys.path.append("/media/veracrypt64/Projects/pyModules/pySecureCryptos/pySecureCryptos")
+
 import string
 import random
 import time
+
 
 # create objects to print colored strings
 from colored import fg
@@ -18,11 +22,11 @@ mainList = list(string.ascii_letters + string.digits + "!@#$%^&*(){}[]:;'<,>./")
 
 
 # importing module for testing
-from pySecureCryptos.shuffler import Shuffler
+from pySecureCryptos.onetimepadWrapper import StringEncryptor
 
 
 # main function to run the test
-def shufflerTester_list(howManyTimes , writeErrors = True):
+def shufflerTester_string(howManyTimes , writeErrors = True):
     avgTime = 0
     errorList = []
     totalErrors = 0
@@ -32,52 +36,35 @@ def shufflerTester_list(howManyTimes , writeErrors = True):
 
         print(f"\ron {k} / {howManyTimes}" , end = "")
 
-        # list size
-        testListSize = random.randint(0 , 1000)
-        testList = []
+        # string size
+        stringSize = random.randint(1 , 10000)
 
-        # adding random things to list
-        for i in range(testListSize):
-            # adding string
-            if(random.random() <= 0.3):
-                randList = random.choices(mainList , k=random.randint(10 , 100))
-                randString = "".join(randList)
-                testList.append(randString)
+        # string for seed
+        randList = random.choices(mainList , k=random.randint(1 , 1000))
+        randString1 = "".join(randList)
 
-            # adding number
-            elif(random.random() <= 0.6):
-                randInt = random.randint(0 , 5000)
-                testList.append(randInt)
-
-            # adding byte
-            else:
-                randList = random.choices(mainList , k=random.randint(10 , 100))
-                randString = "".join(randList)
-                randString = bytes(randString , encoding="utf-8")
-                testList.append(randString)
-
-        # random string for the seed
-        randList = random.choices(mainList , k=random.randint(10 , 1000))
-        randString = "".join(randList)
+        # string for shuffle test
+        randList = random.choices(mainList , k=stringSize)
+        randString2 = "".join(randList)
 
         # executing the functions to test and calculating time
         startTime = time.time()
-        shuffledTestList = Shuffler.shuffe_list(testList , randString)
+        encrytedString = StringEncryptor.encrypt(randString2 , randString1)
 
-        deShuffledList = Shuffler.unShuffle_list(shuffledTestList , randString)
+        decryptedString = StringEncryptor.decrypt(encrytedString , randString1)
         endTime = time.time()
 
         # avgTime
         avgTime = avgTime + (endTime - startTime)
 
         # if the result is not true than add to error list
-        if(deShuffledList != testList):
-            errorList.append([testList , shuffledTestList , deShuffledList])
+        if(decryptedString != randString2):
+            errorList.append([randString2 , encrytedString , decryptedString])
             totalErrors = totalErrors + 1
 
     # write the error list to the file
     if(totalErrors != 0):
-        with open(fileName + "shufflerTester_list" + ".txt" , "w") as file:
+        with open(fileName + "shufflerTester_string" + ".txt" , "w") as file:
             for i in errorList:
                 for j in i:
                     file.write(str(j))
@@ -96,9 +83,8 @@ def shufflerTester_list(howManyTimes , writeErrors = True):
         print(redColor + "function test failed")
         print(blueColor + "errors has been logged to the (file + functionName).txt")
 
-
 # execute the function
-shufflerTester_list(1000)
+shufflerTester_string(5000)
 
             
 

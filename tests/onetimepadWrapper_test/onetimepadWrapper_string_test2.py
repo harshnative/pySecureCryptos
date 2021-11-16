@@ -1,3 +1,6 @@
+import sys
+sys.path.append('')
+
 import string
 import random
 import time
@@ -19,9 +22,8 @@ mainList = list(string.ascii_letters + string.digits + "!@#$%^&*(){}[]:;'<,>./")
 
 
 # importing module for testing
-from pySecureCryptos.shuffler import Shuffler
-
-
+# from onetimepadWrapper import StringEncryptor
+from ...pySecureCryptos.onetimepadWrapper import StringEncryptor
 
 # main function to run the test
 def shufflerTester_string(howManyTimes , writeErrors = True):
@@ -35,10 +37,10 @@ def shufflerTester_string(howManyTimes , writeErrors = True):
         print(f"\ron {k} / {howManyTimes}" , end = "")
 
         # string size
-        stringSize = random.randint(1 , 1000)
+        stringSize = k
 
         # string for seed
-        randList = random.choices(mainList , k=random.randint(10 , 1000))
+        randList = random.choices(mainList , k=random.randint(1 , 1000))
         randString1 = "".join(randList)
 
         # string for shuffle test
@@ -47,17 +49,17 @@ def shufflerTester_string(howManyTimes , writeErrors = True):
 
         # executing the functions to test and calculating time
         startTime = time.time()
-        shuffledString = Shuffler.shuffle_string(randString2 , randString1)
+        encrytedString = StringEncryptor.encrypt(randString2 , randString1)
 
-        deShuffledString = Shuffler.unShuffle_string(shuffledString , randString1)
+        decryptedString = StringEncryptor.decrypt(encrytedString , randString1)
         endTime = time.time()
 
         # avgTime
         avgTime = avgTime + (endTime - startTime)
 
         # if the result is not true than add to error list
-        if(deShuffledString != randString2):
-            errorList.append([randString2 , shuffledString , deShuffledString])
+        if(decryptedString != randString2):
+            errorList.append([randString2 , encrytedString , decryptedString])
             totalErrors = totalErrors + 1
 
     # write the error list to the file
@@ -82,7 +84,7 @@ def shufflerTester_string(howManyTimes , writeErrors = True):
         print(blueColor + "errors has been logged to the (file + functionName).txt")
 
 # execute the function
-shufflerTester_string(1000)
+shufflerTester_string(5000)
 
             
 
