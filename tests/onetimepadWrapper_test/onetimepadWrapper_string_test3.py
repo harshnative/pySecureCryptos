@@ -22,7 +22,7 @@ mainList = list(string.ascii_letters + string.digits + "!@#$%^&*(){}[]:;'<,>./")
 
 
 # importing module for testing
-from pySecureCryptos.onetimepadWrapper import StringEncryptor
+from pySecureCryptos.onetimepadWrapper import StringEncryptor_yield
 
 
 # main function to run the test
@@ -34,10 +34,10 @@ def StringEncryptorTest_func(howManyTimes , writeErrors = True):
     # repeat the test howManyTimes
     for k in range(howManyTimes):
 
-        print(f"\ron {k} / {howManyTimes}" , end = "")
+        print(f"\n\non {k} / {howManyTimes}")
 
         # string size
-        stringSize = random.randint(1 , 10000)
+        stringSize = random.randint(10000 , 100000)
 
         # string for seed
         randList = random.choices(mainList , k=random.randint(1 , 1000))
@@ -49,9 +49,27 @@ def StringEncryptorTest_func(howManyTimes , writeErrors = True):
 
         # executing the functions to test and calculating time
         startTime = time.time()
-        encrytedString = StringEncryptor.encrypt(randString2 , randString1)
+        genObj_encrypt = StringEncryptor_yield.encrypt(randString2 , randString1)
 
-        decryptedString = StringEncryptor.decrypt(encrytedString , randString1)
+        while(True):
+            try:
+                onCount , totalCount = next(genObj_encrypt)
+                print(f"\renc {onCount} / {totalCount}" , end="")
+            except StopIteration as ex:
+                encrytedString = ex.value
+                break
+
+        print()
+
+        genObj_decrypt = StringEncryptor_yield.decrypt(encrytedString , randString1)
+        while(True):
+            try:
+                onCount , totalCount = next(genObj_decrypt)
+                print(f"\rdec {onCount} / {totalCount}" , end="")
+            except StopIteration as ex:
+                decryptedString = ex.value
+                break
+        
         endTime = time.time()
 
         # avgTime
@@ -84,7 +102,7 @@ def StringEncryptorTest_func(howManyTimes , writeErrors = True):
         print(blueColor + "errors has been logged to the (file + functionName).txt")
 
 # execute the function
-StringEncryptorTest_func(1000)
+StringEncryptorTest_func(100)
 
             
 

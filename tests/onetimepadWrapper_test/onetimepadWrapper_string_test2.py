@@ -26,7 +26,7 @@ mainList = list(string.ascii_letters + string.digits + "!@#$%^&*(){}[]:;'<,>./")
 from pySecureCryptos.onetimepadWrapper import StringEncryptor
 
 # main function to run the test
-def shufflerTester_string(howManyTimes , writeErrors = True):
+def StringEncryptorTest_func(howManyTimes , writeErrors = True):
     avgTime = 0
     errorList = []
     totalErrors = 0
@@ -64,7 +64,7 @@ def shufflerTester_string(howManyTimes , writeErrors = True):
 
     # write the error list to the file
     if(totalErrors != 0):
-        with open(fileName + "shufflerTester_string" + ".txt" , "w") as file:
+        with open(fileName + "StringEncryptorTest_func" + ".txt" , "w") as file:
             for i in errorList:
                 for j in i:
                     file.write(str(j))
@@ -84,7 +84,7 @@ def shufflerTester_string(howManyTimes , writeErrors = True):
         print(blueColor + "errors has been logged to the (file + functionName).txt")
 
 # execute the function
-shufflerTester_string(5000)
+StringEncryptorTest_func(2000)
 
             
 
