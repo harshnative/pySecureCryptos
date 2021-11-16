@@ -1,5 +1,5 @@
 import sys
-sys.path.append('')
+sys.path.append("/media/veracrypt64/Projects/pyModules/pySecureCryptos/pySecureCryptos")
 
 import string
 import random
@@ -23,7 +23,7 @@ mainList = list(string.ascii_letters + string.digits + "!@#$%^&*(){}[]:;'<,>./")
 
 # importing module for testing
 # from onetimepadWrapper import StringEncryptor
-from ...pySecureCryptos.onetimepadWrapper import StringEncryptor
+from pySecureCryptos.onetimepadWrapper import StringEncryptor
 
 # main function to run the test
 def shufflerTester_string(howManyTimes , writeErrors = True):
