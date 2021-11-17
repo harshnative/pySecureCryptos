@@ -21,7 +21,7 @@ from pySecureCryptos.shuffler import Shuffler
 <br>
 <br>
 
-## 1. Shuffle and UnShuffle a list
+# 1. Shuffle and UnShuffle a list
 
 <br>
 <br>
@@ -91,7 +91,7 @@ ok
 <br>
 <br>
 
-## 2. Shuffle and UnShuffle a string
+# 2. Shuffle and UnShuffle a string
 
 <br>
 <br>

@@ -22,7 +22,7 @@ Although the python as many inbuilt modules like onetimpad , crytography , pycry
 
 # Features
 
-1. Shuffler - shuffle and unshuffle things based on a seed
+1. <a href="https://www.letscodeofficial.com/documentations/pySecureCryptos_shuffler#/">Shuffler - shuffle and unshuffle things based on a seed</a>
 
 
 <br>
