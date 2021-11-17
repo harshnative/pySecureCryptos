@@ -24,6 +24,8 @@ Although the python as many inbuilt modules like onetimpad , crytography , pycry
 
 1. [Shuffler - shuffle and unshuffle things based on a seed](https://www.letscodeofficial.com/documentations/pySecureCryptos_shuffler#/)
 
+2. https://www.letscodeofficial.com/documentations/pySecureCryptos_shuffler#/
+
 
 <br>
 <br>
