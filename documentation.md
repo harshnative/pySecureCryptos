@@ -29,13 +29,19 @@ used to jumble things up so that they are hard to read in correct order , used i
 <br>
 <br>
 
-2. [Encoder Decoder - encode and decode strings and bytes](https://www.letscodeofficial.com/documentations/pySecureCryptos_encoderDecoders#/)
+2. [Encoder Decoder - encode and decode strings and bytes](https://www.letscodeofficial.com/documentations/pSC_encoderDecoders#/)
 
 used to convert byte into strings and vice versa and string into byte and vice versa
 
 <br>
 <br>
 
+3. [Onetimepad Wrapper - encrypt and decrypt strings and bytes](https://www.letscodeofficial.com/documentations/pSC_onetimepadWrapper#/)
+
+you can encrypt and decrypt any string or byte with just a password. there are also generator function for tracking progress on large encryption and decryptions.
+
+<br>
+<br>
 
 <br>
 <br>

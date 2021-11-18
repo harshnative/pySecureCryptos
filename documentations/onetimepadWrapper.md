@@ -229,7 +229,7 @@ Arguments -
 
 * byteObject -> byteObject you want to encrypt , can be of any length. bytes or bytearray type.
 * password -> password will be used to encrypt the string. should be at least 10 to 12 digits long containing combination of lower , upper case and digits as well as special chars. The more strong and not easily guessable the password is , the stronger is the encryption. 
-* returnByteObject -> Onetimepad by default works with strings only , so to encrypt a byte object we need to first convert it into string using https://www.letscodeofficial.com/documentations/pySecureCryptos_encoderDecoders#/. So an extra step is involed. So if you think you don't need to convert the encrypted string to byte to store it somewhere , make this False. No matter what return type you choose , you will always get back a decrypted byte object only. It is just that you will save some resources if you make this False.
+* returnByteObject -> Onetimepad by default works with strings only , so to encrypt a byte object we need to first convert it into string using https://www.letscodeofficial.com/documentations/pSC_encoderDecoders#/. So an extra step is involed. So if you think you don't need to convert the encrypted string to byte to store it somewhere , make this False. No matter what return type you choose , you will always get back a decrypted byte object only. It is just that you will save some resources if you make this False.
 * returns a encrypted string
 
 
@@ -337,7 +337,7 @@ Arguments -
 
 * byteObject -> byteObject you want to encrypt , can be of any length. bytes or bytearray type.
 * password -> password will be used to encrypt the string. should be at least 10 to 12 digits long containing combination of lower , upper case and digits as well as special chars. The more strong and not easily guessable the password is , the stronger is the encryption. 
-* returnByteObject -> Onetimepad by default works with strings only , so to encrypt a byte object we need to first convert it into string using https://www.letscodeofficial.com/documentations/pySecureCryptos_encoderDecoders#/. So an extra step is involed. So if you think you don't need to convert the encrypted string to byte to store it somewhere , make this False. No matter what return type you choose , you will always get back a decrypted byte object only. It is just that you will save some resources if you make this False.
+* returnByteObject -> Onetimepad by default works with strings only , so to encrypt a byte object we need to first convert it into string using https://www.letscodeofficial.com/documentations/pSC_encoderDecoders#/. So an extra step is involed. So if you think you don't need to convert the encrypted string to byte to store it somewhere , make this False. No matter what return type you choose , you will always get back a decrypted byte object only. It is just that you will save some resources if you make this False.
 * returns a encrypted string
 
 
