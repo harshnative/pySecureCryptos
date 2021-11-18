@@ -24,6 +24,18 @@ Although the python as many inbuilt modules like onetimpad , crytography , pycry
 
 1. [Shuffler - shuffle and unshuffle things based on a seed](https://www.letscodeofficial.com/documentations/pySecureCryptos_shuffler#/)
 
+used to jumble things up so that they are hard to read in correct order , used in most encryption algo's in this module.
+
+<br>
+<br>
+
+2. [Encoder Decoder - encode and decode strings and bytes](https://www.letscodeofficial.com/documentations/pySecureCryptos_encoderDecoders#/)
+
+used to convert byte into strings and vice versa and string into byte and vice versa
+
+<br>
+<br>
+
 
 <br>
 <br>

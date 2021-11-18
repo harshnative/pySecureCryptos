@@ -131,7 +131,7 @@ Arguments -
 <br>
 
 
-both the generator function returns a generator object , see the example to know how to use them. This example is implemented in __test4() function. visit here to see the full code - https://github.com/harshnative/pySecureCryptos/blob/master/pySecureCryptos/encoderDecoders.py
+both the generator function returns a generator object , see the example to know how to use them. This example is implemented in __test2() function. visit here to see the full code - https://github.com/harshnative/pySecureCryptos/blob/master/pySecureCryptos/encoderDecoders.py
 
 
 Example - 
