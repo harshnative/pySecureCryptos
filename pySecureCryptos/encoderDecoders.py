@@ -204,11 +204,164 @@ class String2Byte_yield:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+        suffix      - Optional  : suffix string (Str)
+        decimals    - Optional  : positive number of decimals in percent complete (Int)
+        length      - Optional  : character length of bar (Int)
+        fill        - Optional  : bar fill character (Str)
+        printEnd    - Optional  : end character (e.g. "\r", "\r\n") (Str)
+    """
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * filledLength + '-' * (length - filledLength)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = printEnd)
+    # Print New Line on Complete
+    if iteration == total: 
+        print()
+
+
+
+
+
 # function to test the above class
 def __test():
-    pass
+    myString = b"hello world"
+
+    stringFromByte = Byte2String.encode(myString)
+
+    print(stringFromByte , type(stringFromByte))
+
+    byteAgain = Byte2String.decode(stringFromByte)
+
+    print(byteAgain)
+
+
+# function to test the above class
+def __test2():
+
+
+    # big object to encode decode 
+    myByte = b"hello world" * 1000
+
+    # creating the generator obj for the method
+    generatorObj_encode = Byte2String_yield.encode(myByte)
+
+    # looping until generator obj returns
+    while(True):
+        try:
+            # generator obj yield current count - (on) and total count - (total steps)
+            currentCount , totalCount = next(generatorObj_encode)
+
+            # sample progress bar
+            printProgressBar(currentCount, totalCount, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        # as soon as the generator object returns StopIteration is raised
+        # except it as a var and var.value is the thing that generator object returned
+        except StopIteration as ex:
+
+            # getting the returned value
+            stringFromByte = ex.value
+            break
+
+    
+    # similarly for decode
+    generatorObj_decode = Byte2String_yield.decode(stringFromByte)
+
+    while(True):
+        try:
+            currentCount , totalCount = next(generatorObj_decode)
+            printProgressBar(currentCount, totalCount, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        except StopIteration as ex:
+            byteAgain = ex.value
+            break
+
+    if(byteAgain == myByte):
+        print("\nok")
+    else:
+        print("\nerror")
+
+
+
+# function to test the above class
+def __test3():
+    myByte = "hello world"
+
+    byteFromString = String2Byte.encode(myByte)
+
+    print(byteFromString , type(byteFromString))
+
+    stringAgain = String2Byte.decode(byteFromString)
+
+    print(stringAgain)
+
+
+# function to test the above class
+def __test4():
+
+
+    # big object to encode decode 
+    myString = "hello world" * 1000
+
+    # creating the generator obj for the method
+    generatorObj_encode = String2Byte_yield.encode(myString)
+
+    # looping until generator obj returns
+    while(True):
+        try:
+            # generator obj yield current count - (on) and total count - (total steps)
+            currentCount , totalCount = next(generatorObj_encode)
+
+            # sample progress bar
+            printProgressBar(currentCount, totalCount, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        # as soon as the generator object returns StopIteration is raised
+        # except it as a var and var.value is the thing that generator object returned
+        except StopIteration as ex:
+
+            # getting the returned value
+            byteFromString = ex.value
+            break
+
+    
+    # similarly for decode
+    generatorObj_decode = String2Byte_yield.decode(byteFromString)
+
+    while(True):
+        try:
+            currentCount , totalCount = next(generatorObj_decode)
+            printProgressBar(currentCount, totalCount, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        except StopIteration as ex:
+            stringAgain = ex.value
+            break
+
+    if(stringAgain == myString):
+        print("\nok")
+    else:
+        print("\nerror")
+
+
     
 if __name__ == "__main__":
-    __test()
+    __test4()
 
 

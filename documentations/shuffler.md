@@ -13,11 +13,19 @@ from pySecureCryptos.shuffler import Shuffler
 
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
 
 # Methods - 
 1. Shuffle a list and UnShuffle a list
 2. Shuffle a string and UnShuffle a string
 
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 
@@ -26,7 +34,7 @@ from pySecureCryptos.shuffler import Shuffler
 <br>
 <br>
 
-1. Shuffle list  
+### 1. Shuffle list  
 
 ``` python
 # shuffle method
@@ -41,8 +49,9 @@ Arguments -
 
 <br>
 <br>
+<br>
 
-2. UnShuffle list 
+### 2. UnShuffle list 
 
 ``` python
 # deshuffle method
@@ -54,6 +63,7 @@ Arguments -
 * shuffled_ls -> list to unshuffle , output of shuffe_list() method
 * seed -> same as used in shuffe_list() method
 
+<br>
 <br>
 <br>
 
@@ -90,13 +100,17 @@ ok
 
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
 
 # 2. Shuffle and UnShuffle a string
 
 <br>
 <br>
 
-1. Shuffle list  
+### 1. Shuffle list  
 
 ``` python
 # shuffle method
@@ -110,8 +124,9 @@ Arguments -
 
 <br>
 <br>
+<br>
 
-2. UnShuffle list 
+### 2. UnShuffle list 
 
 ``` python
 # deshuffle method
@@ -123,6 +138,7 @@ Arguments -
 * shuffledString -> string to unshuffle , output of shuffle_string() method
 * seed -> same as used in shuffle_string() method
 
+<br>
 <br>
 <br>
 
