@@ -31,6 +31,9 @@ class StringEncryptor:
         lenString = len(string)
         hashedLength = len(sha224_hashed_password_shuffled)
 
+        # dividing the data into chunks of size hashedLength
+        # each chunk will have its own encryption key
+        # encryption key is generated from shuffling the sha224_hashed_password_shuffled again and again
         for i in range(0 , lenString , hashedLength):
             if((i+hashedLength) < lenString):
                 chunkList.append(string[i : i + hashedLength]) 
@@ -46,9 +49,10 @@ class StringEncryptor:
     
         result = ""
         
-        # encrypt each chunk using sha224_hashed_password_shuffled as key
+        # encrypt each chunk using its corresponding key
         # then shuffle encrypted chunk using md5_hashed_password as key
         # then join and return the result
+        # this is mainly done to make message and key size same for onetimepad
         for i,j in zip(chunkList , chunkKeys):
             encryptedChunk = onetimepad.encrypt(i , j)
             encryptedChunkShuffled = Shuffler.shuffle_string(encryptedChunk , md5_hashed_password)
@@ -84,6 +88,9 @@ class StringEncryptor:
         lenString = len(enc_string)
         hashedLength2 = len(sha224_hashed_password_shuffled) * 2
 
+        # dividing the data into chunk of size hashedLength2
+        # as returned from the encryptor is of twice the original size
+        # and getting the corresponding chunk keys
         for i in range(0 , lenString , hashedLength2):
             if((i+hashedLength2) < lenString):
                 chunkList.append(enc_string[i : i + hashedLength2]) 
@@ -97,7 +104,7 @@ class StringEncryptor:
 
         result = ""
         
-        # encrypt each chunk using sha224_hashed_password_shuffled as key
+        # encrypt each chunk using corresponding key
         # then shuffle encrypted chunk using md5_hashed_password as key
         # then join and return the result
         for i,j in zip(chunkList , chunkKeys):
@@ -746,9 +753,9 @@ def __test_stringEncrytor():
     encryptedString = StringEncryptor.encrypt(string , "hello")
     decryptedString = StringEncryptor.decrypt(encryptedString , "hello")
 
-    print(string)
-    print(encryptedString)
-    print(decryptedString)
+    print("string = " , string)
+    print("encryptedString = " , encryptedString)
+    print("decryptedString = " , decryptedString)
 
     if(string == decryptedString):
         print("ok")

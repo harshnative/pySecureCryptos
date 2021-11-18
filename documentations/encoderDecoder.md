@@ -40,7 +40,7 @@ String to Byte method can convert any string to byte and only this byte can be c
 <br>
 <br>
 
-### 1. Convert any Byte to String  
+### 1.1 Convert any Byte to String  
 
 ``` python
 # encode method
@@ -56,7 +56,7 @@ Arguments -
 <br>
 <br>
 
-### 2. Convert above encoded string back to byte
+### 1.2 Convert above encoded string back to byte
 
 ``` python
 # decode method
@@ -100,7 +100,7 @@ Note - Both the above method also have a generator function which are helpfull i
 <br>
 <br>
 
-### 1. Generator version - Convert any Byte to String  
+### 1.3 Generator version - Convert any Byte to String  
 
 ``` python
 # encode method
@@ -116,7 +116,7 @@ Arguments -
 <br>
 <br>
 
-### 2. Generator version - Convert above encoded string back to byte
+### 1.4 Generator version - Convert above encoded string back to byte
 
 ``` python
 # decode method
@@ -206,7 +206,7 @@ ok
 <br>
 <br>
 
-### 1. Convert any String to Byte  
+### 2.1 Convert any String to Byte  
 
 ``` python
 # encode method
@@ -222,7 +222,7 @@ Arguments -
 <br>
 <br>
 
-### 2. Convert above encoded Byte back to String
+### 2.2 Convert above encoded Byte back to String
 
 ``` python
 # decode method
@@ -266,7 +266,7 @@ Note - Both the above method also have a generator function which are helpfull i
 <br>
 <br>
 
-### 1. Generator version - Convert any String to Byte  
+### 2.3 Generator version - Convert any String to Byte  
 
 ``` python
 # encode method
@@ -281,7 +281,7 @@ Arguments -
 <br>
 <br>
 
-### 2. Generator version - Convert above encoded string back to byte
+### 2.4 Generator version - Convert above encoded string back to byte
 
 ``` python
 # decode method
