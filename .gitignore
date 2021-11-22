@@ -2,9 +2,13 @@ myvirtual/
 
 apis.txt
 
-myTest/
+local_packages
+
+tempTest/
 
 tests/binaryTestMatrial/
+
+runPyTests.py
 
 temp/
 

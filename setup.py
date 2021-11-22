@@ -21,8 +21,8 @@ setuptools.setup(
     ],
 
     install_requires=[
-   'cryptography',
-   'onetimepad',
+   'pip install cryptography==35.0.0',
+   'onetimepad==1.4',
     ],
 
     python_requires='>=3.6',
