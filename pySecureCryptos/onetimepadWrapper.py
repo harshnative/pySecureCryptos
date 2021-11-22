@@ -90,6 +90,7 @@ class StringEncryptor:
 
         # dividing the data into chunk of size hashedLength2
         # as returned from the encryptor is of twice the original size
+        # i.e encrypted message is twice the size of message. not dependent on the size of key in actaul
         # and getting the corresponding chunk keys
         for i in range(0 , lenString , hashedLength2):
             if((i+hashedLength2) < lenString):

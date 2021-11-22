@@ -26,7 +26,7 @@ class Byte2String:
         return string
 
     # method to convert the output string from above method into byte again
-    # returns a bytearray type object
+    # returns a bytes type object
     @classmethod
     def decode(cls , string):
 
@@ -37,7 +37,7 @@ class Byte2String:
 
         convert the string back to int
 
-        pass the int list to bytearray and return
+        pass the int list to bytes and return
         """
 
         intList = []
@@ -46,28 +46,28 @@ class Byte2String:
             toAppend = int(string[i : i + 3])
             intList.append(toAppend)
 
-        return bytearray(intList)
+        return bytes(intList)
 
 
 
 class String2Byte:
 
     # method to convert string to byte
-    # returns bytearray
+    # returns bytes
     @classmethod
     def encode(cls , string):
 
         """
         convert each char in string to corresponding ASCII value (int)
 
-        convert this intList to byteArray
+        convert this intList to bytes
         """
         intList = []
 
         for i in string:
             intList.append(ord(i))
 
-        return bytearray(intList)
+        return bytes(intList)
 
 
     @classmethod
@@ -130,7 +130,7 @@ class Byte2String_yield:
 
 
     # method to convert the output string from above method into byte again
-    # returns a bytearray type object
+    # returns a bytes type object
     @classmethod
     def decode(cls , string):
 
@@ -141,7 +141,7 @@ class Byte2String_yield:
 
         convert the string back to int
 
-        pass the int list to bytearray and return
+        pass the int list to bytes and return
         """
 
         intList = []
@@ -156,21 +156,21 @@ class Byte2String_yield:
             currentCount = currentCount + 1
             yield currentCount , totalCount
 
-        return bytearray(intList)
+        return bytes(intList)
 
 
 
 class String2Byte_yield:
 
     # method to convert string to byte
-    # returns bytearray
+    # returns bytes
     @classmethod
     def encode(cls , string):
 
         """
         convert each char in string to corresponding ASCII value (int)
 
-        convert this intList to byteArray
+        convert this intList to bytes
         """
         intList = []
 
@@ -183,7 +183,7 @@ class String2Byte_yield:
             currentCount = currentCount + 1
             yield currentCount , totalCount
 
-        return bytearray(intList)
+        return bytes(intList)
 
 
     @classmethod
