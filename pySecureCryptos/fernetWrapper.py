@@ -385,7 +385,7 @@ class StringEncryptor:
 
 
 
-class ByteEncryptor:
+class BytesEncryptor:
 
     def __init__(self , password , iterations=390000):
 
