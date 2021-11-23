@@ -36,9 +36,17 @@ used to convert byte into strings and vice versa and string into byte and vice v
 <br>
 <br>
 
-3. [Onetimepad Wrapper - encrypt and decrypt strings and bytes](https://www.letscodeofficial.com/documentations/pSC_onetimepadWrapper#/)
+3. [Onetimepad Wrapper - encrypt and decrypt strings and bytes using onetimepad](https://www.letscodeofficial.com/documentations/pSC_onetimepadWrapper#/)
 
 you can encrypt and decrypt any string or byte with just a password. there are also generator function for tracking progress on large encryption and decryptions.
+
+<br>
+<br>
+
+
+4. [Fernet Wrapper - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pSC_fernetWrapper#/)
+
+you can encrypt and decrypt any string or byte with just a password. there are also generator function for tracking progress on large encryption and decryptions. Better for large byte datatypes than onetimepad.
 
 <br>
 <br>
