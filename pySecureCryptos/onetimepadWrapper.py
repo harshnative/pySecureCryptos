@@ -842,7 +842,7 @@ def __test_byteEncrytor2():
     while(True):
         try:
             onCount , totalCount = next(genObj_encrypt)
-            print("on {} out of {}   ".format(onCount , totalCount))
+            print("\ron {} out of {}   ".format(onCount , totalCount) , end = "")
         except StopIteration as ex:
             encryptedString = ex.value
             break
@@ -854,7 +854,7 @@ def __test_byteEncrytor2():
     while(True):
         try:
             onCount , totalCount = next(genObj_decrypt)
-            print("on {} out of {}   ".format(onCount , totalCount))
+            print("\ron {} out of {}   ".format(onCount , totalCount) , end = "")
         except StopIteration as ex:
             decryptedByte = ex.value
             break
@@ -879,7 +879,7 @@ def __test_byteEncrytor2():
     while(True):
         try:
             onCount , totalCount = next(genObj_encrypt)
-            print("on {} out of {}   ".format(onCount , totalCount))
+            print("\ron {} out of {}   ".format(onCount , totalCount) , end = "")
         except StopIteration as ex:
             encryptedByte = ex.value
             break
@@ -891,7 +891,7 @@ def __test_byteEncrytor2():
     while(True):
         try:
             onCount , totalCount = next(genObj_decrypt)
-            print("on {} out of {}   ".format(onCount , totalCount))
+            print("\ron {} out of {}   ".format(onCount , totalCount) , end = "")
         except StopIteration as ex:
             decryptedByte = ex.value
             break

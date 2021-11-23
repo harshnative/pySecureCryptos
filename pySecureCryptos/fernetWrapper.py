@@ -361,6 +361,76 @@ class StringEncryptor:
 
 
 
+    # method to decrypt a string
+    # returns decrypted string
+    def decrypt_string(self , enc_string):
+
+        # type checking the parameters
+        if(type(enc_string) != str):
+            raise ValueError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+
+        chunkList = enc_string.split(":~:~:")
+
+        result = b""
+
+        for i in chunkList:
+            # generator object of byte 2 string decoder
+            # need to convert back the string to byte - (byte to string was made in encryptor function)
+            encbyte_From_encString = encoderDecoders.Byte2String.decode(i)
+
+            decrypted_byte = self.fernetObj.decrypt(encbyte_From_encString)
+            result = result + decrypted_byte
+
+
+        # convert the byte object returned from fernet back to string
+        stringFromByte  = encoderDecoders.String2Byte.decode(result)
+
+
+        return stringFromByte
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # method to decrypt a string
+    # returns decrypted string
+    # else returns a byte object
+    def decrypt_byte(self , enc_byte):
+
+        # type checking the parameters
+        if(type(enc_byte) != bytes):
+            raise ValueError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
+
+        chunkList = enc_byte.split(b":~:~:")
+
+
+        result = b""
+
+        for i in chunkList:
+            decrypted_byte = self.fernetObj.decrypt(i)
+            result = result + decrypted_byte
+
+        # convert the byte object returned from fernet back to string
+        stringFromByte  = encoderDecoders.String2Byte.decode(result)
+
+
+        return stringFromByte
+
+
+
+
+
+
+
 
 
 
@@ -787,7 +857,7 @@ def __test3():
 
 def __test4():
 
-    obj = ByteEncryptor("hello world")
+    obj = BytesEncryptor("hello world")
 
     myByte = b"my name is john" * 11233
 
@@ -840,7 +910,7 @@ def __test4():
 
 def __test5():
 
-    obj = ByteEncryptor("hello world")
+    obj = BytesEncryptor("hello world")
 
     myByte = b"my name is john"
 
@@ -862,4 +932,4 @@ def __test5():
 
 
 if __name__ == "__main__":
-    __test5()
+    __test4()

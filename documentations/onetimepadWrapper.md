@@ -1,5 +1,7 @@
 
-# encoderDecoders
+# onetimepad Wrapper
+
+This is extension of onetimepad module containing better and direct usable method while increasing security.
 
 <br>
 <br>
@@ -61,7 +63,7 @@ Note (IMP) -> Do not store SHA224 or MD5 hashed version of your password anywher
 ### 1.2 Decrypt String
 
 ``` python
-# decode method
+# decrypt method
 OW.StringEncryptor.decrypt(enc_string , password)
 ```
 
@@ -401,7 +403,7 @@ Example -
     while(True):
         try:
             onCount , totalCount = next(genObj_encrypt)
-            print("on {} out of {}   ".format(onCount , totalCount))
+            print("\ron {} out of {}   ".format(onCount , totalCount) , end = "")
         except StopIteration as ex:
             encryptedString = ex.value
             break
@@ -413,7 +415,7 @@ Example -
     while(True):
         try:
             onCount , totalCount = next(genObj_decrypt)
-            print("on {} out of {}   ".format(onCount , totalCount))
+            print("\ron {} out of {}   ".format(onCount , totalCount) , end = "")
         except StopIteration as ex:
             decryptedByte = ex.value
             break
@@ -438,7 +440,7 @@ Example -
     while(True):
         try:
             onCount , totalCount = next(genObj_encrypt)
-            print("on {} out of {}   ".format(onCount , totalCount))
+            print("\ron {} out of {}   ".format(onCount , totalCount) , end = "")
         except StopIteration as ex:
             encryptedByte = ex.value
             break
@@ -450,7 +452,7 @@ Example -
     while(True):
         try:
             onCount , totalCount = next(genObj_decrypt)
-            print("on {} out of {}   ".format(onCount , totalCount))
+            print("\ron {} out of {}   ".format(onCount , totalCount) , end = "")
         except StopIteration as ex:
             decryptedByte = ex.value
             break
@@ -466,35 +468,9 @@ Output -
 
 ``` shell
 
-on 0 out of 12   
-on 1 out of 12   
-on 2 out of 12   
-on 3 out of 12   
-on 4 out of 12   
-on 5 out of 12   
-on 6 out of 12   
-on 7 out of 12   
-on 8 out of 12   
-on 9 out of 12   
-on 10 out of 12   
-on 11 out of 12   
 on 12 out of 12   
 
-
-on 0 out of 12   
-on 1 out of 12   
-on 2 out of 12   
-on 3 out of 12   
-on 4 out of 12   
-on 5 out of 12   
-on 6 out of 12   
-on 7 out of 12   
-on 8 out of 12   
-on 9 out of 12   
-on 10 out of 12   
-on 11 out of 12   
 on 12 out of 12   
-
 
 ok
 
@@ -503,167 +479,29 @@ test 2
 
 
 
-on 0 out of 78   
-on 1 out of 78   
-on 2 out of 78   
-on 3 out of 78   
-on 4 out of 78   
-on 5 out of 78   
-on 6 out of 78   
-on 7 out of 78   
-on 8 out of 78   
-on 9 out of 78   
-on 10 out of 78   
-on 11 out of 78   
-on 12 out of 78   
-on 13 out of 78   
-on 14 out of 78   
-on 15 out of 78   
-on 16 out of 78   
-on 17 out of 78   
-on 18 out of 78   
-on 19 out of 78   
-on 20 out of 78   
-on 21 out of 78   
-on 22 out of 78   
-on 23 out of 78   
-on 24 out of 78   
-on 25 out of 78   
-on 26 out of 78   
-on 27 out of 78   
-on 28 out of 78   
-on 29 out of 78   
-on 30 out of 78   
-on 31 out of 78   
-on 32 out of 78   
-on 33 out of 78   
-on 34 out of 78   
-on 35 out of 78   
-on 36 out of 78   
-on 37 out of 78   
-on 38 out of 78   
-on 39 out of 78   
-on 40 out of 78   
-on 41 out of 78   
-on 42 out of 78   
-on 43 out of 78   
-on 44 out of 78   
-on 45 out of 78   
-on 46 out of 78   
-on 47 out of 78   
-on 48 out of 78   
-on 49 out of 78   
-on 50 out of 78   
-on 51 out of 78   
-on 52 out of 78   
-on 53 out of 78   
-on 54 out of 78   
-on 55 out of 78   
-on 56 out of 78   
-on 57 out of 78   
-on 58 out of 78   
-on 59 out of 78   
-on 60 out of 78   
-on 61 out of 78   
-on 62 out of 78   
-on 63 out of 78   
-on 64 out of 78   
-on 65 out of 78   
-on 66 out of 78   
-on 67 out of 78   
-on 68 out of 78   
-on 69 out of 78   
-on 70 out of 78   
-on 71 out of 78   
-on 72 out of 78   
-on 73 out of 78   
-on 74 out of 78   
-on 75 out of 78   
-on 76 out of 78   
-on 77 out of 78   
 on 78 out of 78   
 
-
-on 0 out of 78   
-on 1 out of 78   
-on 2 out of 78   
-on 3 out of 78   
-on 4 out of 78   
-on 5 out of 78   
-on 6 out of 78   
-on 7 out of 78   
-on 8 out of 78   
-on 9 out of 78   
-on 10 out of 78   
-on 11 out of 78   
-on 12 out of 78   
-on 13 out of 78   
-on 14 out of 78   
-on 15 out of 78   
-on 16 out of 78   
-on 17 out of 78   
-on 18 out of 78   
-on 19 out of 78   
-on 20 out of 78   
-on 21 out of 78   
-on 22 out of 78   
-on 23 out of 78   
-on 24 out of 78   
-on 25 out of 78   
-on 26 out of 78   
-on 27 out of 78   
-on 28 out of 78   
-on 29 out of 78   
-on 30 out of 78   
-on 31 out of 78   
-on 32 out of 78   
-on 33 out of 78   
-on 34 out of 78   
-on 35 out of 78   
-on 36 out of 78   
-on 37 out of 78   
-on 38 out of 78   
-on 39 out of 78   
-on 40 out of 78   
-on 41 out of 78   
-on 42 out of 78   
-on 43 out of 78   
-on 44 out of 78   
-on 45 out of 78   
-on 46 out of 78   
-on 47 out of 78   
-on 48 out of 78   
-on 49 out of 78   
-on 50 out of 78   
-on 51 out of 78   
-on 52 out of 78   
-on 53 out of 78   
-on 54 out of 78   
-on 55 out of 78   
-on 56 out of 78   
-on 57 out of 78   
-on 58 out of 78   
-on 59 out of 78   
-on 60 out of 78   
-on 61 out of 78   
-on 62 out of 78   
-on 63 out of 78   
-on 64 out of 78   
-on 65 out of 78   
-on 66 out of 78   
-on 67 out of 78   
-on 68 out of 78   
-on 69 out of 78   
-on 70 out of 78   
-on 71 out of 78   
-on 72 out of 78   
-on 73 out of 78   
-on 74 out of 78   
-on 75 out of 78   
-on 76 out of 78   
-on 77 out of 78   
 on 78 out of 78   
-
 
 ok
 ```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+Note - Onetimepad is slow for bytes encryption , it would be better to use fernetWrapper of this module for that. But for small tasks , it does not matter.
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
