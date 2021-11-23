@@ -61,11 +61,11 @@ def shufflerTester_list(howManyTimes , writeErrors = True):
         randString = "".join(randList)
 
         # executing the functions to test and calculating time
-        startTime = time.time()
+        startTime = time.perf_counter()
         shuffledTestList = Shuffler.shuffe_list(testList , randString)
 
         deShuffledList = Shuffler.unShuffle_list(shuffledTestList , randString)
-        endTime = time.time()
+        endTime = time.perf_counter()
 
         # avgTime
         avgTime = avgTime + (endTime - startTime)

@@ -48,11 +48,11 @@ def StringEncryptorTest_func(howManyTimes , writeErrors = True):
         randString2 = "".join(randList)
 
         # executing the functions to test and calculating time
-        startTime = time.time()
+        startTime = time.perf_counter()
         encrytedString = StringEncryptor.encrypt(randString2 , randString1)
 
         decryptedString = StringEncryptor.decrypt(encrytedString , randString1)
-        endTime = time.time()
+        endTime = time.perf_counter()
 
         # avgTime
         avgTime = avgTime + (endTime - startTime)

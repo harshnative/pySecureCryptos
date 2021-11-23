@@ -50,7 +50,7 @@ def StringEncryptorTest_func(howManyTimes , writeErrors = True):
         StringEncryptorObj = StringEncryptor(randString1)
 
         # executing the functions to test and calculating time
-        startTime = time.time()
+        startTime = time.perf_counter()
         genObj_encrypt = StringEncryptorObj.encrypt_yield(randString2)
 
         while(True):
@@ -72,7 +72,7 @@ def StringEncryptorTest_func(howManyTimes , writeErrors = True):
                 decryptedString = ex.value
                 break
         
-        endTime = time.time()
+        endTime = time.perf_counter()
 
         # avgTime
         avgTime = avgTime + (endTime - startTime)

@@ -24,10 +24,10 @@ def testEncodeByte2String(howMany):
 
         randomByte = secrets.token_bytes(byteLength)
 
-        start = time.time()
+        start = time.perf_counter()
         encodedString = Byte2String.encode(randomByte)
         decodedByte = Byte2String.decode(encodedString)
-        end = time.time()
+        end = time.perf_counter()
 
         avgTime = avgTime + (((end - start) / byteLength) * 1000)
 
@@ -79,10 +79,10 @@ def testEncodeString2Byte(howMany):
         for i in range(stringLength):
             randomString = randomString + random.choice(stringPool)
 
-        start = time.time()
+        start = time.perf_counter()
         encodedByte = String2Byte.encode(randomString)
         decodedString = String2Byte.decode(encodedByte)
-        end = time.time()
+        end = time.perf_counter()
 
         avgTime = avgTime + (((end - start) / stringLength) * 1000)
 

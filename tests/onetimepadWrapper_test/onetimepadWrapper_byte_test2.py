@@ -48,11 +48,11 @@ def byteEncryptorTest_func(howManyTimes , writeErrors = True):
 
 
         # executing the functions to test and calculating time
-        startTime = time.time()
+        startTime = time.perf_counter()
         encrytedByte = BytesEncryptor.encrypt(randomByte , randString1 , returnByteObject=True)
 
         decryptedByte = BytesEncryptor.decrypt_byte(encrytedByte , randString1)
-        endTime = time.time()
+        endTime = time.perf_counter()
 
         # avgTime
         avgTime = avgTime + (endTime - startTime)

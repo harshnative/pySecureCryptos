@@ -54,7 +54,7 @@ def byteEncryptorTest_func(writeErrors = True):
 
 
         # executing the functions to test and calculating time
-        startTime = time.time()
+        startTime = time.perf_counter()
 
         print("file encrypting")
         
@@ -80,7 +80,7 @@ def byteEncryptorTest_func(writeErrors = True):
                 decryptedByte = ex.value
                 break
         
-        endTime = time.time()
+        endTime = time.perf_counter()
 
         # avgTime
         avgTime = avgTime + (endTime - startTime)
