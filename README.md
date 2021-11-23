@@ -5,7 +5,7 @@ All the tools for cryptography / encryption for everything including databases ,
 
 # Documentation
 
-https://www.blog.letscodeofficial.com/@harshnative/pysecurecryptos-module-documentation-secure-your-data-using-python/
+https://www.letscodeofficial.com/documentations/pySecureCryptos#/
 
 Updated to the latest
 
