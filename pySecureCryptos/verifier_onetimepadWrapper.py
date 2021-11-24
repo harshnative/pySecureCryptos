@@ -1199,5 +1199,5 @@ def __test_byteEncrytor2():
 
 
 if __name__ == "__main__":
-    __test_byteEncrytor()
-    # __test_stringEncrytor()
+    __test_byteEncrytor2()
+    # __test_stringEncrytor2()

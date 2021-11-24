@@ -932,4 +932,4 @@ def __test5():
 
 
 if __name__ == "__main__":
-    __test4()
+    __test()
