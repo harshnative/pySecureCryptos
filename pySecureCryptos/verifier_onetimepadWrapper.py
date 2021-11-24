@@ -79,6 +79,11 @@ class StringEncryptor:
 
 
 
+
+
+
+
+
     @classmethod
     def decrypt(cls , enc_string , password):
 
@@ -153,6 +158,11 @@ class StringEncryptor:
         return result
 
     
+
+
+
+
+
 
 
 
@@ -252,6 +262,14 @@ class StringEncryptor_yield:
         result = result + ":checksum:" + enc_checksum
 
         return result
+
+
+
+
+
+
+
+
 
 
 
@@ -358,6 +376,14 @@ class StringEncryptor_yield:
 
 
 
+
+
+
+
+
+
+
+
 class BytesEncryptor:
 
     @classmethod
@@ -440,6 +466,15 @@ class BytesEncryptor:
 
 
 
+
+
+
+
+
+
+
+
+
     @classmethod
     def decrypt(cls , enc_string , password):
 
@@ -510,6 +545,13 @@ class BytesEncryptor:
 
 
         return result
+
+
+
+
+
+
+
 
 
 
@@ -585,6 +627,10 @@ class BytesEncryptor:
 
 
         return result
+
+
+
+
 
 
 
@@ -727,6 +773,13 @@ class BytesEncryptor_yield:
         return result
 
 
+
+
+
+
+
+
+
     @classmethod
     def decrypt(cls , enc_string , password):
 
@@ -824,6 +877,13 @@ class BytesEncryptor_yield:
 
 
         return result
+
+
+
+
+
+
+
 
 
 
@@ -961,6 +1021,10 @@ class BytesEncryptor_yield:
 
 
 
+
+
+
+
 def __test_stringEncrytor():
     string = "hello world"
     encryptedString = StringEncryptor.encrypt(string , "hello")
@@ -974,6 +1038,12 @@ def __test_stringEncrytor():
         print("ok")
     else:
         print("error")
+
+
+
+
+
+
 
 
 
@@ -1018,6 +1088,12 @@ def __test_stringEncrytor2():
 
 
 
+
+
+
+
+
+
 def __test_byteEncrytor():
     byteObject = b"hello world"
     encryptedString = BytesEncryptor.encrypt(byteObject , "hello" , returnByteObject=False)
@@ -1042,6 +1118,13 @@ def __test_byteEncrytor():
         print("ok")
     else:
         print("error")
+
+
+
+
+
+
+
 
 
 
