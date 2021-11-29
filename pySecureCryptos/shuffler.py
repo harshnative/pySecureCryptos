@@ -97,6 +97,44 @@ class Shuffler:
 
 
 
+    # method to shuffle a byte
+    @classmethod
+    def shuffle_byte(cls , byte , seed):
+
+        if(type(byte) != bytes):
+            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
+        if(type(seed) != str):
+            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+
+        # convert the string to list and pass to main method
+        shuffledList =  cls.shuffe_list(list(byte) , seed)
+
+        # convert the shuffled list back to byte
+        shuffledByte = bytes(shuffledList)
+        return shuffledByte
+    
+
+    # function to shuffle a byte
+    @classmethod
+    def unShuffle_byte(cls , shuffledByte  , seed):
+
+        if(type(shuffledByte) != bytes):
+            raise ValueError("shuffledByte parameter expected to be of bytes type instead got {} type".format(type(shuffledByte)))
+
+        if(type(seed) != str):
+            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+
+
+        # convert the shuffledString to list and pass to main method
+        deshuffledList = cls.unShuffle_list(list(shuffledByte) , seed)
+        
+        # convert the deshuffled list back to string
+        byteFromList = bytes(deshuffledList)
+        return byteFromList
+
+
+
 
 
 
