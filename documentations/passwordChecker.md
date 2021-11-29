@@ -267,8 +267,28 @@ None
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+
+# General Tips 
+
+1. For sensitive applications , make sure your password at least qualifies for high level but max level is recommended.
+
+2. Password should contain all mix of chars from lower , upper , nums and even some special chars.
+
+3. Do not use simple password which are easy to remember as they can be easily cracked by dictionary attack
+
+4. Do not use password related to your daily workflow and about your life as they are easily guessable.
+
+
 
 <br>
 <br>
 <br>
+
+<br>
+<br>
+<br>
+
 

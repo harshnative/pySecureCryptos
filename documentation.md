@@ -69,6 +69,19 @@ Same has onetimepad wrapper , but also adds a encrypted checksum to verify the d
 <br>
 <br>
 
+
+
+7. [Password Checker - check if you password is secure enough](https://www.letscodeofficial.com/documentations/pSC_passwordChecker#/)
+
+Has different qualifications for password , low , medium , high and max level security.
+
+For sensitive applications , make sure your password qualifies for at least high level security.
+
+<br>
+<br>
+
+
+
 <br>
 <br>
 <br>
