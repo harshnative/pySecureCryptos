@@ -21,6 +21,7 @@ from pySecureCryptos.shuffler import Shuffler
 # Methods - 
 1. Shuffle a list and UnShuffle a list
 2. Shuffle a string and UnShuffle a string
+2. Shuffle a string and UnShuffle a byte
 
 <br>
 <br>
@@ -34,7 +35,7 @@ from pySecureCryptos.shuffler import Shuffler
 <br>
 <br>
 
-### 1. Shuffle list  
+### 1.1 Shuffle list  
 
 ``` python
 # shuffle method
@@ -51,7 +52,7 @@ Arguments -
 <br>
 <br>
 
-### 2. UnShuffle list 
+### 1.2 UnShuffle list 
 
 ``` python
 # deshuffle method
@@ -110,7 +111,7 @@ ok
 <br>
 <br>
 
-### 1. Shuffle list  
+### 2.1 Shuffle string  
 
 ``` python
 # shuffle method
@@ -126,7 +127,7 @@ Arguments -
 <br>
 <br>
 
-### 2. UnShuffle list 
+### 2.2 UnShuffle string 
 
 ``` python
 # deshuffle method
@@ -169,6 +170,81 @@ Output -
 string = hello world , seed = hello
 shuffledString = lodlwholer 
 deShuffledString = hello world
+ok
+```
+
+
+<br>
+<br>
+
+
+
+# 3. Shuffle and UnShuffle a byte
+
+<br>
+<br>
+
+### 3.1 Shuffle Byte  
+
+``` python
+# shuffle method
+Shuffler.shuffle_byte(byte , seed)
+```
+
+Arguments - 
+
+* byte -> byte to shuffle
+* seed -> byte is shuffled using this seed. seed is set into random.seed() before performing random.shuffle(). String type seed is recommended.
+
+<br>
+<br>
+<br>
+
+### 3.2 UnShuffle list 
+
+``` python
+# deshuffle method
+Shuffler.unShuffle_byte(shuffledByte , seed)
+```
+
+Arguments - 
+
+* shuffledByte -> byte to unshuffle , output of shuffle_byte() method
+* seed -> same as used in shuffle_byte() method
+
+<br>
+<br>
+<br>
+
+Example - 
+
+``` python
+
+    myByte = b"hello world"
+    seed = "hellooo"
+    print("byte = {} , seed = {}".format(myByte , seed))
+
+    shuffledByte = Shuffler.shuffle_byte(myByte , seed)
+
+    print("shuffledByte = {}".format(shuffledByte))
+
+    deShuffledByte = Shuffler.unShuffle_byte(shuffledByte , seed)
+
+    print("deShuffledByte = {}".format(deShuffledByte))
+
+    if(myByte == deShuffledByte):
+        print("ok")
+    else:
+        print("error")
+    
+```
+
+Output - 
+
+``` shell
+byte = b'hello world' , seed = hellooo
+shuffledByte = b'ollloreh dw'
+deShuffledByte = b'hello world'
 ok
 ```
 
