@@ -41,16 +41,16 @@ class Check:
 
         # add missing to error list
         if(lowerChars and (not(lowerChars_present))):
-            errorList.append(f"at least one lower case letter is required in password [a-z]")
+            errorList.append("at least one lower case letter is required in password [a-z]")
         
         if(upperChars and (not(upperChars_present))):
-            errorList.append(f"at least one upper case letter is required in password [A-Z]")
+            errorList.append("at least one upper case letter is required in password [A-Z]")
         
         if(nums and (not(nums_present))):
-            errorList.append(f"at least one number is required in password [0-9]")
+            errorList.append("at least one number is required in password [0-9]")
         
         if(specialChars and (not(specialChars_present))):
-            errorList.append(f"at least one special character is required in password like !@#$%& etc")
+            errorList.append("at least one special character is required in password like !@#$%& etc")
 
         # return the status
         if(len(errorList) == 0):
