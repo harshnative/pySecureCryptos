@@ -139,6 +139,17 @@ class Shuffler:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 def __test():
     myList = [1,7,2,4,6,9]
     seed = "hello"
@@ -158,6 +169,12 @@ def __test():
         print("error")
 
 
+
+
+
+
+def __test2():
+
     myString = "hello world"
     seed = "hello"
     print("string = {} , seed = {}".format(myString , seed))
@@ -174,9 +191,33 @@ def __test():
         print("ok")
     else:
         print("error")
+
+
+
+
+
+
+def __test3():
+
+    myByte = b"hello world"
+    seed = "hellooo"
+    print("byte = {} , seed = {}".format(myByte , seed))
+
+    shuffledByte = Shuffler.shuffle_byte(myByte , seed)
+
+    print("shuffledByte = {}".format(shuffledByte))
+
+    deShuffledByte = Shuffler.unShuffle_byte(shuffledByte , seed)
+
+    print("deShuffledByte = {}".format(deShuffledByte))
+
+    if(myByte == deShuffledByte):
+        print("ok")
+    else:
+        print("error")
     
 
 
 
 if __name__ == "__main__":
-    __test()
+    __test3()
