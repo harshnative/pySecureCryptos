@@ -10,6 +10,18 @@ import fernetWrapper
 
 
 
+
+
+
+
+
+#        _            _                                                                     _                   
+#  ___  | |_   _ __  (_)  _ __     __ _         ___   _ __     ___   _ __   _   _   _ __   | |_    ___    _ __  
+# / __| | __| | '__| | | | '_ \   / _` |       / _ \ | '_ \   / __| | '__| | | | | | '_ \  | __|  / _ \  | '__| 
+# \__ \ | |_  | |    | | | | | | | (_| |      |  __/ | | | | | (__  | |    | |_| | | |_) | | |_  | (_) | | |    
+# |___/  \__| |_|    |_| |_| |_|  \__, |       \___| |_| |_|  \___| |_|     \__, | | .__/   \__|  \___/  |_|    
+#                                 |___/                                     |___/  |_|                          
+
 class StringEncryptor:
 
     def __init__(self , password , iterations=390000):
@@ -66,6 +78,11 @@ class StringEncryptor:
         enc_byte = self.fernetObj.encrypt(string_byte)
 
         return len(enc_byte)
+
+
+
+
+
 
 
 
@@ -205,6 +222,15 @@ class StringEncryptor:
 
 
 
+
+
+
+
+
+
+
+
+
     # method to decrypt a string
     # returns decrypted string
     def decrypt_string_yield(self , enc_string):
@@ -300,6 +326,13 @@ class StringEncryptor:
 
 
 
+
+
+
+
+
+
+
     # method to decrypt a string
     # returns decrypted string
     # else returns a byte object
@@ -364,6 +397,14 @@ class StringEncryptor:
             raise RuntimeError("decryption failed , checksum did not verify")
 
         return stringFromByte
+
+
+
+
+
+
+
+
 
 
 
@@ -459,6 +500,22 @@ class StringEncryptor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # method to decrypt a string
     # returns decrypted string
     def decrypt_string(self , enc_string):
@@ -504,6 +561,7 @@ class StringEncryptor:
 
 
         return stringFromByte
+
 
 
 
@@ -593,6 +651,24 @@ class StringEncryptor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+#  _               _                                                                    _                   
+# | |__    _   _  | |_    ___   ___         ___   _ __     ___   _ __   _   _   _ __   | |_    ___    _ __  
+# | '_ \  | | | | | __|  / _ \ / __|       / _ \ | '_ \   / __| | '__| | | | | | '_ \  | __|  / _ \  | '__| 
+# | |_) | | |_| | | |_  |  __/ \__ \      |  __/ | | | | | (__  | |    | |_| | | |_) | | |_  | (_) | | |    
+# |_.__/   \__, |  \__|  \___| |___/       \___| |_| |_|  \___| |_|     \__, | | .__/   \__|  \___/  |_|    
+#          |___/                                                        |___/  |_|                          
+
+
 class BytesEncryptor:
 
     def __init__(self , password , iterations=390000):
@@ -649,6 +725,9 @@ class BytesEncryptor:
         enc_byte = self.fernetObj.encrypt(byte)
 
         return len(enc_byte)
+
+
+
 
 
 
@@ -728,6 +807,17 @@ class BytesEncryptor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     # method to decrypt a byte
     # returns a bytes object
     def decrypt_yield(self , enc_byte):
@@ -792,6 +882,17 @@ class BytesEncryptor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     # method to encrypt a string
     # returns a encrypted byte object
     def encrypt(self , byte):
@@ -837,6 +938,15 @@ class BytesEncryptor:
         result = result + b":checksum:" + enc_checksum
 
         return result
+
+
+
+
+
+
+
+
+
 
 
 
@@ -912,6 +1022,14 @@ class BytesEncryptor:
 
 
 
+
+
+#  _                  _                             _            _                                             
+# | |_    ___   ___  | |_                     ___  | |_   _ __  (_)  _ __     __ _         ___   _ __     ___  
+# | __|  / _ \ / __| | __|       _____       / __| | __| | '__| | | | '_ \   / _` |       / _ \ | '_ \   / __| 
+# | |_  |  __/ \__ \ | |_       |_____|      \__ \ | |_  | |    | | | | | | | (_| |      |  __/ | | | | | (__  
+#  \__|  \___| |___/  \__|                   |___/  \__| |_|    |_| |_| |_|  \__, |       \___| |_| |_|  \___| 
+#                                                                            |___/                             
 
 
 def __test():
@@ -1070,6 +1188,24 @@ def __test3():
 
 
 
+
+
+
+
+
+
+
+
+
+#  _                  _                       _               _                                            
+# | |_    ___   ___  | |_                    | |__    _   _  | |_    ___   ___         ___   _ __     ___  
+# | __|  / _ \ / __| | __|       _____       | '_ \  | | | | | __|  / _ \ / __|       / _ \ | '_ \   / __| 
+# | |_  |  __/ \__ \ | |_       |_____|      | |_) | | |_| | | |_  |  __/ \__ \      |  __/ | | | | | (__  
+#  \__|  \___| |___/  \__|                   |_.__/   \__, |  \__|  \___| |___/       \___| |_| |_|  \___| 
+#                                                     |___/                                                
+
+
+
 def __test4():
 
     obj = BytesEncryptor("hello world")
@@ -1143,6 +1279,26 @@ def __test5():
         print("\nok")
     else:
         print("\nerror")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
