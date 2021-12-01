@@ -1,5 +1,19 @@
 import string
 
+
+
+
+
+
+
+
+#         _                     _     
+#   ___  | |__     ___    ___  | | __ 
+#  / __| | '_ \   / _ \  / __| | |/ / 
+# | (__  | | | | |  __/ | (__  |   <  
+#  \___| |_| |_|  \___|  \___| |_|\_\ 
+                                    
+
 # class to check password strength
 class Check:
 
@@ -261,6 +275,12 @@ class Check:
 
 
 
+#  _                  _          
+# | |_    ___   ___  | |_   ___  
+# | __|  / _ \ / __| | __| / __| 
+# | |_  |  __/ \__ \ | |_  \__ \ 
+#  \__|  \___| |___/  \__| |___/ 
+                               
 
 
 def __test_low():
@@ -316,6 +336,18 @@ def __test_max():
     myPassword = "hello wor"
 
     print(Check.check_max(myPassword))
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
