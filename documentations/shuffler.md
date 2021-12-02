@@ -200,7 +200,7 @@ Arguments -
 <br>
 <br>
 
-### 3.2 UnShuffle list 
+### 3.2 UnShuffle byte 
 
 ``` python
 # deshuffle method

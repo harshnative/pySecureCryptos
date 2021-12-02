@@ -905,5 +905,5 @@ def __test_sha512_2():
 
 
 if __name__ == "__main__":
-    # __test_sha512_yield2()
-    __test_sha512_2()
+    __test_sha512_yield2()
+    # __test_sha512_2()
