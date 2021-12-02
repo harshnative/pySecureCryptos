@@ -1,6 +1,8 @@
 
 # hashers
 
+It is a wrapper over hashlib algo's making them more secure using shuffling.
+
 <br>
 <br>
 <br>
@@ -709,3 +711,13 @@ hashed value = b"\xe1\xa3D\xe8\xa8}\xff\nz\xb5y\xfe^\x9b\xe4Z\x0fD\x94\xf7\x84\x
 
 hashed len = 64
 ```
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+NOTE -> SHA512 is latest and recommended in mordern era.

@@ -80,6 +80,13 @@ For sensitive applications , make sure your password qualifies for at least high
 <br>
 <br>
 
+8. [Hashers - Securely verify documents and passwords](https://www.letscodeofficial.com/documentations/pSC_hashers#/)
+
+contains modified SHA256 , SHA384 , SHA512 algo's
+
+<br>
+<br>
+
 
 
 <br>
