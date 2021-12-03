@@ -326,7 +326,7 @@ class HexConvertor:
         if(type(byte) != bytes):
             raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
 
-        return binascii.hexlify(byte)
+        return str(binascii.hexlify(byte) , "utf-8")
 
     @classmethod
     def decode(cls , string):
@@ -335,7 +335,7 @@ class HexConvertor:
         if(type(string) != str):
             raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
-        return binascii.unhexlify(string)
+        return binascii.unhexlify(bytes(string , "utf-8"))
 
 
 
@@ -522,8 +522,48 @@ def __test4():
         print("\nerror")
 
 
+
+
+
+
+
+
+
+
+
+
+#  _                  _          _                                                                       _                   
+# | |_    ___   ___  | |_       | |__     ___  __  __        ___    ___    _ __   __   __   ___   _ __  | |_    ___    _ __  
+# | __|  / _ \ / __| | __|      | '_ \   / _ \ \ \/ /       / __|  / _ \  | '_ \  \ \ / /  / _ \ | '__| | __|  / _ \  | '__| 
+# | |_  |  __/ \__ \ | |_       | | | | |  __/  >  <       | (__  | (_) | | | | |  \ V /  |  __/ | |    | |_  | (_) | | |    
+#  \__|  \___| |___/  \__|      |_| |_|  \___| /_/\_\       \___|  \___/  |_| |_|   \_/    \___| |_|     \__|  \___/  |_|    
+                                                                                                                           
+
+
+def __test_HexConvertor():
+
+    myByte = b"hello world"
+
+    stringFromByte = HexConvertor.encode(myByte)
+
+    print(f"stringFromByte = {stringFromByte}")
+
+    byteAgain = HexConvertor.decode(stringFromByte)
+
+    print(f"byte Again = {byteAgain}")
+
+
+    
+
+
+
+
+
+
+
+
     
 if __name__ == "__main__":
-    __test4()
+    __test_HexConvertor()
 
 
