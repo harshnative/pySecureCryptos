@@ -813,6 +813,6 @@ def __test_encryptor_string():
 
 if __name__ == "__main__":
     # __test_encryptor_byte_yield()
-    # __test_encryptor_string_yield()
+    __test_encryptor_string_yield()
     # __test_encryptor_byte()
-    __test_encryptor_string()
+    # __test_encryptor_string()
