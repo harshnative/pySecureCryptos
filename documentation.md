@@ -57,8 +57,6 @@ you can encrypt and decrypt any string or byte with just a password. there are a
 
 Same has fernet wrapper , but also adds a encrypted checksum to verify the data integrity 
 
-#### Recommended symmetric algo for most use cases.
-
 <br>
 <br>
 
@@ -83,6 +81,27 @@ For sensitive applications , make sure your password qualifies for at least high
 8. [Hashers - Securely verify documents and passwords](https://www.letscodeofficial.com/documentations/pSC_hashers#/)
 
 contains modified SHA256 , SHA384 , SHA512 algo's
+
+<br>
+<br>
+
+
+
+9. [rsa Wrapper - encrypt and decrypt strings and bytes](https://www.letscodeofficial.com/documentations/pSC_rsaWrapper#/)
+
+#### Recommended asymmetric algo for most use cases.
+
+<br>
+<br>
+
+
+
+
+10. [Verifier Fernet Wrapper version 2 - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pSC_V_fernetWrapper_v2#/)
+
+Fastester version of Verifier Fernet Wrapper.
+
+#### Recommended symmetric algo for most use cases.
 
 <br>
 <br>
