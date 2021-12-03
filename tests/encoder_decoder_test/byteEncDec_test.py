@@ -9,7 +9,7 @@ redColor = fg('red')
 yellowColor = fg('yellow')
 whiteColor = fg('white')
 
-from pySecureCryptos.encoderDecoders import Byte2String , String2Byte
+from pySecureCryptos.encoderDecoders import Byte2String, HexConvertor , String2Byte
 
 def testEncodeByte2String(howMany):
     avgTime = 0
@@ -112,6 +112,57 @@ else:
     print(redColor + "error = {} / {}".format(error , 1000))
     print(redColor + "error list = {}".format(errorList))
 
+
+
+
+
+
+
+def testEncodeByte2String_hex(howMany):
+    avgTime = 0
+    error = 0
+    errorList = []
+
+    for k in range(howMany):
+
+        print(f"\ron {k} / {howMany}" , end = "")
+
+        byteLength = random.randint(0 , 100000)
+
+        randomByte = secrets.token_bytes(byteLength)
+
+        start = time.perf_counter()
+        encodedString = HexConvertor.encode(randomByte)
+        decodedByte = HexConvertor.decode(encodedString)
+        end = time.perf_counter()
+
+        avgTime = avgTime + (((end - start) / byteLength) * 1000)
+
+        if(decodedByte != randomByte):
+            error = error + 1 
+            errorList.append([randomByte , decodedByte])
+
+    avgTime = avgTime / howMany
+
+    return error , errorList , avgTime
+
+
+print("\n\n")
+
+# testing determinant function 
+print(whiteColor + "on Byte2String")
+
+error , errorList , avgTime = testEncodeByte2String(1000)
+
+print()
+
+if(error == 0):
+    print(blueColor + "avg time taken by testEncodeByte2String function per encode decode cycle per 1000 chars = {}".format(avgTime))
+    print(greenColor + "testEncodeByte2String function test passed")
+else:
+    print(redColor + "testEncodeByte2String function test failed")
+    print(redColor + "error = {} / {}".format(error , 1000))
+    print(redColor + "error list = {}".format(errorList))
 
 
 
