@@ -21,6 +21,7 @@ from pySecureCryptos import encoderDecoders as ED
 
 1. Convert Byte to String & vice versa
 2. Convert String to Byte & vice versa
+3. Convert Byte to Hexa Decimal String & vice versa
 
 <br>
 
@@ -362,3 +363,76 @@ ok
 <br>
 <br>
 <br>
+
+
+
+# 3. Convert Byte to Hexa Decimal string and vice versa
+
+Compression ratio is higher than above byte to string convertor , suitable for large files.
+
+<br>
+<br>
+
+### 3.1 Convert any Byte to String  
+
+``` python
+# encode method
+ED.HexConvertor.encode(byte)
+```
+
+Arguments - 
+
+* byte -> any byte you want to convert to string type. returns hexa decimal version of string
+
+
+
+<br>
+<br>
+
+### 3.2 Convert above encoded string back to bytes
+
+``` python
+# decode method
+ED.HexConvertor.decode(string)
+```
+
+Arguments - 
+
+* string -> string which was returned from ED.HexConvertor.encode() method to convert it back to bytes
+
+<br>
+<br>
+
+Example - 
+
+``` python
+    
+    myByte = b"hello world"
+
+    stringFromByte = HexConvertor.encode(myByte)
+
+    print(f"stringFromByte = {stringFromByte}")
+
+    byteAgain = HexConvertor.decode(stringFromByte)
+
+    print(f"byte Again = {byteAgain}")
+
+```
+
+Output - 
+
+``` shell
+stringFromByte = 68656c6c6f20776f726c64
+byte Again = b'hello world'
+```
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
