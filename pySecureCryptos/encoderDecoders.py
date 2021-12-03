@@ -1,3 +1,6 @@
+import binascii
+
+
 #  _               _                 _                        _            _                  
 # | |__    _   _  | |_    ___       | |_    ___         ___  | |_   _ __  (_)  _ __     __ _  
 # | '_ \  | | | | | __|  / _ \      | __|  / _ \       / __| | __| | '__| | | | '_ \   / _` | 
@@ -11,6 +14,11 @@ class Byte2String:
     # method to convert any byte into string
     @classmethod
     def encode(cls , byte):
+
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
 
         """
         ALGO - 
@@ -36,6 +44,11 @@ class Byte2String:
     # returns a bytes type object
     @classmethod
     def decode(cls , string):
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
 
         """
         ALGO - 
@@ -82,6 +95,11 @@ class String2Byte:
     @classmethod
     def encode(cls , string):
 
+        # type checking the parameters
+        if(type(string) != str):
+            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
+
         """
         convert each char in string to corresponding ASCII value (int)
 
@@ -97,6 +115,11 @@ class String2Byte:
 
     @classmethod
     def decode(cls , byte):
+
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
         string = ""
 
         for i in byte:
@@ -142,6 +165,10 @@ class Byte2String_yield:
     @classmethod
     def encode(cls , byte):
 
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
         """
         ALGO - 
         convert each byte into int - result = int btw 0 to 255
@@ -173,6 +200,10 @@ class Byte2String_yield:
     # returns a bytes type object
     @classmethod
     def decode(cls , string):
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
         """
         ALGO - 
@@ -225,6 +256,10 @@ class String2Byte_yield:
     @classmethod
     def encode(cls , string):
 
+        # type checking the parameters
+        if(type(string) != str):
+            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
         """
         convert each char in string to corresponding ASCII value (int)
 
@@ -246,6 +281,11 @@ class String2Byte_yield:
 
     @classmethod
     def decode(cls , byte):
+
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
         string = ""
 
         totalCount = len(byte)
@@ -264,6 +304,38 @@ class String2Byte_yield:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+# convert byte to hex and vice versa
+class HexConvertor:
+
+    @classmethod
+    def encode(cls , byte):
+
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
+        return binascii.hexlify(byte)
+
+    @classmethod
+    def decode(cls , string):
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
+        return binascii.unhexlify(string)
 
 
 
