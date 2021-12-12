@@ -31,7 +31,7 @@ import hashlib
 
 class Encryptor:
 
-    def __init__(self , password , iterations=390000):
+    def __init__(self , password , iterations=390000 , chunkSize=4096):
 
         # type checking the parameters
         if(type(password) != str):
@@ -60,7 +60,7 @@ class Encryptor:
         # init fernet object
         self.fernetObj = Fernet(key)
 
-        self.chunkSize = 4096
+        self.chunkSize = chunkSize
 
 
 
