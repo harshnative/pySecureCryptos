@@ -1,3 +1,4 @@
+from multiprocessing import Value
 from shuffler import Shuffler
 import hashlib
 import encoderDecoders
@@ -25,7 +26,7 @@ class StringEncryptor:
 
         # type checking the parameters
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         # getting md5 and sha224 hash of the password passed
         md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
@@ -87,7 +88,7 @@ class StringEncryptor:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
         if(len(string) == 0):
             raise ValueError("empty string passed")
@@ -190,7 +191,7 @@ class StringEncryptor:
 
         # type checking the parameters
         if(type(enc_string) != str):
-            raise ValueError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
 
         currentYield = 1
         len_string = len(enc_string)
@@ -263,7 +264,7 @@ class StringEncryptor:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
-            raise ValueError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
+            raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
         currentYield = 1
         len_enc_byte = len(enc_byte)
@@ -322,7 +323,7 @@ class StringEncryptor:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
         if(len(string) == 0):
             raise ValueError("empty string passed")
@@ -377,7 +378,7 @@ class StringEncryptor:
 
         # type checking the parameters
         if(type(enc_string) != str):
-            raise ValueError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
 
         chunkList = enc_string.split(":~:~:")
 
@@ -418,7 +419,7 @@ class StringEncryptor:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
-            raise ValueError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
+            raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
         chunkList = enc_byte.split(b":~:~:")
 
@@ -481,7 +482,7 @@ class BytesEncryptor:
 
         # type checking the parameters
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         # getting md5 and sha224 hash of the password passed
         md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
@@ -540,7 +541,7 @@ class BytesEncryptor:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
 
         if(len(byte) == 0):
             raise ValueError("empty byte passed")
@@ -593,7 +594,7 @@ class BytesEncryptor:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
-            raise ValueError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
+            raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
         currentYield = 1
 
@@ -635,7 +636,7 @@ class BytesEncryptor:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
 
         if(len(byte) == 0):
             raise ValueError("empty byte passed")
@@ -678,7 +679,7 @@ class BytesEncryptor:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
-            raise ValueError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
+            raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
         currentYield = 1
 

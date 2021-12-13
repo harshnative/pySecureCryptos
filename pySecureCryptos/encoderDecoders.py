@@ -17,7 +17,7 @@ class Byte2String:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
 
 
         """
@@ -47,7 +47,7 @@ class Byte2String:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
 
         """
@@ -97,7 +97,7 @@ class String2Byte:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
 
         """
@@ -118,7 +118,7 @@ class String2Byte:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
 
         string = ""
 
@@ -167,7 +167,7 @@ class Byte2String_yield:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
 
         """
         ALGO - 
@@ -203,7 +203,7 @@ class Byte2String_yield:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
         """
         ALGO - 
@@ -258,7 +258,7 @@ class String2Byte_yield:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
         """
         convert each char in string to corresponding ASCII value (int)
@@ -284,7 +284,7 @@ class String2Byte_yield:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
 
         string = ""
 
@@ -324,7 +324,7 @@ class HexConvertor:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
 
         return str(binascii.hexlify(byte) , "utf-8")
 
@@ -333,7 +333,7 @@ class HexConvertor:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
         return binascii.unhexlify(bytes(string , "utf-8"))
 

@@ -36,10 +36,10 @@ class Shuffler:
     def shuffe_list(cls , ls :list , seed :str , copyList :bool = True):
 
         if(type(ls) != list):
-            raise ValueError("ls parameter expected to be of list type instead got {} type".format(type(ls)))
+            raise TypeError("ls parameter expected to be of list type instead got {} type".format(type(ls)))
 
         if(type(seed) != str):
-            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+            raise TypeError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
 
         # copy list so that the original list stays the same
         if(copyList):
@@ -57,10 +57,10 @@ class Shuffler:
     def unShuffle_list(cls , shuffled_ls :list , seed :str):
 
         if(type(shuffled_ls) != list):
-            raise ValueError("shuffled_ls parameter expected to be of list type instead got {} type".format(type(shuffled_ls)))
+            raise TypeError("shuffled_ls parameter expected to be of list type instead got {} type".format(type(shuffled_ls)))
 
         if(type(seed) != str):
-            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+            raise TypeError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
 
 
         n = len(shuffled_ls)
@@ -113,10 +113,10 @@ class Shuffler:
     def shuffle_string(cls , string :str , seed :str):
 
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
         if(type(seed) != str):
-            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+            raise TypeError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
 
         # convert the string to list and pass to main method
         shuffledList =  cls.shuffe_list(list(string) , seed)
@@ -131,10 +131,10 @@ class Shuffler:
     def unShuffle_string(cls , shuffledString :str , seed :str):
 
         if(type(shuffledString) != str):
-            raise ValueError("shuffledString parameter expected to be of str type instead got {} type".format(type(shuffledString)))
+            raise TypeError("shuffledString parameter expected to be of str type instead got {} type".format(type(shuffledString)))
 
         if(type(seed) != str):
-            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+            raise TypeError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
 
 
         # convert the shuffledString to list and pass to main method
@@ -169,10 +169,10 @@ class Shuffler:
     def shuffle_byte(cls , byte , seed):
 
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
 
         if(type(seed) != str):
-            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+            raise TypeError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
 
         # convert the string to list and pass to main method
         shuffledList =  cls.shuffe_list(list(byte) , seed)
@@ -187,10 +187,10 @@ class Shuffler:
     def unShuffle_byte(cls , shuffledByte  , seed):
 
         if(type(shuffledByte) != bytes):
-            raise ValueError("shuffledByte parameter expected to be of bytes type instead got {} type".format(type(shuffledByte)))
+            raise TypeError("shuffledByte parameter expected to be of bytes type instead got {} type".format(type(shuffledByte)))
 
         if(type(seed) != str):
-            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+            raise TypeError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
 
 
         # convert the shuffledString to list and pass to main method

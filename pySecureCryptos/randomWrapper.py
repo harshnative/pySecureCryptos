@@ -13,13 +13,13 @@ class RandomString:
     def generate(cls , size , seed = None , lowerCase = True , upperCase = True , nums = True , specialChars = True , space = False):
 
         if(type(size) != int):
-            raise ValueError("size parameter expected to be of int type instead got {} type".format(type(size)))
+            raise TypeError("size parameter expected to be of int type instead got {} type".format(type(size)))
 
         if(seed == None):
             seed = str(time.time())
 
         if(type(seed) != str):
-            raise ValueError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
+            raise TypeError("seed parameter expected to be of str type instead got {} type".format(type(seed)))
 
         charList = []
 

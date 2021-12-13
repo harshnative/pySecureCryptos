@@ -27,10 +27,10 @@ class StringEncryptor:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         # getting md5 and sha224 hash of the password passed
         md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
@@ -105,10 +105,10 @@ class StringEncryptor:
 
         # type checking the parameters
         if(type(enc_string) != str):
-            raise ValueError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
 
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         enc_string , checksum = enc_string.split(":checksum:")
 
@@ -216,10 +216,10 @@ class StringEncryptor_yield:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
 
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         # getting md5 and sha224 hash of the password passed
         md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
@@ -305,10 +305,10 @@ class StringEncryptor_yield:
 
         # type checking the parameters
         if(type(enc_string) != str):
-            raise ValueError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
 
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         enc_string , checksum = enc_string.split(":checksum:")
 
@@ -430,10 +430,10 @@ class BytesEncryptor:
 
         # type checking the parameters
         if((type(byteObject) != bytes) and (type(byteObject) != bytearray)):
-            raise ValueError("byteObject parameter expected to be of bytes type or bytearray type instead got {} type".format(type(byteObject)))
+            raise TypeError("byteObject parameter expected to be of bytes type or bytearray type instead got {} type".format(type(byteObject)))
 
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         # getting md5 and sha224 hash of the password passed
         md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
@@ -519,10 +519,10 @@ class BytesEncryptor:
 
         # type checking the parameters
         if((type(enc_string) != str)):
-            raise ValueError("enc_string parameter expected to be of str type instead got {} type. If you returned byte type from encrytor for BytesEncryptor , then use decrypt_byte method".format(type(enc_string)))
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type. If you returned byte type from encrytor for BytesEncryptor , then use decrypt_byte method".format(type(enc_string)))
 
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         enc_string , checksum = enc_string.split(":checksum:")
 
@@ -599,10 +599,10 @@ class BytesEncryptor:
 
         # type checking the parameters
         if((type(enc_byteObject) != bytes) and (type(enc_byteObject) != bytearray)):
-            raise ValueError("enc_byteObject parameter expected to be of bytes type or bytearray type instead got {} type".format(type(enc_byteObject)))
+            raise TypeError("enc_byteObject parameter expected to be of bytes type or bytearray type instead got {} type".format(type(enc_byteObject)))
 
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         enc_byteObject , checksum = enc_byteObject.split(b":checksum:")
 
@@ -709,10 +709,10 @@ class BytesEncryptor_yield:
 
         # type checking the parameters
         if((type(byteObject) != bytes) and (type(byteObject) != bytearray)):
-            raise ValueError("byteObject parameter expected to be of bytes type or bytearray type instead got {} type".format(type(byteObject)))
+            raise TypeError("byteObject parameter expected to be of bytes type or bytearray type instead got {} type".format(type(byteObject)))
 
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         # getting md5 and sha224 hash of the password passed
         md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
@@ -835,10 +835,10 @@ class BytesEncryptor_yield:
 
         # type checking the parameters
         if((type(enc_string) != str)):
-            raise ValueError("enc_string parameter expected to be of str type instead got {} type. If you returned byte type from encrytor for BytesEncryptor , then use decrypt_byte method".format(type(enc_string)))
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type. If you returned byte type from encrytor for BytesEncryptor , then use decrypt_byte method".format(type(enc_string)))
 
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         enc_string , checksum = enc_string.split(":checksum:")
         
@@ -943,10 +943,10 @@ class BytesEncryptor_yield:
 
         # type checking the parameters
         if((type(enc_byteObject) != bytes) and (type(enc_byteObject) != bytearray)):
-            raise ValueError("enc_byteObject parameter expected to be of bytes type or bytearray type instead got {} type".format(type(enc_byteObject)))
+            raise TypeError("enc_byteObject parameter expected to be of bytes type or bytearray type instead got {} type".format(type(enc_byteObject)))
 
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         enc_byteObject , checksum = enc_byteObject.split(b":checksum:")
         

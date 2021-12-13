@@ -35,8 +35,15 @@ class Encryptor:
 
         # type checking the parameters
         if(type(password) != str):
-            raise ValueError("password parameter expected to be of str type instead got {} type".format(type(password)))
+            raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
+        if(type(iterations) != int):
+            raise TypeError("iterations parameter expected to be of int type instead got {} type".format(type(iterations)))
+
+        if(type(chunkSize) != int):
+            raise TypeError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
+  
+ 
         # getting md5 and sha224 hash of the password passed
         md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
         sha224_hashed_password = hashlib.sha224(password.encode("utf-8")).hexdigest()
@@ -74,7 +81,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
         
         chunkList = []
         len_byte = len(byte)
@@ -139,7 +146,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
-            raise ValueError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
+            raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
         # seperate checksum
         enc_byte , checksum = enc_byte.split(b":checksum:")
@@ -210,7 +217,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
         
         
         chunkList = []
@@ -287,7 +294,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(enc_string) != str):
-            raise ValueError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
 
         # seperate checksum
         enc_string , checksum = enc_string.split(":checksum:")
@@ -363,7 +370,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
         
         chunkList = []
         len_byte = len(byte)
@@ -403,7 +410,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
-            raise ValueError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
+            raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
         # seperate checksum
         enc_byte , checksum = enc_byte.split(b":checksum:")
@@ -450,7 +457,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
         
         
         chunkList = []
@@ -501,7 +508,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(enc_string) != str):
-            raise ValueError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
 
         # seperate checksum
         enc_string , checksum = enc_string.split(":checksum:")

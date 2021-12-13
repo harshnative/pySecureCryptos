@@ -25,7 +25,7 @@ class KeyGenerator:
 
         # type checking the parameters
         if(type(size) != int):
-            raise ValueError("size parameter expected to be of int type instead got {} type".format(type(size)))
+            raise TypeError("size parameter expected to be of int type instead got {} type".format(type(size)))
 
         if(size % 256 != 0):
             raise ValueError("size parameter should be in multiple of 256 like 1028 , 2048 , 4096 etc")
@@ -81,11 +81,11 @@ class Encryptor:
 
         # type checking the parameters
         if((type(publicKey) != str) and (type(publicKey) != bytes)):
-            raise ValueError("publicKey parameter expected to be of str or bytes type instead got {} type".format(type(publicKey)))
+            raise TypeError("publicKey parameter expected to be of str or bytes type instead got {} type".format(type(publicKey)))
 
         # type checking the parameters
         if((type(privateKey) != str) and (type(privateKey) != bytes)):
-            raise ValueError("privateKey parameter expected to be of str or bytes type instead got {} type".format(type(privateKey)))
+            raise TypeError("privateKey parameter expected to be of str or bytes type instead got {} type".format(type(privateKey)))
         
         # if the keys are in str format , convert them back to bytes
         if(type(publicKey) == str):
@@ -116,7 +116,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
         
         chunkList = []
         len_byte = len(byte)
@@ -181,7 +181,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
-            raise ValueError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
+            raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
         # seperate checksum
         enc_byte , checksum = enc_byte.split(b":checksum:")
@@ -249,7 +249,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
         
         
         chunkList = []
@@ -326,7 +326,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(enc_string) != str):
-            raise ValueError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
 
         # seperate checksum
         enc_string , checksum = enc_string.split(":checksum:")
@@ -399,7 +399,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(byte) != bytes):
-            raise ValueError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
         
         chunkList = []
         len_byte = len(byte)
@@ -439,7 +439,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
-            raise ValueError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
+            raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
         # seperate checksum
         enc_byte , checksum = enc_byte.split(b":checksum:")
@@ -486,7 +486,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(string) != str):
-            raise ValueError("string parameter expected to be of str type instead got {} type".format(type(string)))
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
         
         
         chunkList = []
@@ -537,7 +537,7 @@ class Encryptor:
 
         # type checking the parameters
         if(type(enc_string) != str):
-            raise ValueError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
 
         # seperate checksum
         enc_string , checksum = enc_string.split(":checksum:")

@@ -19,9 +19,9 @@ class SHA256:
     def __init__(self , bytesObj , chunkSize = 2048):
 
         if(type(bytesObj) != bytes):
-            raise ValueError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
+            raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
         if(type(chunkSize) != int):
-            raise ValueError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
+            raise TypeError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
 
         self.bytesObj = bytesObj
         self.lenBytes = len(bytesObj)
@@ -202,9 +202,9 @@ class SHA384:
     def __init__(self , bytesObj , chunkSize = 2048):
 
         if(type(bytesObj) != bytes):
-            raise ValueError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
+            raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
         if(type(chunkSize) != int):
-            raise ValueError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
+            raise TypeError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
 
         self.bytesObj = bytesObj
         self.lenBytes = len(bytesObj)
@@ -399,9 +399,9 @@ class SHA512:
     def __init__(self , bytesObj , chunkSize = 2048):
 
         if(type(bytesObj) != bytes):
-            raise ValueError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
+            raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
         if(type(chunkSize) != int):
-            raise ValueError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
+            raise TypeError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
 
         self.bytesObj = bytesObj
         self.lenBytes = len(bytesObj)
