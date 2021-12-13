@@ -5,6 +5,23 @@
 <br>
 <br>
 
+
+
+
+
+
+
+
+<!-- 
+
+ _                                      _    
+(_)  _ __ ___    _ __     ___    _ __  | |_  
+| | | '_ ` _ \  | '_ \   / _ \  | '__| | __| 
+| | | | | | | | | |_) | | (_) | | |    | |_  
+|_| |_| |_| |_| | .__/   \___/  |_|     \__| 
+                |_|                           -->
+
+
 # Importing - 
 
 ``` python
@@ -18,6 +35,31 @@ from pySecureCryptos.shuffler import Shuffler
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+                    _     _                   _  
+ _ __ ___     ___  | |_  | |__     ___     __| | 
+| '_ ` _ \   / _ \ | __| | '_ \   / _ \   / _` | 
+| | | | | | |  __/ | |_  | | | | | (_) | | (_| | 
+|_| |_| |_|  \___|  \__| |_| |_|  \___/   \__,_| 
+                                                  -->
+
+
 # Methods - 
 1. Shuffle a list and UnShuffle a list
 2. Shuffle a string and UnShuffle a string
@@ -29,6 +71,33 @@ from pySecureCryptos.shuffler import Shuffler
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ _  
+/ | 
+| | 
+| | 
+|_| 
+     -->
+
 
 # 1. Shuffle and UnShuffle a list
 
@@ -106,6 +175,33 @@ ok
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ ____   
+|___ \  
+  __) | 
+ / __/  
+|_____| 
+         -->
+
+
+
 # 2. Shuffle and UnShuffle a string
 
 <br>
@@ -177,6 +273,30 @@ ok
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ _____  
+|___ /  
+  |_ \  
+ ___) | 
+|____/  
+         -->
 
 
 # 3. Shuffle and UnShuffle a byte

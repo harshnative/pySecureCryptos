@@ -5,6 +5,21 @@
 <br>
 <br>
 
+
+
+
+
+
+
+
+ <!-- _                                      _    
+(_)  _ __ ___    _ __     ___    _ __  | |_  
+| | | '_ ` _ \  | '_ \   / _ \  | '__| | __| 
+| | | | | | | | | |_) | | (_) | | |    | |_  
+|_| |_| |_| |_| | .__/   \___/  |_|     \__| 
+                |_|                           -->
+
+
 # Importing - 
 
 ``` python
@@ -16,6 +31,22 @@ from pySecureCryptos import encoderDecoders as ED
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+<!-- 
+                    _     _                   _        
+ _ __ ___     ___  | |_  | |__     ___     __| |  ___  
+| '_ ` _ \   / _ \ | __| | '_ \   / _ \   / _` | / __| 
+| | | | | | |  __/ | |_  | | | | | (_) | | (_| | \__ \ 
+|_| |_| |_|  \___|  \__| |_| |_|  \___/   \__,_| |___/ 
+                                                        -->
+
 
 # Methods - 
 
@@ -35,6 +66,27 @@ String to Byte method can convert any string to byte and only this byte can be c
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+ _  
+/ | 
+| | 
+| | 
+|_| 
+     -->
+
 
 # 1. Convert Byte to String & vice versa
 
@@ -100,6 +152,21 @@ Note - Both the above method also have a generator function which are helpfull i
 
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 1.3 Generator version - Convert any Byte to String  
 
@@ -202,6 +269,26 @@ ok
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- ____   
+|___ \  
+  __) | 
+ / __/  
+|_____| 
+         -->
+
+
 # 2. Convert String to Byte & vice versa
 
 <br>
@@ -266,6 +353,14 @@ Note - Both the above method also have a generator function which are helpfull i
 
 <br>
 <br>
+
+
+
+
+
+
+
+
 
 ### 2.3 Generator version - Convert any String to Byte  
 
@@ -364,6 +459,23 @@ ok
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+ <!-- _____  
+|___ /  
+  |_ \  
+ ___) | 
+|____/  
+         -->
 
 
 # 3. Convert Byte to Hexa Decimal string and vice versa

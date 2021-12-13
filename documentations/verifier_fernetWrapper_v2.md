@@ -11,6 +11,29 @@ This is much faster than version one due to increased chunk size and controlled 
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+ _                                      _    
+(_)  _ __ ___    _ __     ___    _ __  | |_  
+| | | '_ ` _ \  | '_ \   / _ \  | '__| | __| 
+| | | | | | | | | |_) | | (_) | | |    | |_  
+|_| |_| |_| |_| | .__/   \___/  |_|     \__| 
+                |_|                           -->
+
+
 # Importing - 
 
 ``` python
@@ -26,6 +49,28 @@ from pySecureCryptos import verifier_fernetWrapper_v2 as FW
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+                    _     _                   _  
+ _ __ ___     ___  | |_  | |__     ___     __| | 
+| '_ ` _ \   / _ \ | __| | '_ \   / _ \   / _` | 
+| | | | | | |  __/ | |_  | | | | | (_) | | (_| | 
+|_| |_| |_|  \___|  \__| |_| |_|  \___/   \__,_| 
+                                                  -->
+
+
 # Methods - 
 
 1. Encrypt and Decrypt strings
@@ -39,6 +84,33 @@ from pySecureCryptos import verifier_fernetWrapper_v2 as FW
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ _  
+/ | 
+| | 
+| | 
+|_| 
+     -->
 
 
 # 1. Bytes Encryptor
@@ -141,6 +213,20 @@ NOTE -> Both the above method also have a generator version which are important 
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 1.3 generator version - encrypt byte
 
@@ -249,6 +335,26 @@ ok
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ ____   
+|___ \  
+  __) | 
+ / __/  
+|_____| 
+         -->
+
+
 # 2. String Encryptor
 
 <br>
@@ -346,10 +452,23 @@ ok
 NOTE -> Both the above method also have a generator version which are important in tracking the progress of encryption and decryption of large data.
 
 
+<br>
+<br>
+<br>
 
-<br>
-<br>
-<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 2.3 generator version - encrypt string
 

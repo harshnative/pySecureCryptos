@@ -9,6 +9,30 @@ This also add a encrypted checksum to the end to the encrypted output which is t
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+ _                                      _    
+(_)  _ __ ___    _ __     ___    _ __  | |_  
+| | | '_ ` _ \  | '_ \   / _ \  | '__| | __| 
+| | | | | | | | | |_) | | (_) | | |    | |_  
+|_| |_| |_| |_| | .__/   \___/  |_|     \__| 
+                |_|                           -->
+
+
 # Importing - 
 
 ``` python
@@ -20,6 +44,28 @@ from pySecureCryptos import verifier_onetimepadWrapper as OW
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+                    _     _                   _  
+ _ __ ___     ___  | |_  | |__     ___     __| | 
+| '_ ` _ \   / _ \ | __| | '_ \   / _ \   / _` | 
+| | | | | | |  __/ | |_  | | | | | (_) | | (_| | 
+|_| |_| |_|  \___|  \__| |_| |_|  \___/   \__,_| 
+                                                  -->
+
 
 # Methods - 
 
@@ -33,6 +79,33 @@ from pySecureCryptos import verifier_onetimepadWrapper as OW
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ _  
+/ | 
+| | 
+| | 
+|_| 
+     -->
+
 
 # 1. Encrypt and Decrypt Strings
 
@@ -112,6 +185,20 @@ Note - Both the above method also have a generator function which are helpfull i
 
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 1.3 Generator version - Encrypt the string
 
@@ -217,6 +304,24 @@ Note - the final yield of currentYield will be less than totalYield from the dec
 <br>
 
 
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ ____   
+|___ \  
+  __) | 
+ / __/  
+|_____| 
+         -->
 
 
 # 2. Encrypt and Decrypt Bytes
@@ -331,6 +436,24 @@ Note - Both the above method also have a generator function which are helpfull i
 
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 2.3 Generator version - Encrypt the Byte
 

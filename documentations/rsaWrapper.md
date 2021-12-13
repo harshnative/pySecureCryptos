@@ -11,6 +11,29 @@ This does not have a verifier version as checksum is implode in this already as 
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ _                                      _    
+(_)  _ __ ___    _ __     ___    _ __  | |_  
+| | | '_ ` _ \  | '_ \   / _ \  | '__| | __| 
+| | | | | | | | | |_) | | (_) | | |    | |_  
+|_| |_| |_| |_| | .__/   \___/  |_|     \__| 
+                |_|                           -->
+
+
 # Importing - 
 
 ``` python
@@ -26,6 +49,26 @@ from pySecureCryptos import rsaWrapper as RW
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+                    _     _                   _  
+ _ __ ___     ___  | |_  | |__     ___     __| | 
+| '_ ` _ \   / _ \ | __| | '_ \   / _ \   / _` | 
+| | | | | | |  __/ | |_  | | | | | (_) | | (_| | 
+|_| |_| |_|  \___|  \__| |_| |_|  \___/   \__,_| 
+                                                  -->
+
+
 # Methods - 
 
 1. Generate key pair
@@ -39,6 +82,28 @@ from pySecureCryptos import rsaWrapper as RW
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- _  
+/ | 
+| | 
+| | 
+|_| 
+     -->
 
 # 1. Generate Key pairs
 
@@ -113,6 +178,30 @@ keyGen_obj.get_publicKey_string()
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ ____   
+|___ \  
+  __) | 
+ / __/  
+|_____| 
+         -->
 
 
 # 2. Bytes Encryptor
@@ -239,6 +328,18 @@ done
 <br>
 
 NOTE -> Both the above method also have a generator version which are important in tracking the progress of encryption and decryption of large data.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -394,6 +495,26 @@ done
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ _____  
+|___ /  
+  |_ \  
+ ___) | 
+|____/  
+         -->
+
+
 # 3. String Encryptor
 
 <br>
@@ -525,6 +646,35 @@ NOTE -> Both the above method also have a generator version which are important 
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 3.3 generator version - encrypt string
 

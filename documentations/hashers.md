@@ -7,6 +7,29 @@ It is a wrapper over hashlib algo's making them more secure using shuffling.
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ _                                      _    
+(_)  _ __ ___    _ __     ___    _ __  | |_  
+| | | '_ ` _ \  | '_ \   / _ \  | '__| | __| 
+| | | | | | | | | |_) | | (_) | | |    | |_  
+|_| |_| |_| |_| | .__/   \___/  |_|     \__| 
+                |_|                           -->
+
+
 # Importing - 
 
 ``` python
@@ -20,6 +43,26 @@ from pySecureCryptos import hashers
 <br>
 <br>
 
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+                    _     _                   _  
+ _ __ ___     ___  | |_  | |__     ___     __| | 
+| '_ ` _ \   / _ \ | __| | '_ \   / _ \   / _` | 
+| | | | | | |  __/ | |_  | | | | | (_) | | (_| | 
+|_| |_| |_|  \___|  \__| |_| |_|  \___/   \__,_| 
+                                                  -->
+
+
 # Methods - 
 1. sha256
 2. sha384
@@ -31,6 +74,28 @@ from pySecureCryptos import hashers
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- _  
+/ | 
+| | 
+| | 
+|_| 
+     -->
+
 
 # 1. SHA256
 
@@ -142,6 +207,19 @@ NOTE -> both the above methods have yielder / generators versions which are suit
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### 1.3 generator version - get string value of hash
@@ -260,6 +338,25 @@ hashed len = 32
 
 
 
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ ____   
+|___ \  
+  __) | 
+ / __/  
+|_____| 
+         -->
+
+
 # 2. SHA384
 
 <br>
@@ -373,6 +470,20 @@ NOTE -> both the above methods have yielder / generators versions which are suit
 <br>
 <br>
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### 2.3 generator version - get string value of hash
@@ -493,6 +604,24 @@ hashed len = 48
 
 
 
+
+
+
+
+
+
+
+
+
+<!-- 
+ _____  
+|___ /  
+  |_ \  
+ ___) | 
+|____/  
+         -->
+
+
 # 3. SHA512
 
 <br>
@@ -600,6 +729,20 @@ hashed len = 64
 
 
 NOTE -> both the above methods have yielder / generators versions which are suitable for hashing large data. it returns the progress after processing each chunk. see example below to see how to use.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
