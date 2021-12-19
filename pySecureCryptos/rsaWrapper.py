@@ -1,9 +1,10 @@
+import secrets
 from Cryptodome.PublicKey import RSA
 from Cryptodome.Cipher import PKCS1_v1_5 as Cipher_PKCS1_v1_5
 import encoderDecoders
 import hashers
-import randomWrapper
-import fernetWrapper
+import time
+import verifier_fernetWrapper_v3
 
 
 
@@ -104,6 +105,16 @@ class Encryptor:
         # chunk size
         self.chunkSize = keySize // 12
 
+        # fernet password
+        self.fernet_pass_byte = secrets.token_bytes(512)
+        self.fernet_pass_string = encoderDecoders.HexConvertor.encode(self.fernet_pass_byte)
+        
+        # fernet key
+        self.fernetKey = verifier_fernetWrapper_v3.Keys.getKey(self.fernet_pass_string)
+        
+        # encrypted fernet password
+        self.enc_pass_byte = self.encrypt_byte(self.fernet_pass_byte)
+        self.enc_pass_string = self.encrypt_string(self.fernet_pass_string)
 
 
 
@@ -166,9 +177,22 @@ class Encryptor:
         encChecksum = self.cipherPublic.encrypt(checksum)
 
         # add checksum to result
-        result = result + b":checksum:" + encChecksum
+        result = result + b":rsa_v2_checksum:" + encChecksum
 
+
+        # complete the yield progress
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
         return result
+
+
+
+
+
+
+
+
+
 
 
 
@@ -184,7 +208,7 @@ class Encryptor:
             raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
         # seperate checksum
-        enc_byte , checksum = enc_byte.split(b":checksum:")
+        enc_byte , checksum = enc_byte.split(b":rsa_v2_checksum:")
 
         # split into chunks
         chunkList = enc_byte.split(b":~:~:")
@@ -226,7 +250,13 @@ class Encryptor:
         if(newChecksum != dec_checksum):
             raise RuntimeError("decryption failed , checksum did not verify")
 
+        # complete the yield progress
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
         return result
+
+
+
 
 
 
@@ -311,13 +341,31 @@ class Encryptor:
         encChecksum_string = encoderDecoders.HexConvertor.encode(encChecksum)
 
         # add checksum to result
-        result = result + ":checksum:" + encChecksum_string
+        result = result + ":rsa_v2_checksum:" + encChecksum_string
 
+        # complete the yield progress
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
         return result
 
 
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -329,7 +377,7 @@ class Encryptor:
             raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
 
         # seperate checksum
-        enc_string , checksum = enc_string.split(":checksum:")
+        enc_string , checksum = enc_string.split(":rsa_v2_checksum:")
 
         # split into chunks
         chunkList = enc_string.split(":~:~:")
@@ -383,7 +431,241 @@ class Encryptor:
         if(newChecksum != dec_checksum):
             raise RuntimeError("decryption failed , checksum did not verify")
 
+        # complete the yield progress
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
         return result
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # function to encrypt a large byte object using multiprocessing
+    # uses a 512 bit key fernet encryption and then attaches that key to result using rsa encryption
+    # chunkSize in MB
+    def encrypt_lbyte_yield(self , large_byte , chunkSize = 8):
+
+        # type checking the parameters
+        if(type(large_byte) != bytes):
+            raise TypeError("large_byte parameter expected to be of bytes type instead got {} type".format(type(large_byte)))
+
+        lenByte = len(large_byte)
+
+        # chunk size in bytes
+        bytes_chunkSize = chunkSize * 1024 * 1024
+
+
+        # calc total yield
+        currentCount = 0
+        totalYield = (lenByte // bytes_chunkSize) + 1
+
+        result = b""
+
+        # encrypt each chunk using fernet
+        for i in range(0 , lenByte , bytes_chunkSize):
+            chunk = large_byte[i: i + bytes_chunkSize]
+            enc_chunk = verifier_fernetWrapper_v3.Encryptor.main_encrypt_byte(chunk , self.fernetKey , chunkSize)
+            
+            result = result + enc_chunk + b"$~$~$"
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        result = result[:-5]
+
+
+        # attack the enc fernet key to result
+        result = result + b":rsa_v2_encKey:" + self.enc_pass_byte
+
+        # complete yield if not
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+        return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # method to decyprt the byte encrypted using multi processing
+    def decrypt_lbyte_yield(self , large_byte):
+
+        # type checking the parameters
+        if(type(large_byte) != bytes):
+            raise TypeError("large_byte parameter expected to be of bytes type instead got {} type".format(type(large_byte)))
+
+        # seperate fernet key and byte data
+        large_byte , fernetPass = large_byte.split(b":rsa_v2_encKey:")
+
+        # decrypt the fernet key and convert it to string
+        dec_fernetPass = self.decrypt_byte(fernetPass)
+        fernetPass_string = encoderDecoders.HexConvertor.encode(dec_fernetPass)
+        
+        # set fernet key as obj 
+        fernetKey = verifier_fernetWrapper_v3.Keys.getKey(fernetPass_string)
+
+        chunkList = large_byte.split(b"$~$~$")
+
+        # calc total yield
+        currentCount = 0
+        totalYield = len(chunkList)
+
+        result = b""
+
+        # decrypt each chunk using fernet wrapper
+        for i in chunkList:
+            dec_chunk = verifier_fernetWrapper_v3.Encryptor.main_decrypt_byte(i , fernetKey)
+            
+            result = result + dec_chunk
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        # complete yield if not
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+        return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # function to encrypt a large string object using multiprocessing
+    # chunkSize size in MB
+    def encrypt_lstring_yield(self , large_string , chunkSize = 4):
+
+        # type checking the parameters
+        if(type(large_string) != str):
+            raise TypeError("large_string parameter expected to be of str type instead got {} type".format(type(large_string)))
+
+        len_string = len(large_string)
+        
+        # chunk size in bytes
+        bytes_chunkSize = chunkSize * 1024 * 1024
+        
+        # calc total yield
+        currentCount = 0
+        totalYield = (len_string // bytes_chunkSize) + 1
+
+        result = ""
+
+        # decrypt each chunk using fernet wrapper v3 
+        for i in range(0 , len_string , bytes_chunkSize):
+            chunk = large_string[i: i + bytes_chunkSize]
+            enc_chunk = verifier_fernetWrapper_v3.Encryptor.main_encrypt_string(chunk , self.fernetKey , chunkSize)
+            
+            result = result + enc_chunk + "$~$~$"
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        result = result[:-5]
+
+
+        # add encrypted fernet key to end
+        result = result + ":rsa_v2_encKey:" + self.enc_pass_string
+
+
+        # complete yield if not
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+        return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # function to decrypt a large string object using multi processing
+    def decrypt_lstring_yield(self , large_string):
+
+        # type checking the parameters
+        if(type(large_string) != str):
+            raise TypeError("large_string parameter expected to be of str type instead got {} type".format(type(large_string)))
+
+        # seperate out fernet key
+        large_string , fernetPass = large_string.split(":rsa_v2_encKey:")
+
+        # decrypt key and set as obj
+        dec_fernetPass = self.decrypt_string(fernetPass)
+        fernetKey = verifier_fernetWrapper_v3.Keys.getKey(dec_fernetPass)
+
+        chunkList = large_string.split("$~$~$")
+
+        # calc total yield
+        currentCount = 0
+        totalYield = len(chunkList)
+
+        result = ""
+
+        # decrypt each chunk
+        for i in chunkList:
+            dec_chunk = verifier_fernetWrapper_v3.Encryptor.main_decrypt_string(i , fernetKey)
+            
+            result = result + dec_chunk
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        # complete yield if not 
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+        return result
+
+
+
+    
+
+
+
+
 
 
 
@@ -424,9 +706,18 @@ class Encryptor:
         encChecksum = self.cipherPublic.encrypt(checksum)
 
         # add checksum to result
-        result = result + b":checksum:" + encChecksum
+        result = result + b":rsa_v2_checksum:" + encChecksum
 
         return result
+
+
+
+
+
+
+
+
+
 
 
 
@@ -442,7 +733,7 @@ class Encryptor:
             raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
         # seperate checksum
-        enc_byte , checksum = enc_byte.split(b":checksum:")
+        enc_byte , checksum = enc_byte.split(b":rsa_v2_checksum:")
 
         # split into chunks
         chunkList = enc_byte.split(b":~:~:")
@@ -465,6 +756,8 @@ class Encryptor:
             raise RuntimeError("decryption failed , checksum did not verify")
 
         return result
+
+
 
 
 
@@ -526,9 +819,25 @@ class Encryptor:
         encChecksum_string = encoderDecoders.HexConvertor.encode(encChecksum)
 
         # add checksum to result
-        result = result + ":checksum:" + encChecksum_string
+        result = result + ":rsa_v2_checksum:" + encChecksum_string
 
         return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -540,7 +849,7 @@ class Encryptor:
             raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
 
         # seperate checksum
-        enc_string , checksum = enc_string.split(":checksum:")
+        enc_string , checksum = enc_string.split(":rsa_v2_checksum:")
 
         # split into chunks
         chunkList = enc_string.split(":~:~:")
@@ -575,6 +884,27 @@ class Encryptor:
             raise RuntimeError("decryption failed , checksum did not verify")
 
         return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -919,6 +1249,18 @@ def __test_encryptor_string_yield():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 def __test_encryptor_string():
 
     print("generating key")
@@ -973,8 +1315,238 @@ def __test_encryptor_string():
 
 
 
+def __test_time_byte():
+
+    print("starting")
+
+    keyGenObj = KeyGenerator()
+
+    publicKey = keyGenObj.get_publicKey_bytes()
+    privateKey = keyGenObj.get_privateKey_string()
+
+    enc_obj = Encryptor(publicKey , privateKey)
+
+    n = 1024 * 1024 // 2
+    toenc = b"h" * n
+
+    start = time.perf_counter()
+
+    enc = enc_obj.encrypt_byte(toenc)
+    # dec = Encryptor.main_decrypt_byte(enc , key)
+
+    end = time.perf_counter()
+
+    print(len(enc))
+    # print(len(dec))
+
+    # print(toenc == dec)
 
 
+    print("time_taken = {} , to encrypt the size of {} MB".format(end - start , len(toenc) / 1024 / 1024))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  _                  _                       _                                              _         _  
+# | |_    ___   ___  | |_                    | |   __ _   _ __    __ _    ___         ___   | |__     (_) 
+# | __|  / _ \ / __| | __|       _____       | |  / _` | | '__|  / _` |  / _ \       / _ \  | '_ \    | | 
+# | |_  |  __/ \__ \ | |_       |_____|      | | | (_| | | |    | (_| | |  __/      | (_) | | |_) |   | | 
+#  \__|  \___| |___/  \__|                   |_|  \__,_| |_|     \__, |  \___|       \___/  |_.__/   _/ | 
+#                                                                |___/                              |__/  
+
+
+def __test_encrypt_lByte():
+
+    print("generating key")
+    keyGenObj = KeyGenerator()
+
+    privateKey_bytes = keyGenObj.get_privateKey_bytes()
+    privateKey_string = keyGenObj.get_privateKey_string()
+
+    publicKey_bytes = keyGenObj.get_publicKey_bytes()
+    publicKey_string = keyGenObj.get_publicKey_string()
+
+    print("making obj")
+    encObj = Encryptor(publicKey_bytes , privateKey_bytes)
+
+    # 64 Mb of data
+    myByte = b"h" * 1024 * 1024 * 64
+
+    print(f"encrypting byte of len = {len(myByte)}")
+
+
+    genObj = encObj.encrypt_lbyte_yield(myByte)
+
+    print()
+    while(True):
+        try:
+            currentCount , totalYield = next(genObj)
+            # print(currentCount , totalYield)
+            printProgressBar(currentCount, totalYield, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        except StopIteration as ex:
+            encryptedByte = ex.value
+            break
+    print()
+
+    print(f"encryptedByte len = {len(encryptedByte)}")
+
+    
+    genObj = encObj.decrypt_lbyte_yield(encryptedByte)
+
+    print()
+    while(True):
+        try:
+            currentCount , totalYield = next(genObj)
+            # print(currentCount , totalYield)
+            printProgressBar(currentCount, totalYield, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        except StopIteration as ex:
+            decryptedByte = ex.value
+            break
+    print()
+
+    print(f"decryptedByte len = {len(decryptedByte)}")
+
+    if(decryptedByte != myByte):
+        print("\nerror")
+    else:
+        print("\nok")
+
+
+    # test with string keys
+    print("making obj")
+    encObj = Encryptor(publicKey_string , privateKey_string)
+    
+    genObj = encObj.decrypt_lbyte_yield(encryptedByte)
+
+    print()
+    while(True):
+        try:
+            currentCount , totalYield = next(genObj)
+            # print(currentCount , totalYield)
+            printProgressBar(currentCount, totalYield, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        except StopIteration as ex:
+            decryptedByte = ex.value
+            break
+    print()
+
+    print(f"decryptedByte len = {len(decryptedByte)}")
+
+    if(decryptedByte != myByte):
+        print("\nerror")
+    else:
+        print("\nok")
+
+    print("done")
+    
+
+
+
+
+
+
+
+
+
+
+def __test_encryptor_lstring():
+
+    print("generating key")
+    keyGenObj = KeyGenerator()
+
+    privateKey_bytes = keyGenObj.get_privateKey_bytes()
+    privateKey_string = keyGenObj.get_privateKey_string()
+
+    publicKey_bytes = keyGenObj.get_publicKey_bytes()
+    publicKey_string = keyGenObj.get_publicKey_string()
+
+    print("making obj")
+    encObj = Encryptor(publicKey_bytes , privateKey_bytes)
+
+    # 48 mb of data
+    myString = "h" * 1024 * 1024 * 48
+
+    print(f"encrypting string of len = {len(myString)}")
+
+
+    genObj = encObj.encrypt_lstring_yield(myString)
+
+    print()
+    while(True):
+        try:
+            currentCount , totalYield = next(genObj)
+            # print(currentCount , totalYield)
+            printProgressBar(currentCount, totalYield, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        except StopIteration as ex:
+            encryptedString = ex.value
+            break
+    print()
+
+    print(f"encryptedString len = {len(encryptedString)}")
+
+    
+    genObj = encObj.decrypt_lstring_yield(encryptedString)
+
+    print()
+    while(True):
+        try:
+            currentCount , totalYield = next(genObj)
+            # print(currentCount , totalYield)
+            printProgressBar(currentCount, totalYield, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        except StopIteration as ex:
+            decryptedString = ex.value
+            break
+    print()
+
+    print(f"decryptedString len = {len(decryptedString)}")
+
+    if(decryptedString != myString):
+        print("\nerror")
+    else:
+        print("\nok")
+
+
+    
+    # testing with string key 
+    print("making obj")
+
+    encObj = Encryptor(publicKey_string , privateKey_string)
+    genObj = encObj.decrypt_lstring_yield(encryptedString)
+
+    print()
+    while(True):
+        try:
+            currentCount , totalYield = next(genObj)
+            # print(currentCount , totalYield)
+            printProgressBar(currentCount, totalYield, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        except StopIteration as ex:
+            decryptedString = ex.value
+            break
+    print()
+
+    print(f"decryptedString len = {len(decryptedString)}")
+
+    if(decryptedString != myString):
+        print("\nerror")
+    else:
+        print("\nok")
+
+    print("done")
 
 
 
@@ -985,6 +1557,9 @@ def __test_encryptor_string():
 
 if __name__ == "__main__":
     # __test_encryptor_byte_yield()
-    __test_encryptor_string_yield()
+    # __test_encryptor_string_yield()
     # __test_encryptor_byte()
     # __test_encryptor_string()
+    # __test_time_byte()
+    # __test_encrypt_lByte()
+    __test_encryptor_lstring()
