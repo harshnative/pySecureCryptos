@@ -9,7 +9,7 @@ import multiprocessing
 import os
 import time
 import encoderDecoders
-
+import hashers_v2 as hashers
 
 
 
@@ -108,6 +108,19 @@ class Encryptor:
 
 
 
+    
+    # method to encrypt a single chunk of data 
+    @classmethod
+    def __encrypt_byte_normal(cls , byte  , key):
+
+        # init fernet obj and encrypt data
+        fernetObj = Fernet(key)
+        encChunk = fernetObj.encrypt(byte)
+
+        # add result to shared memory
+        return encChunk
+
+
 
 
 
@@ -181,6 +194,13 @@ class Encryptor:
 
         result = result[:-5]
 
+        # generating checksum
+        checksum = hashers.SHA512(byte).get_byte()
+
+        encChecksum = cls.__encrypt_byte_normal(checksum , key)
+
+        result = result + b":checksum:"  + encChecksum
+
         return result
 
 
@@ -202,6 +222,15 @@ class Encryptor:
 
 
 
+    
+    # method to decrypt a single chunk of data 
+    @classmethod
+    def __decrypt_byte_normal(cls , enc_byte  , key):
+
+        # init fernet obj and decrypt data
+        fernetObj = Fernet(key)
+        decChunk = fernetObj.decrypt(enc_byte)
+        return decChunk
 
     
     # method to decrypt a large chunk of data
@@ -212,6 +241,8 @@ class Encryptor:
         # init shared var
         manager = multiprocessing.Manager()
         return_dict = manager.dict()
+
+        enc_byte , checksum = enc_byte.split(b":checksum:")
 
         # seperate chunks
         chunkList = enc_byte.split(b":~:~:")
@@ -238,6 +269,15 @@ class Encryptor:
             
             result = result + dec_chunk
 
+        
+        # checksum match
+        decChecksum = cls.__decrypt_byte_normal(checksum , key)
+
+        newChecksum = hashers.SHA512(result).get_byte()
+
+        if(newChecksum != decChecksum):
+            raise RuntimeError("decryption failed , checksum did not verify")
+
         return result
 
 
@@ -253,7 +293,7 @@ class Encryptor:
         # init fernet obj and encrypt data
         fernetObj = Fernet(key)
 
-        byteFromString = encoderDecoders.String2Byte.encode(string)
+        byteFromString = encoderDecoders.String2Byte_v2.encode(string)
         encChunk = fernetObj.encrypt(byteFromString)
         stringFromByte = encoderDecoders.HexConvertor.encode(encChunk)
 
@@ -263,7 +303,18 @@ class Encryptor:
 
 
 
+    # method to encrypt a single chunk of data 
+    @classmethod
+    def __encrypt_string_normal(cls , string  , key):
 
+        # init fernet obj and encrypt data
+        fernetObj = Fernet(key)
+
+        byteFromString = encoderDecoders.String2Byte_v2.encode(string)
+        encChunk = fernetObj.encrypt(byteFromString)
+        stringFromByte = encoderDecoders.HexConvertor.encode(encChunk)
+
+        return stringFromByte
 
 
 
@@ -272,8 +323,9 @@ class Encryptor:
     # data will be encrypted using multiprocessing
     # key should be get from Keys.getKey(password) method
     # chunk size in MB , default is 8 MB. This value depends on your processing power. More the processing power, larger the chunk size should be
+    # if the string as some chars which are outside the scope of utf-8 then , then use comp = True , it increases compatibility
     @classmethod
-    def main_encrypt_string(cls , string , key , chunkSize = 1):
+    def main_encrypt_string(cls , string , key , chunkSize = 4):
 
         if(type(string) != str):
             raise TypeError(f"string parameter expected to be {str} , instead got {type(string)}")
@@ -284,6 +336,8 @@ class Encryptor:
         if(type(chunkSize) != int):
             raise TypeError(f"chunkSize parameter expected to be {int} , instead got {type(chunkSize)}")
 
+        if(chunkSize < 4):
+            raise ValueError("chunk size should be greator than 4")
 
 
         # init shared variable
@@ -335,6 +389,14 @@ class Encryptor:
 
         result = result[:-5]
 
+
+        # generating checksum
+        checksum = hashers.SHA512(encoderDecoders.String2Byte_v2.encode(string)).get_string()
+
+        encChecksum = cls.__encrypt_string_normal(checksum , key)
+
+        result = result + ":checksum:"  + encChecksum
+
         return result
 
 
@@ -351,13 +413,27 @@ class Encryptor:
 
         byteFromString = encoderDecoders.HexConvertor.decode(enc_string)
         decChunk = fernetObj.decrypt(byteFromString)
-        stringFromByte = encoderDecoders.String2Byte.decode(decChunk)
+        stringFromByte = encoderDecoders.String2Byte_v2.decode(decChunk)
 
         # add result to shared memory
         returnDict[index] = stringFromByte
 
 
 
+
+
+    # method to decrypt a single chunk of data 
+    @classmethod
+    def __decrypt_string_normal(cls , enc_string  , key):
+
+        # init fernet obj and decrypt data
+        fernetObj = Fernet(key)
+
+        byteFromString = encoderDecoders.HexConvertor.decode(enc_string)
+        decChunk = fernetObj.decrypt(byteFromString)
+        stringFromByte = encoderDecoders.String2Byte_v2.decode(decChunk)
+
+        return stringFromByte
 
 
     
@@ -369,6 +445,8 @@ class Encryptor:
         # init shared var
         manager = multiprocessing.Manager()
         return_dict = manager.dict()
+
+        enc_string , checksum = enc_string.split(":checksum:")
 
         # seperate chunks
         chunkList = enc_string.split(":~:~:")
@@ -395,11 +473,171 @@ class Encryptor:
             
             result = result + dec_chunk
 
+        # checksum match
+        decChecksum = cls.__decrypt_string_normal(checksum , key)
+
+        newChecksum = hashers.SHA512(encoderDecoders.String2Byte_v2.encode(result)).get_string()
+
+        if(newChecksum != decChecksum):
+            raise RuntimeError("decryption failed , checksum did not verify")
+
         return result
 
 
 
 
+    # function to read a file in chunks
+    @classmethod
+    def __read_in_chunks(cls , file_object, chunk_size=4096):
+        """Lazy function (generator) to read a file piece by piece.
+        Default chunk size: 1k."""
+        while True:
+            data = file_object.read(chunk_size)
+            if not data:
+                break
+            yield data
+
+
+
+    # function to read a file in sepearte lines
+    @classmethod
+    def __read_in_lines(cls , file_object):
+        while True:
+            line = file_object.readline()
+        
+            # if line is empty
+            # end of file is reached
+            if not line:
+                break
+            yield line
+
+
+    # method to encrypt a large bytes file
+    @classmethod
+    def encrypt_bfile(cls , filepath , destinationPath , key):
+
+        if(type(filepath) != str):
+            raise TypeError(f"filename parameter expected to be {str} type instead got {type(filepath)} type.")
+
+        if(type(destinationPath) != str):
+            raise TypeError(f"destinationPath parameter expected to be {str} type instead got {type(destinationPath)} type.")
+
+        if(type(key) != bytes):
+            raise TypeError(f"key parameter expected to be {bytes} type instead got {type(key)} type.")
+
+        cpuCount = os.cpu_count()
+
+        # chunkSize in bytes
+        chunkSize = 8 * cpuCount * 1024 * 1024
+
+        # check if file path is correct
+        fileCorrect = os.path.isfile(filepath)
+
+        if(not(fileCorrect)):
+            raise FileNotFoundError("no file was found at the path specified")
+
+        # seperate file name and file path
+        head, tail = os.path.split(filepath)
+
+        destinationCorrect = os.path.isdir(destinationPath)
+
+        if(not(destinationCorrect)):
+            raise ("no dir was found at the path specified")
+
+        # add name to dest path
+        destinationPath = destinationPath + tail + ".enc"
+
+        # get file size to calculate total yield
+        fileSize = os.stat(filepath).st_size
+
+        currentCount = 0
+        totalYield = (fileSize // chunkSize) + 1
+
+        # open file
+        with open(filepath , "rb") as fil , open(destinationPath , "wb") as fil2:
+            for data in cls.__read_in_chunks(fil , chunkSize):
+
+                # encrypt data chunk
+                enc_data = cls.main_encrypt_byte(data , key)
+
+                # write encrypted chunk to disk
+                fil2.write(enc_data)
+                fil2.write(b"\n")
+
+                yield currentCount , totalYield
+                currentCount = currentCount + 1
+
+
+        # complete yield if not completed
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+
+
+
+
+
+    # method to decrypt a large bytes file
+    @classmethod
+    def decrypt_bfile(cls , filepath , destinationPath , key):
+
+        # function to yield number of lines
+        def _count_generator(reader):
+            b = reader(1024 * 1024 * 16)
+            while b:
+                yield b
+                b = reader(1024 * 1024 * 16)
+
+        if(type(filepath) != str):
+            raise TypeError(f"filename parameter expected to be {str} type instead got {type(filepath)} type.")
+
+        if(type(destinationPath) != str):
+            raise TypeError(f"destinationPath parameter expected to be {str} type instead got {type(destinationPath)} type.")
+
+        if(type(key) != bytes):
+            raise TypeError(f"key parameter expected to be {bytes} type instead got {type(key)} type.")
+
+        # check if file path is correct
+        fileCorrect = os.path.isfile(filepath)
+
+        if(not(fileCorrect)):
+            raise FileNotFoundError("no file was found at the path specified")
+
+        # seperate file name and file path
+        head, tail = os.path.split(filepath)
+
+        destinationCorrect = os.path.isdir(destinationPath)
+
+        if(not(destinationCorrect)):
+            raise ("no dir was found at the path specified")
+
+        # add name to dest path without .enc extension
+        destinationPath = destinationPath + tail[:-4]
+
+        currentCount = 0
+
+        # calculate number of lines in a file 
+        with open(filepath, 'rb') as fp:
+            c_generator = _count_generator(fp.raw.read)
+            totalYield = sum(buffer.count(b'\n') for buffer in c_generator) + 1
+
+
+        # open file
+        with open(filepath , "rb") as fil , open(destinationPath , "wb") as fil2:
+            for data in cls.__read_in_lines(fil):
+
+                # decrypt data chunk
+                dec_data = cls.main_decrypt_byte(data , key)
+
+                # write decrypted chunk to disk
+                fil2.write(dec_data)
+
+                yield currentCount , totalYield
+                currentCount = currentCount + 1
+
+
+        # complete yield if not completed
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
 
 
 
@@ -415,6 +653,18 @@ class Encryptor:
 
 
 
+
+
+
+
+
+
+#  _                  _                       _               _                 
+# | |_    ___   ___  | |_                    | |__    _   _  | |_    ___   ___  
+# | __|  / _ \ / __| | __|       _____       | '_ \  | | | | | __|  / _ \ / __| 
+# | |_  |  __/ \__ \ | |_       |_____|      | |_) | | |_| | | |_  |  __/ \__ \ 
+#  \__|  \___| |___/  \__|                   |_.__/   \__, |  \__|  \___| |___/ 
+#                                                     |___/                     
 
 
 def __test_byte_main():
@@ -423,7 +673,8 @@ def __test_byte_main():
 
     key = Keys.getKey("hello")
 
-    toenc = b"h" * (1024 * 1024 * 24)
+    n = 1024 * 1024 * 24
+    toenc = b"h" * n
 
     start = time.perf_counter()
 
@@ -446,6 +697,45 @@ def __test_byte_main():
 
 
 
+def __test_byte_file():
+
+    print("starting")
+
+    key = Keys.getKey("hello")
+
+    fileName = "testVideo.mp4"
+
+    filePath = f"/media/veracrypt64/Projects/pyModules/pySecureCryptos/tests/binaryTestMatrial/{fileName}"
+    destPath = "/media/veracrypt64/Projects/pyModules/pySecureCryptos/tests/binaryTestMatrial/"
+    
+    filePath2 = f"/media/veracrypt64/Projects/pyModules/pySecureCryptos/tests/binaryTestMatrial/{fileName}.enc"
+    destPath2 = "/media/veracrypt64/Projects/pyModules/pySecureCryptos/tests/binaryTestMatrial/dec/"
+
+    start = time.perf_counter()
+
+    enc_obj = Encryptor.encrypt_bfile(filePath , destPath , key)
+
+    print()
+    for i in enc_obj:
+        print(f"\r{i}" , end = "")
+    print()
+
+    dec_obj = Encryptor.decrypt_bfile(filePath2 , destPath2 , key)
+
+    print()
+    for i in dec_obj:
+        print(f"\r{i}" , end = "")
+    print()
+
+    end = time.perf_counter()
+
+    # print(len(enc))
+    # print(len(dec))
+
+    # print(toenc == dec)
+
+
+    print("time_taken = {} , to encrypt the size of {} MB".format(end - start , os.stat(filePath).st_size / 1024 / 1024))
 
 
 
@@ -456,6 +746,21 @@ def __test_byte_main():
 
 
 
+
+
+
+
+
+
+
+
+
+#  _                  _                _            _                  
+# | |_    ___   ___  | |_        ___  | |_   _ __  (_)  _ __     __ _  
+# | __|  / _ \ / __| | __|      / __| | __| | '__| | | | '_ \   / _` | 
+# | |_  |  __/ \__ \ | |_       \__ \ | |_  | |    | | | | | | | (_| | 
+#  \__|  \___| |___/  \__|      |___/  \__| |_|    |_| |_| |_|  \__, | 
+#                                                               |___/  
 
 
 def __test_string_main():
@@ -464,7 +769,7 @@ def __test_string_main():
 
     key = Keys.getKey("hello")
 
-    toenc = "h" * (1024 * 1024 * 4)
+    toenc = 'h' * (1024 * 1024 * 16)
 
     start = time.perf_counter()
 
@@ -488,6 +793,19 @@ def __test_string_main():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
-    __test_string_main()
+    # __test_string_main()
+    # __test_byte_main()
+    __test_byte_file()
     pass
