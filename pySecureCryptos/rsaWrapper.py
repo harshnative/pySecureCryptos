@@ -1561,5 +1561,5 @@ if __name__ == "__main__":
     # __test_encryptor_byte()
     # __test_encryptor_string()
     # __test_time_byte()
-    # __test_encrypt_lByte()
-    __test_encryptor_lstring()
+    __test_encrypt_lByte()
+    # __test_encryptor_lstring()
