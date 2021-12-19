@@ -1,7 +1,8 @@
 import random
 import string
 import time
-
+import secrets
+import encoderDecoders
 
 
 
@@ -45,6 +46,18 @@ class RandomString:
         return randomString
 
 
+    
+
+    @classmethod
+    def generate_secrets(cls , size = 256):
+        
+        randomByte = secrets.token_bytes(size)
+
+        stringFromByte = encoderDecoders.HexConvertor.encode(randomByte)
+
+        return stringFromByte
+
+
 
 
 
@@ -58,8 +71,17 @@ def __test_randomString():
 
 
 
+def __test_randomString2():
+
+    randomString = RandomString.generate_secrets()
+
+    print(f"randomString = {randomString}")
+
+
+
+
 
 
 
 if __name__ == "__main__":
-    __test_randomString()
+    __test_randomString2()
