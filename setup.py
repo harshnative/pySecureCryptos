@@ -21,7 +21,7 @@ setuptools.setup(
     ],
 
     install_requires=[
-   'pip install cryptography==35.0.0',
+   'cryptography==35.0.0',
    'onetimepad==1.4',
    'pycryptodomex==3.11.0'
     ],
