@@ -192,8 +192,8 @@ class Encryptor:
             raise RuntimeError("decryption failed , checksum did not verify")
 
         # complete the yield progress
-        yield totalYield , totalYield
-
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
         return result
 
 
@@ -352,8 +352,8 @@ class Encryptor:
             raise RuntimeError("decryption failed , checksum did not verify")
 
         # complete yield progress
-        yield totalYield , totalYield
-
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
         return result
 
 
