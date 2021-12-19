@@ -108,6 +108,29 @@ Fastester version of Verifier Fernet Wrapper.
 
 
 
+11. [Verifier Fernet Wrapper version 2.2 - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pSC_V_fernetWrapper_v2_2#/)
+
+Fastester version of Verifier Fernet Wrapper but with less compatability across.
+
+<br>
+<br>
+
+
+
+12. [Hashers 2.2 - Securely verify documents and passwords](https://www.letscodeofficial.com/documentations/pSC_hashers_v2#/)
+
+contains modified SHA256 , SHA384 , SHA512 algo's. Much faster than hashers version 1 but is comparitively less secure.
+
+<br>
+<br>
+
+
+13. [Verifier Fernet Wrapper version 3 - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pSC_V_fernetWrapper_v3#/)
+
+Fastest version of Verifier Fernet Wrapper making use of multiple cores of CPU.
+
+<br>
+<br>
 <br>
 <br>
 <br>
