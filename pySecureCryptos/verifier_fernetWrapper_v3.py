@@ -125,6 +125,18 @@ class Encryptor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     # method to encrypt a large chunk of data
     # data will be encrypted using multiprocessing
     # key should be get from Keys.getKey(password) method
@@ -205,6 +217,17 @@ class Encryptor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     # method to decrypt a single chunk of data 
     # return dict is the shared variable in multiprocessing
     @classmethod
@@ -229,6 +252,27 @@ class Encryptor:
         fernetObj = Fernet(key)
         decChunk = fernetObj.decrypt(enc_byte)
         return decChunk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
     # method to decrypt a large chunk of data
@@ -283,6 +327,21 @@ class Encryptor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # method to encrypt a single chunk of data 
     # return dict is the shared variable in multiprocessing
     @classmethod
@@ -313,6 +372,34 @@ class Encryptor:
         stringFromByte = encoderDecoders.HexConvertor.encode(encChunk)
 
         return stringFromByte
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -401,6 +488,30 @@ class Encryptor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # method to decrypt a single chunk of data 
     # return dict is the shared variable in multiprocessing
     @classmethod
@@ -432,6 +543,29 @@ class Encryptor:
         stringFromByte = encoderDecoders.String2Byte_v2.decode(decChunk)
 
         return stringFromByte
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     
@@ -484,6 +618,33 @@ class Encryptor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # function to read a file in chunks
     @classmethod
     def __read_in_chunks(cls , file_object, chunk_size=4096):
@@ -508,6 +669,37 @@ class Encryptor:
             if not line:
                 break
             yield line
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     # method to encrypt a large bytes file
@@ -569,6 +761,36 @@ class Encryptor:
         # complete yield if not completed
         if(currentCount <= totalYield):
             yield totalYield , totalYield
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -639,6 +861,38 @@ class Encryptor:
 
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # method to encrypt a large bytes file
     @classmethod
     def encrypt_tfile(cls , filepath , destinationPath , key):
@@ -698,6 +952,33 @@ class Encryptor:
         # complete yield if not completed
         if(currentCount <= totalYield):
             yield totalYield , totalYield
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -786,6 +1067,19 @@ class Encryptor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 #  _                  _                       _               _                 
 # | |_    ___   ___  | |_                    | |__    _   _  | |_    ___   ___  
 # | __|  / _ \ / __| | __|       _____       | '_ \  | | | | | __|  / _ \ / __| 
@@ -821,6 +1115,41 @@ def __test_byte_main():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  _                  _                        __   _   _         
+# | |_    ___   ___  | |_                     / _| (_) | |   ___  
+# | __|  / _ \ / __| | __|       _____       | |_  | | | |  / _ \ 
+# | |_  |  __/ \__ \ | |_       |_____|      |  _| | | | | |  __/ 
+#  \__|  \___| |___/  \__|                   |_|   |_| |_|  \___| 
+                                                                
 
 
 
@@ -898,6 +1227,15 @@ def __test_string_file():
 
 
     print("time_taken = {} , to encrypt the size of {} MB".format(end - start , os.stat(filePath).st_size / 1024 / 1024))
+
+
+
+
+
+
+
+
+
 
 
 

@@ -79,8 +79,8 @@ from pySecureCryptos import verifier_fernetWrapper_v2_2 as FW
 
 # Methods - 
 
-1. Encrypt and Decrypt strings
-2. Encrypt and Decrypt bytes
+1. Encrypt and Decrypt bytes
+2. Encrypt and Decrypt string
 
 
 <br>
