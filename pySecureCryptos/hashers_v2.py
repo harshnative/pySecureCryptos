@@ -54,7 +54,7 @@ class SHA256:
         finalHash = self.sha256_hash.hexdigest()
 
         # return
-        if(currentCount < totalYield):
+        if(currentCount <= totalYield):
             yield totalYield , totalYield
         return finalHash
 
@@ -81,7 +81,7 @@ class SHA256:
         finalHash = self.sha256_hash.digest()
 
         # return
-        if(currentCount < totalYield):
+        if(currentCount <= totalYield):
             yield totalYield , totalYield
         return finalHash
 
@@ -199,7 +199,7 @@ class SHA384:
         finalHash = self.sha384_hash.hexdigest()
 
         # return
-        if(currentCount < totalYield):
+        if(currentCount <= totalYield):
             yield totalYield , totalYield
         return finalHash
 
@@ -226,7 +226,7 @@ class SHA384:
         finalHash = self.sha384_hash.digest()
 
         # return
-        if(currentCount < totalYield):
+        if(currentCount <= totalYield):
             yield totalYield , totalYield
         return finalHash
 
@@ -359,7 +359,7 @@ class SHA512:
         finalHash = self.sha512_hash.hexdigest()
 
         # return
-        if(currentCount < totalYield):
+        if(currentCount <= totalYield):
             yield totalYield , totalYield
         return finalHash
 
@@ -386,7 +386,7 @@ class SHA512:
         finalHash = self.sha512_hash.digest()
 
         # return
-        if(currentCount < totalYield):
+        if(currentCount <= totalYield):
             yield totalYield , totalYield
         return finalHash
 
@@ -792,5 +792,6 @@ def __test_sha512_2():
 
 
 if __name__ == "__main__":
-    __test_sha512_yield2()
+    # __test_sha512_yield2()
     # __test_sha512_2()
+    __test_sha512_yield2()
