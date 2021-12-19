@@ -197,7 +197,7 @@ class Encryptor:
 
         encChecksum = cls.__encrypt_byte_normal(checksum , key)
 
-        result = result + b":checksum:"  + encChecksum
+        result = result + b":vfw_v3_checksum:"  + encChecksum
 
         return result
 
@@ -240,7 +240,7 @@ class Encryptor:
         manager = multiprocessing.Manager()
         return_dict = manager.dict()
 
-        enc_byte , checksum = enc_byte.split(b":checksum:")
+        enc_byte , checksum = enc_byte.split(b":vfw_v3_checksum:")
 
         # seperate chunks
         chunkList = enc_byte.split(b":~:~:")
@@ -359,7 +359,7 @@ class Encryptor:
 
         # if the number os chunks exceed 128 , then abort the process as processing large number of chunks at onces may lead to memory overflow
         if(len_chunkList > 128):
-            raise MemoryError("Length of the byte object passed is too long")
+            raise MemoryError("Length of the string object passed is too long")
 
 
         # encrypt each chunk using multi processing
@@ -393,7 +393,7 @@ class Encryptor:
 
         encChecksum = cls.__encrypt_string_normal(checksum , key)
 
-        result = result + ":checksum:"  + encChecksum
+        result = result + ":vfw_v3_checksum:"  + encChecksum
 
         return result
 
@@ -444,7 +444,7 @@ class Encryptor:
         manager = multiprocessing.Manager()
         return_dict = manager.dict()
 
-        enc_string , checksum = enc_string.split(":checksum:")
+        enc_string , checksum = enc_string.split(":vfw_v3_checksum:")
 
         # seperate chunks
         chunkList = enc_string.split(":~:~:")
