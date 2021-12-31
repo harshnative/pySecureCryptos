@@ -3,13 +3,11 @@ from pySecureCryptos import encoderDecoders
 import random
 import repeatTimes            
 
-            
 
 
 
-# function to test String2Byte encode decode
-@pytest.mark.repeat(repeatTimes.RepeatTime.value)
-def test_main():
+# function to generate a random string
+def getRandomString():
     ascii_upperLimit = 126   
     ascii_lowerLimit = 20
 
@@ -21,7 +19,19 @@ def test_main():
         randomChar = chr(random.randint(ascii_lowerLimit , ascii_upperLimit))
         randomStr = randomStr + randomChar
 
-    string = randomStr
+    return randomStr
+
+
+
+
+
+
+# function to test String2Byte encode decode
+@pytest.mark.repeat(repeatTimes.RepeatTime.value)
+def test_main():
+    
+
+    string = getRandomString()
 
     byteFromString = encoderDecoders.String2Byte.encode(string)
 

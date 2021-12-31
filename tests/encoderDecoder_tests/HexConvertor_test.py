@@ -4,6 +4,20 @@ import random
 import secrets
 import repeatTimes            
 
+
+
+
+# function to generate a random byte
+def getRandomByte():
+    minByteLen = 1
+    maxByteLen = 1000
+
+    byte = secrets.token_bytes(random.randint(minByteLen , maxByteLen))
+
+    return byte
+
+
+
             
 
 
@@ -12,10 +26,8 @@ import repeatTimes
 @pytest.mark.repeat(repeatTimes.RepeatTime.value)
 def test_main():
 
-    minByteLen = 1
-    maxByteLen = 1000
 
-    byte = secrets.token_bytes(random.randint(minByteLen , maxByteLen))
+    byte = getRandomByte()
 
     stringFromByte = encoderDecoders.HexConvertor.encode(byte)
 

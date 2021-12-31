@@ -1,12 +1,11 @@
 import pytest
 from pySecureCryptos import encoderDecoders
 import random
-import repeatTimes            
+import repeatTimes     
 
 
-# function to test Byte2String_v2 encode decode
-@pytest.mark.repeat(repeatTimes.RepeatTime.value)
-def test_main():
+# function to generate a random byte
+def getRandomByte():
     ascii_upperLimit = 126   
     ascii_lowerLimit = 20
 
@@ -19,6 +18,18 @@ def test_main():
         randomStr = randomStr + randomChar
 
     byte = bytes(randomStr , "utf-8")
+
+    return byte
+
+
+
+
+
+# function to test Byte2String_v2 encode decode
+@pytest.mark.repeat(repeatTimes.RepeatTime.value)
+def test_main():
+
+    byte = getRandomByte()
 
     stringFromByte = encoderDecoders.Byte2String_v2.encode(byte)
 
