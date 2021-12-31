@@ -9,9 +9,9 @@ def main():
     minStringLen = 1
     maxStringLen = 1000
 
-    fileName = "randomStrings.txt"
+    fileName = "randomBytes_utf.bin"
 
-    with open(fileName , "w") as file:
+    with open(fileName , "wb") as file:
         for i in range(noOfStrings):
             print(i)
             randomStr = ""
@@ -19,8 +19,10 @@ def main():
                 randomChar = chr(random.randint(ascii_lowerLimit , ascii_upperLimit))
                 randomStr = randomStr + randomChar
 
-            file.write(randomStr)
-            file.write("~:~:~")
+            randomByte = bytes(randomStr , "utf-8")
+
+            file.write(randomByte)
+            file.write(b"~:~:~")
 
         
     print(f"Exported to {fileName}")
