@@ -1,26 +1,19 @@
 import pytest
 from pySecureCryptos import encoderDecoders
-
-# function to get random bytes from file
-def getByteList():
-    fileName = "randomBytes.bin"
-
-    with open(fileName , "rb") as file:
-        data = file.read()
-
-        data = data.split(b"~:~:~")
-
-        data = data[:-1]
-
-    return data
-            
-
+import random
+import secrets
+import repeatTimes            
 
 
 
 # function to test Byte2String_yield encode with Byte2String decode
-@pytest.mark.parametrize("byte" , getByteList())
-def test_main(byte):
+@pytest.mark.repeat(repeatTimes.RepeatTime.value)
+def test_main():
+
+    minByteLen = 1
+    maxByteLen = 1000
+
+    byte = secrets.token_bytes(random.randint(minByteLen , maxByteLen))
     genObj = encoderDecoders.Byte2String_yield.encode(byte)
 
     while(True):
@@ -37,5 +30,5 @@ def test_main(byte):
 
 
 if __name__ == "__main__":
-    getByteList()
+    pass
 

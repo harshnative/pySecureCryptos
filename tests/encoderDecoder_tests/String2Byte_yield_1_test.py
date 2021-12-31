@@ -1,23 +1,28 @@
 import pytest
 from pySecureCryptos import encoderDecoders
+import random
+import repeatTimes            
 
-# function to get random bytes from file
-def getStringList():
-    fileName = "randomStrings.txt"
-
-    with open(fileName , "r") as file:
-        data = file.read()
-        data = data.split("~:~:~")
-        data = data[:-1]
-
-    return data
             
 
 
 
 # function to test String2Byte_yield encode with String2Byte decode
-@pytest.mark.parametrize("string" , getStringList())
-def test_main(string):
+@pytest.mark.repeat(repeatTimes.RepeatTime.value)
+def test_main():
+    ascii_upperLimit = 126   
+    ascii_lowerLimit = 20
+
+    minStringLen = 1
+    maxStringLen = 1000
+
+    randomStr = ""
+    for _ in range(random.randint(minStringLen , maxStringLen)):
+        randomChar = chr(random.randint(ascii_lowerLimit , ascii_upperLimit))
+        randomStr = randomStr + randomChar
+
+    string = randomStr
+
     gen = encoderDecoders.String2Byte_yield.encode(string)
 
     while(True):
@@ -36,5 +41,5 @@ def test_main(string):
 
 
 if __name__ == "__main__":
-    print(getStringList())
+    pass
 

@@ -1,23 +1,23 @@
 import pytest
 from pySecureCryptos import encoderDecoders
+import random
+import secrets
+import repeatTimes            
 
-# function to get random bytes from file
-def getByteList():
-    fileName = "randomBytes.bin"
 
-    with open(fileName , "rb") as file:
-        data = file.read()
-        data = data.split(b"~:~:~")
-        data = data[:-1]
-
-    return data
             
 
 
 
 # function to test HexConvertor yield encode with HexConvertor decode
-@pytest.mark.parametrize("byte" , getByteList())
-def test_main(byte):
+@pytest.mark.repeat(repeatTimes.RepeatTime.value)
+def test_main():
+
+    minByteLen = 1
+    maxByteLen = 1000
+
+    byte = secrets.token_bytes(random.randint(minByteLen , maxByteLen))
+
     genObj = encoderDecoders.HexConvertor.encode_yield(byte)
 
     while(True):
@@ -36,5 +36,5 @@ def test_main(byte):
 
 
 if __name__ == "__main__":
-    getByteList()
+    pass
 

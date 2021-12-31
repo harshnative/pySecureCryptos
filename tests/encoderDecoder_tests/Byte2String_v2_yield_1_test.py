@@ -3,11 +3,10 @@ from pySecureCryptos import encoderDecoders
 import random
 import repeatTimes            
 
-            
 
 
 
-# function to test String2Byte encode decode
+# function to test Byte2String_v2 yield encode with Byte2String_v2 decode
 @pytest.mark.repeat(repeatTimes.RepeatTime.value)
 def test_main():
     ascii_upperLimit = 126   
@@ -21,13 +20,20 @@ def test_main():
         randomChar = chr(random.randint(ascii_lowerLimit , ascii_upperLimit))
         randomStr = randomStr + randomChar
 
-    string = randomStr
+    byte = bytes(randomStr , "utf-8")
 
-    byteFromString = encoderDecoders.String2Byte.encode(string)
+    genObj = encoderDecoders.Byte2String_v2.encode_yield(byte)
 
-    stringAgain = encoderDecoders.String2Byte.decode(byteFromString)
+    while(True):
+        try:
+            next(genObj)
+        except StopIteration as ex:
+            stringFromByte = ex.value
+            break
 
-    assert string == stringAgain , "decoded string does not match the original string"
+    byteAgain = encoderDecoders.Byte2String_v2.decode(stringFromByte)
+
+    assert byte == byteAgain , "decoded byte does not match the original byte"
 
 
 
