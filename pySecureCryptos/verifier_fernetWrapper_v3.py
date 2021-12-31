@@ -6,8 +6,8 @@ import base64
 import multiprocessing
 import os
 import time
-import encoderDecoders
-import hashers_v2 as hashers
+from .encoderDecoders import *
+from .hashers_v2 import *
 
 
 
@@ -205,7 +205,7 @@ class Encryptor:
         result = result[:-5]
 
         # generating checksum
-        checksum = hashers.SHA512(byte).get_byte()
+        checksum = SHA512(byte).get_byte()
 
         encChecksum = cls.__encrypt_byte_normal(checksum , key)
 
@@ -315,7 +315,7 @@ class Encryptor:
         # checksum match
         decChecksum = cls.__decrypt_byte_normal(checksum , key)
 
-        newChecksum = hashers.SHA512(result).get_byte()
+        newChecksum = SHA512(result).get_byte()
 
         if(newChecksum != decChecksum):
             raise RuntimeError("decryption failed , checksum did not verify")
@@ -350,9 +350,9 @@ class Encryptor:
         # init fernet obj and encrypt data
         fernetObj = Fernet(key)
 
-        byteFromString = encoderDecoders.String2Byte_v2.encode(string)
+        byteFromString = String2Byte_v2.encode(string)
         encChunk = fernetObj.encrypt(byteFromString)
-        stringFromByte = encoderDecoders.HexConvertor.encode(encChunk)
+        stringFromByte = HexConvertor.encode(encChunk)
 
         # add result to shared memory
         returnDict[index] = stringFromByte
@@ -367,9 +367,9 @@ class Encryptor:
         # init fernet obj and encrypt data
         fernetObj = Fernet(key)
 
-        byteFromString = encoderDecoders.String2Byte_v2.encode(string)
+        byteFromString = String2Byte_v2.encode(string)
         encChunk = fernetObj.encrypt(byteFromString)
-        stringFromByte = encoderDecoders.HexConvertor.encode(encChunk)
+        stringFromByte = HexConvertor.encode(encChunk)
 
         return stringFromByte
 
@@ -476,7 +476,7 @@ class Encryptor:
 
 
         # generating checksum
-        checksum = hashers.SHA512(encoderDecoders.String2Byte_v2.encode(string)).get_string()
+        checksum = SHA512(String2Byte_v2.encode(string)).get_string()
 
         encChecksum = cls.__encrypt_string_normal(checksum , key)
 
@@ -520,9 +520,9 @@ class Encryptor:
         # init fernet obj and decrypt data
         fernetObj = Fernet(key)
 
-        byteFromString = encoderDecoders.HexConvertor.decode(enc_string)
+        byteFromString = HexConvertor.decode(enc_string)
         decChunk = fernetObj.decrypt(byteFromString)
-        stringFromByte = encoderDecoders.String2Byte_v2.decode(decChunk)
+        stringFromByte = String2Byte_v2.decode(decChunk)
 
         # add result to shared memory
         returnDict[index] = stringFromByte
@@ -538,9 +538,9 @@ class Encryptor:
         # init fernet obj and decrypt data
         fernetObj = Fernet(key)
 
-        byteFromString = encoderDecoders.HexConvertor.decode(enc_string)
+        byteFromString = HexConvertor.decode(enc_string)
         decChunk = fernetObj.decrypt(byteFromString)
-        stringFromByte = encoderDecoders.String2Byte_v2.decode(decChunk)
+        stringFromByte = String2Byte_v2.decode(decChunk)
 
         return stringFromByte
 
@@ -608,7 +608,7 @@ class Encryptor:
         # checksum match
         decChecksum = cls.__decrypt_string_normal(checksum , key)
 
-        newChecksum = hashers.SHA512(encoderDecoders.String2Byte_v2.encode(result)).get_string()
+        newChecksum = SHA512(String2Byte_v2.encode(result)).get_string()
 
         if(newChecksum != decChecksum):
             raise RuntimeError("decryption failed , checksum did not verify")

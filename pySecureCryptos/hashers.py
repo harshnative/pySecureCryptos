@@ -1,5 +1,5 @@
 import hashlib
-from shuffler import Shuffler
+from .shuffler import Shuffler
 
 
 

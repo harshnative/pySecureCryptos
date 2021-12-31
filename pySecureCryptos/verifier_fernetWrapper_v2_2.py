@@ -1,8 +1,8 @@
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-import encoderDecoders
-import hashers_v2 as hashers
+from .encoderDecoders import *
+from .hashers_v2 import *
 import base64
 import hashlib
 
@@ -115,7 +115,7 @@ class Encryptor:
         result = result[:-5]
 
         # get checksum
-        genObj = hashers.SHA256(byte).get_byte_yield()
+        genObj = SHA256(byte).get_byte_yield()
 
         while(True):
             try:
@@ -175,7 +175,7 @@ class Encryptor:
 
 
         # get checksum of decrypted byte
-        genObj = hashers.SHA256(result).get_byte_yield()
+        genObj = SHA256(result).get_byte_yield()
 
         while(True):
             try:
@@ -247,13 +247,13 @@ class Encryptor:
         for i in chunkList:
 
             # convert the string chunk to bytes to encrypt
-            i_byte = encoderDecoders.String2Byte_v2.encode(i)
+            i_byte = String2Byte_v2.encode(i)
 
             # encrypt chunk
             encChunk = self.fernetObj.encrypt(i_byte)
 
             # convertor encrypted chunk to bytes again
-            encChunk_string = encoderDecoders.HexConvertor.encode(encChunk)
+            encChunk_string = HexConvertor.encode(encChunk)
 
             result = result + encChunk_string + ":~:~:"
             byteFromString = byteFromString + i_byte
@@ -264,7 +264,7 @@ class Encryptor:
         result = result[:-5]
 
         # get checksum
-        genObj = hashers.SHA256(byteFromString).get_byte_yield()
+        genObj = SHA256(byteFromString).get_byte_yield()
 
         while(True):
             try:
@@ -280,7 +280,7 @@ class Encryptor:
         # encrypt checksum
         encChecksum = self.fernetObj.encrypt(checksum)
 
-        encChecksum_string = encoderDecoders.HexConvertor.encode(encChecksum)
+        encChecksum_string = HexConvertor.encode(encChecksum)
 
         # add checksum to result
         result = result + ":checksum:" + encChecksum_string
@@ -320,11 +320,11 @@ class Encryptor:
         for i in chunkList:
             
             # convert string chunk to byte
-            chunk_byte = encoderDecoders.HexConvertor.decode(i)
+            chunk_byte = HexConvertor.decode(i)
             dec_chunk = self.fernetObj.decrypt(chunk_byte)
 
             # convert decrypted chunk back to string
-            dec_chunk_string = encoderDecoders.String2Byte_v2.decode(dec_chunk)
+            dec_chunk_string = String2Byte_v2.decode(dec_chunk)
 
             result = result + dec_chunk_string
             byteFromString = byteFromString + dec_chunk
@@ -334,7 +334,7 @@ class Encryptor:
 
 
         # get checksum of decrypted byte
-        genObj = hashers.SHA256(byteFromString).get_byte_yield()
+        genObj = SHA256(byteFromString).get_byte_yield()
 
         while(True):
             try:
@@ -348,7 +348,7 @@ class Encryptor:
                 break
         
         # original checksum to byte
-        checksum = encoderDecoders.HexConvertor.decode(checksum)
+        checksum = HexConvertor.decode(checksum)
 
         # decrypt original checksum
         dec_checksum = self.fernetObj.decrypt(checksum)
@@ -395,7 +395,7 @@ class Encryptor:
         result = result[:-5]
 
         # get checksum
-        checksum = hashers.SHA256(byte).get_byte()
+        checksum = SHA256(byte).get_byte()
         
         # encrypt checksum
         encChecksum = self.fernetObj.encrypt(checksum)
@@ -432,7 +432,7 @@ class Encryptor:
             result = result + dec_chunk
 
         # get checksum of decrypted byte
-        newChecksum = hashers.SHA256(result).get_byte()
+        newChecksum = SHA256(result).get_byte()
 
         # decrypt original checksum
         dec_checksum = self.fernetObj.decrypt(checksum)
@@ -481,13 +481,13 @@ class Encryptor:
         for i in chunkList:
 
             # convert the string chunk to bytes to encrypt
-            i_byte = encoderDecoders.String2Byte_v2.encode(i)
+            i_byte = String2Byte_v2.encode(i)
 
             # encrypt chunk
             encChunk = self.fernetObj.encrypt(i_byte)
 
             # convertor encrypted chunk to bytes again
-            encChunk_string = encoderDecoders.HexConvertor.encode(encChunk)
+            encChunk_string = HexConvertor.encode(encChunk)
 
             result = result + encChunk_string + ":~:~:"
             byteFromString = byteFromString + i_byte
@@ -495,12 +495,12 @@ class Encryptor:
         result = result[:-5]
 
         # get checksum
-        checksum = hashers.SHA256(byteFromString).get_byte()
+        checksum = SHA256(byteFromString).get_byte()
 
         # encrypt checksum
         encChecksum = self.fernetObj.encrypt(checksum)
 
-        encChecksum_string = encoderDecoders.HexConvertor.encode(encChecksum)
+        encChecksum_string = HexConvertor.encode(encChecksum)
 
         # add checksum to result
         result = result + ":checksum:" + encChecksum_string
@@ -529,20 +529,20 @@ class Encryptor:
         for i in chunkList:
             
             # convert string chunk to byte
-            chunk_byte = encoderDecoders.HexConvertor.decode(i)
+            chunk_byte = HexConvertor.decode(i)
             dec_chunk = self.fernetObj.decrypt(chunk_byte)
 
             # convert decrypted chunk back to string
-            dec_chunk_string = encoderDecoders.String2Byte_v2.decode(dec_chunk)
+            dec_chunk_string = String2Byte_v2.decode(dec_chunk)
 
             result = result + dec_chunk_string
             byteFromString = byteFromString + dec_chunk
 
         # get checksum of decrypted byte
-        newChecksum = hashers.SHA256(byteFromString).get_byte()
+        newChecksum = SHA256(byteFromString).get_byte()
         
         # original checksum to byte
-        checksum = encoderDecoders.HexConvertor.decode(checksum)
+        checksum = HexConvertor.decode(checksum)
 
         # decrypt original checksum
         dec_checksum = self.fernetObj.decrypt(checksum)

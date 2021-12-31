@@ -2,7 +2,7 @@ import random
 import string
 import time
 import secrets
-import encoderDecoders
+from .encoderDecoders import *
 
 
 
@@ -53,7 +53,7 @@ class RandomString:
         
         randomByte = secrets.token_bytes(size)
 
-        stringFromByte = encoderDecoders.HexConvertor.encode(randomByte)
+        stringFromByte = HexConvertor.encode(randomByte)
 
         return stringFromByte
 

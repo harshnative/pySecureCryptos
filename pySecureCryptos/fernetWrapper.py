@@ -1,7 +1,7 @@
 from multiprocessing import Value
-from shuffler import Shuffler
+from .shuffler import Shuffler
 import hashlib
-import encoderDecoders
+from .encoderDecoders import * 
 import base64
 import os
 from cryptography.fernet import Fernet
@@ -106,7 +106,7 @@ class StringEncryptor:
 
         # generator object of string 2 byte encoder
         # need to convert the string passed into byte to be able to encrypt by the fernet
-        genObj_s2b_encode = encoderDecoders.String2Byte_yield.encode(string)
+        genObj_s2b_encode = String2Byte_yield.encode(string)
 
         # yield the process variables and get the result
         while(True):
@@ -146,7 +146,7 @@ class StringEncryptor:
                 yield currentYield , totalYields
                 currentYield = currentYield + 1
 
-                genObj_b2s_encode = encoderDecoders.Byte2String_yield.encode(encrypted_byte)
+                genObj_b2s_encode = Byte2String_yield.encode(encrypted_byte)
 
                 while(True):
                     try:
@@ -209,7 +209,7 @@ class StringEncryptor:
         for i in chunkList:
             # generator object of byte 2 string decoder
             # need to convert back the string to byte - (byte to string was made in encryptor function)
-            genObj_b2s_encode = encoderDecoders.Byte2String_yield.decode(i)
+            genObj_b2s_encode = Byte2String_yield.decode(i)
 
             # yield the process variables and get the result
             while(True):
@@ -230,7 +230,7 @@ class StringEncryptor:
 
 
         # convert the byte object returned from fernet back to string
-        genObj_s2b_decode  = encoderDecoders.String2Byte_yield.decode(result)
+        genObj_s2b_decode  = String2Byte_yield.decode(result)
 
         while(True):
             try:
@@ -286,7 +286,7 @@ class StringEncryptor:
 
 
         # convert the byte object returned from fernet back to string
-        genObj_s2b_decode  = encoderDecoders.String2Byte_yield.decode(result)
+        genObj_s2b_decode  = String2Byte_yield.decode(result)
 
         while(True):
             try:
@@ -329,7 +329,7 @@ class StringEncryptor:
             raise ValueError("empty string passed")
 
         # need to convert the string passed into byte to be able to encrypt by the fernet
-        byteFromString = encoderDecoders.String2Byte.encode(string)
+        byteFromString = String2Byte.encode(string)
 
         len_byteFromString = len(byteFromString)
 
@@ -352,7 +352,7 @@ class StringEncryptor:
             for i in chunkList:
                 encrypted_byte = self.fernetObj.encrypt(i)
 
-                stringFromByte = encoderDecoders.Byte2String.encode(encrypted_byte)
+                stringFromByte = Byte2String.encode(encrypted_byte)
 
                 result = result + stringFromByte + ":~:~:"
         
@@ -387,14 +387,14 @@ class StringEncryptor:
         for i in chunkList:
             # generator object of byte 2 string decoder
             # need to convert back the string to byte - (byte to string was made in encryptor function)
-            encbyte_From_encString = encoderDecoders.Byte2String.decode(i)
+            encbyte_From_encString = Byte2String.decode(i)
 
             decrypted_byte = self.fernetObj.decrypt(encbyte_From_encString)
             result = result + decrypted_byte
 
 
         # convert the byte object returned from fernet back to string
-        stringFromByte  = encoderDecoders.String2Byte.decode(result)
+        stringFromByte  = String2Byte.decode(result)
 
 
         return stringFromByte
@@ -431,7 +431,7 @@ class StringEncryptor:
             result = result + decrypted_byte
 
         # convert the byte object returned from fernet back to string
-        stringFromByte  = encoderDecoders.String2Byte.decode(result)
+        stringFromByte  = String2Byte.decode(result)
 
 
         return stringFromByte

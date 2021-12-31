@@ -1,10 +1,11 @@
 import secrets
 from Cryptodome.PublicKey import RSA
 from Cryptodome.Cipher import PKCS1_v1_5 as Cipher_PKCS1_v1_5
-import encoderDecoders
+from .encoderDecoders import *
 import hashers
 import time
-import verifier_fernetWrapper_v3
+from .verifier_fernetWrapper_v3 import Keys as vfw_v3_keys
+from .verifier_fernetWrapper_v3 import Encryptor as vfw_v3_encryptor
 
 
 
@@ -42,7 +43,7 @@ class KeyGenerator:
     # return private key in strings
     def get_privateKey_string(self):
         private_key = self.key.export_key()
-        hexPrivateKey = encoderDecoders.HexConvertor.encode(private_key)
+        hexPrivateKey = HexConvertor.encode(private_key)
         return hexPrivateKey
 
     # return public key in bytes
@@ -53,7 +54,7 @@ class KeyGenerator:
     # return public key in strings
     def get_publicKey_string(self):
         public_key = self.key.public_key().export_key()
-        hexpublicKey = encoderDecoders.HexConvertor.encode(public_key)
+        hexpublicKey = HexConvertor.encode(public_key)
         return hexpublicKey
 
 
@@ -90,9 +91,9 @@ class Encryptor:
         
         # if the keys are in str format , convert them back to bytes
         if(type(publicKey) == str):
-            publicKey = encoderDecoders.HexConvertor.decode(publicKey)
+            publicKey = HexConvertor.decode(publicKey)
         if(type(privateKey) == str):
-            privateKey = encoderDecoders.HexConvertor.decode(privateKey)
+            privateKey = HexConvertor.decode(privateKey)
 
         # convert the keys to RSA type
         self.publicKey = RSA.import_key(publicKey)
@@ -107,10 +108,10 @@ class Encryptor:
 
         # fernet password
         self.fernet_pass_byte = secrets.token_bytes(512)
-        self.fernet_pass_string = encoderDecoders.HexConvertor.encode(self.fernet_pass_byte)
+        self.fernet_pass_string = HexConvertor.encode(self.fernet_pass_byte)
         
         # fernet key
-        self.fernetKey = verifier_fernetWrapper_v3.Keys.getKey(self.fernet_pass_string)
+        self.fernetKey = vfw_v3_keys.getKey(self.fernet_pass_string)
         
         # encrypted fernet password
         self.enc_pass_byte = self.encrypt_byte(self.fernet_pass_byte)
@@ -305,13 +306,13 @@ class Encryptor:
         for i in chunkList:
 
             # convert the string chunk to bytes to encrypt
-            i_byte = encoderDecoders.String2Byte.encode(i)
+            i_byte = String2Byte.encode(i)
 
             # encrypt chunk
             encChunk = self.cipherPublic.encrypt(i_byte)
 
             # convertor encrypted chunk to bytes again
-            encChunk_string = encoderDecoders.HexConvertor.encode(encChunk)
+            encChunk_string = HexConvertor.encode(encChunk)
 
             result = result + encChunk_string + ":~:~:"
             byteFromString = byteFromString + i_byte
@@ -338,7 +339,7 @@ class Encryptor:
         # encrypt checksum
         encChecksum = self.cipherPublic.encrypt(checksum)
 
-        encChecksum_string = encoderDecoders.HexConvertor.encode(encChecksum)
+        encChecksum_string = HexConvertor.encode(encChecksum)
 
         # add checksum to result
         result = result + ":rsa_v2_checksum:" + encChecksum_string
@@ -394,11 +395,11 @@ class Encryptor:
         for i in chunkList:
             
             # convert string chunk to byte
-            chunk_byte = encoderDecoders.HexConvertor.decode(i)
+            chunk_byte = HexConvertor.decode(i)
             dec_chunk = self.cipherPrivate.decrypt(chunk_byte , None)
 
             # convert decrypted chunk back to string
-            dec_chunk_string = encoderDecoders.String2Byte.decode(dec_chunk)
+            dec_chunk_string = String2Byte.decode(dec_chunk)
 
             result = result + dec_chunk_string
             byteFromString = byteFromString + dec_chunk
@@ -422,7 +423,7 @@ class Encryptor:
                 break
         
         # original checksum to byte
-        checksum = encoderDecoders.HexConvertor.decode(checksum)
+        checksum = HexConvertor.decode(checksum)
 
         # decrypt original checksum
         dec_checksum = self.cipherPrivate.decrypt(checksum , None)
@@ -480,7 +481,7 @@ class Encryptor:
         # encrypt each chunk using fernet
         for i in range(0 , lenByte , bytes_chunkSize):
             chunk = large_byte[i: i + bytes_chunkSize]
-            enc_chunk = verifier_fernetWrapper_v3.Encryptor.main_encrypt_byte(chunk , self.fernetKey , chunkSize)
+            enc_chunk = vfw_v3_encryptor.main_encrypt_byte(chunk , self.fernetKey , chunkSize)
             
             result = result + enc_chunk + b"$~$~$"
 
@@ -525,10 +526,10 @@ class Encryptor:
 
         # decrypt the fernet key and convert it to string
         dec_fernetPass = self.decrypt_byte(fernetPass)
-        fernetPass_string = encoderDecoders.HexConvertor.encode(dec_fernetPass)
+        fernetPass_string = HexConvertor.encode(dec_fernetPass)
         
         # set fernet key as obj 
-        fernetKey = verifier_fernetWrapper_v3.Keys.getKey(fernetPass_string)
+        fernetKey = vfw_v3_keys.getKey(fernetPass_string)
 
         chunkList = large_byte.split(b"$~$~$")
 
@@ -540,7 +541,7 @@ class Encryptor:
 
         # decrypt each chunk using fernet wrapper
         for i in chunkList:
-            dec_chunk = verifier_fernetWrapper_v3.Encryptor.main_decrypt_byte(i , fernetKey)
+            dec_chunk = vfw_v3_encryptor.main_decrypt_byte(i , fernetKey)
             
             result = result + dec_chunk
 
@@ -590,7 +591,7 @@ class Encryptor:
         # decrypt each chunk using fernet wrapper v3 
         for i in range(0 , len_string , bytes_chunkSize):
             chunk = large_string[i: i + bytes_chunkSize]
-            enc_chunk = verifier_fernetWrapper_v3.Encryptor.main_encrypt_string(chunk , self.fernetKey , chunkSize)
+            enc_chunk = vfw_v3_encryptor.main_encrypt_string(chunk , self.fernetKey , chunkSize)
             
             result = result + enc_chunk + "$~$~$"
 
@@ -635,7 +636,7 @@ class Encryptor:
 
         # decrypt key and set as obj
         dec_fernetPass = self.decrypt_string(fernetPass)
-        fernetKey = verifier_fernetWrapper_v3.Keys.getKey(dec_fernetPass)
+        fernetKey = vfw_v3_keys.getKey(dec_fernetPass)
 
         chunkList = large_string.split("$~$~$")
 
@@ -647,7 +648,7 @@ class Encryptor:
 
         # decrypt each chunk
         for i in chunkList:
-            dec_chunk = verifier_fernetWrapper_v3.Encryptor.main_decrypt_string(i , fernetKey)
+            dec_chunk = vfw_v3_encryptor.main_decrypt_string(i , fernetKey)
             
             result = result + dec_chunk
 
@@ -797,13 +798,13 @@ class Encryptor:
         for i in chunkList:
 
             # convert the string chunk to bytes to encrypt
-            i_byte = encoderDecoders.String2Byte.encode(i)
+            i_byte = String2Byte.encode(i)
 
             # encrypt chunk
             encChunk = self.cipherPublic.encrypt(i_byte)
 
             # convertor encrypted chunk to bytes again
-            encChunk_string = encoderDecoders.HexConvertor.encode(encChunk)
+            encChunk_string = HexConvertor.encode(encChunk)
 
             result = result + encChunk_string + ":~:~:"
             byteFromString = byteFromString + i_byte
@@ -816,7 +817,7 @@ class Encryptor:
         # encrypt checksum
         encChecksum = self.cipherPublic.encrypt(checksum)
 
-        encChecksum_string = encoderDecoders.HexConvertor.encode(encChecksum)
+        encChecksum_string = HexConvertor.encode(encChecksum)
 
         # add checksum to result
         result = result + ":rsa_v2_checksum:" + encChecksum_string
@@ -861,11 +862,11 @@ class Encryptor:
         for i in chunkList:
             
             # convert string chunk to byte
-            chunk_byte = encoderDecoders.HexConvertor.decode(i)
+            chunk_byte = HexConvertor.decode(i)
             dec_chunk = self.cipherPrivate.decrypt(chunk_byte , None)
 
             # convert decrypted chunk back to string
-            dec_chunk_string = encoderDecoders.String2Byte.decode(dec_chunk)
+            dec_chunk_string = String2Byte.decode(dec_chunk)
 
             result = result + dec_chunk_string
             byteFromString = byteFromString + dec_chunk
@@ -874,7 +875,7 @@ class Encryptor:
         newChecksum = hashers.SHA256(byteFromString).get_byte()
         
         # original checksum to byte
-        checksum = encoderDecoders.HexConvertor.decode(checksum)
+        checksum = HexConvertor.decode(checksum)
 
         # decrypt original checksum
         dec_checksum = self.cipherPrivate.decrypt(checksum , None)

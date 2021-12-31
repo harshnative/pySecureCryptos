@@ -1,7 +1,7 @@
-from shuffler import Shuffler
+from .shuffler import Shuffler
 import hashlib
 import onetimepad
-import encoderDecoders
+from .encoderDecoders import *
 
 
 
@@ -375,7 +375,7 @@ class BytesEncryptor:
         chunkList = []
         chunkKeys = []
 
-        string = encoderDecoders.Byte2String.encode(byteObject)
+        string = Byte2String.encode(byteObject)
 
         lenString = len(string)
         hashedLength = len(sha224_hashed_password_shuffled)
@@ -405,7 +405,7 @@ class BytesEncryptor:
             result = result + encryptedChunkShuffled
 
         if(returnByteObject):
-            result = encoderDecoders.String2Byte.encode(result)
+            result = String2Byte.encode(result)
 
         return result
 
@@ -464,7 +464,7 @@ class BytesEncryptor:
 
             result = result + decryptedChunk
 
-        result = encoderDecoders.Byte2String.decode(result)
+        result = Byte2String.decode(result)
 
         return result
 
@@ -499,7 +499,7 @@ class BytesEncryptor:
         chunkList = []
         chunkKeys = []
 
-        enc_string = encoderDecoders.String2Byte.decode(enc_byteObject)
+        enc_string = String2Byte.decode(enc_byteObject)
 
         lenString = len(enc_string)
         hashedLength2 = len(sha224_hashed_password_shuffled) * 2
@@ -526,7 +526,7 @@ class BytesEncryptor:
 
             result = result + decryptedChunk
 
-        result = encoderDecoders.Byte2String.decode(result)
+        result = Byte2String.decode(result)
 
         return result
 
@@ -598,7 +598,7 @@ class BytesEncryptor_yield:
         
         currentYield = 0
 
-        genObj_b2s_encode = encoderDecoders.Byte2String_yield.encode(byteObject)
+        genObj_b2s_encode = Byte2String_yield.encode(byteObject)
 
         while(True):
             try:
@@ -646,7 +646,7 @@ class BytesEncryptor_yield:
             currentYield = currentYield + 1
 
         if(returnByteObject):
-            genObj_s2b_encode = encoderDecoders.String2Byte_yield.encode(result)
+            genObj_s2b_encode = String2Byte_yield.encode(result)
 
             while(True):
                 try:
@@ -730,7 +730,7 @@ class BytesEncryptor_yield:
 
             currentYield = currentYield + 1
 
-        genObj_b2s_decode = encoderDecoders.Byte2String_yield.decode(result)
+        genObj_b2s_decode = Byte2String_yield.decode(result)
 
         while(True):
             try:
@@ -782,7 +782,7 @@ class BytesEncryptor_yield:
         totalYields = len_enc_byteObject + (int(len_enc_byteObject // hashedLength2) * 2 + 1) + + int(len_enc_byteObject // 3 // 2)
         currentYield = 0
 
-        genObj_s2b_decode = encoderDecoders.String2Byte_yield.decode(enc_byteObject)
+        genObj_s2b_decode = String2Byte_yield.decode(enc_byteObject)
 
         while(True):
             try:
@@ -826,7 +826,7 @@ class BytesEncryptor_yield:
 
             currentYield = currentYield + 1
 
-        genObj_b2s_decode = encoderDecoders.Byte2String_yield.decode(result)
+        genObj_b2s_decode = Byte2String_yield.decode(result)
 
         while(True):
             try:
