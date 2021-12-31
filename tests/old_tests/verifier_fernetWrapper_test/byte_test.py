@@ -1,6 +1,3 @@
-import sys
-sys.path.append("/media/veracrypt64/Projects/pyModules/pySecureCryptos/pySecureCryptos")
-
 import string
 import random
 import time

@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pySecureCryptos", # Replace with your own username
-    version="0.1",
+    version="0.24",
     author="Harsh Native",
     author_email="Harshnative@gmail.com",
     description="All the tools for cryptography / encryption for everything including databases , files , string , containers and another security methods like hashing and true random number generators in one place.",
@@ -26,5 +26,5 @@ setuptools.setup(
    'pycryptodomex==3.11.0'
     ],
 
-    python_requires='>=3.6',
+    python_requires='>=3.8',
 )

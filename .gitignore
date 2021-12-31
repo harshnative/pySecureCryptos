@@ -2,11 +2,21 @@ myvirtual/
 
 apis.txt
 
+*.xml
+
+*.html
+
+*.ini
+
+*.bin
+
+combinePackage.py
+
 local_packages
 
 tempTest/
 
-tests/binaryTestMatrial/
+binaryTestMatrial/
 
 runPyTests.py
 
