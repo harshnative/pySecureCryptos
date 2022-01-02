@@ -28,14 +28,14 @@ def getRandomString():
 
 
 
-# function to test String2Byte_yield encode with String2Byte decode
+# function to test String2Byte_v2 encode with String2Byte_v2 decode
 @pytest.mark.repeat(repeatTimes.RepeatTime.value)
 def test_main():
 
 
     string = getRandomString()
 
-    gen = encoderDecoders.String2Byte_yield.encode(string)
+    gen = encoderDecoders.String2Byte_v2.encode_yield(string)
 
     while(True):
         try:
@@ -44,7 +44,7 @@ def test_main():
             byteFromString = ex.value
             break
 
-    stringAgain = encoderDecoders.String2Byte.decode(byteFromString)
+    stringAgain = encoderDecoders.String2Byte_v2.decode(byteFromString)
 
     assert string == stringAgain , "decoded string does not match the original string"
 
@@ -57,15 +57,15 @@ def test_main():
 
 
 
-# function to test String2Byte encode with String2Byte_yield decode
+# function to test String2Byte_v2 encode with String2Byte_v2 decode
 @pytest.mark.repeat(repeatTimes.RepeatTime.value)
 def test_main_2():
 
     string = getRandomString()
 
-    byteFromString = encoderDecoders.String2Byte.encode(string)
+    byteFromString = encoderDecoders.String2Byte_v2.encode(string)
 
-    gen = encoderDecoders.String2Byte_yield.decode(byteFromString)
+    gen = encoderDecoders.String2Byte_v2.decode_yield(byteFromString)
 
     while(True):
         try:
@@ -87,13 +87,13 @@ def test_main_2():
 
 
 
-# function to test String2Byte_yield encode with String2Byte_yield decode
+# function to test String2Byte_v2 encode with String2Byte_v2 decode
 @pytest.mark.repeat(repeatTimes.RepeatTime.value)
 def test_main_3():
 
     string = getRandomString()
 
-    gen = encoderDecoders.String2Byte_yield.encode(string)
+    gen = encoderDecoders.String2Byte_v2.encode_yield(string)
 
     while(True):
         try:
@@ -102,7 +102,7 @@ def test_main_3():
             byteFromString = ex.value
             break
 
-    gen = encoderDecoders.String2Byte_yield.decode(byteFromString)
+    gen = encoderDecoders.String2Byte_v2.decode_yield(byteFromString)
 
     while(True):
         try:
@@ -128,7 +128,7 @@ def test_main_3():
 # function to check if the code is still compatible with the previous results
 def test_compatible_1():
 
-    fileName = "String2Byte_yield_test_testCases.bin"
+    fileName = "String2Byte_v2_yield_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()
@@ -137,11 +137,11 @@ def test_compatible_1():
 
     for string , encodedString in pickledList:
     
-        byteFromString = encoderDecoders.String2Byte.encode(string)
+        byteFromString = encoderDecoders.String2Byte_v2.encode(string)
 
         assert encodedString == byteFromString , "encoded strings are different"
 
-        stringAgain = encoderDecoders.String2Byte.decode(encodedString)
+        stringAgain = encoderDecoders.String2Byte_v2.decode(encodedString)
 
         assert string == stringAgain , "decoded string does not match the original string"
 
@@ -158,7 +158,7 @@ def test_compatible_1():
 # function to check if the code is still compatible with the previous results
 def test_compatible_2():
 
-    fileName = "String2Byte_yield_test_testCases.bin"
+    fileName = "String2Byte_v2_yield_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()
@@ -167,7 +167,7 @@ def test_compatible_2():
 
     for string , encodedString in pickledList:
     
-        gen = encoderDecoders.String2Byte_yield.encode(string)
+        gen = encoderDecoders.String2Byte_v2.encode_yield(string)
 
         while(True):
             try:
@@ -178,7 +178,7 @@ def test_compatible_2():
 
         assert encodedString == byteFromString , "encoded strings are different"
 
-        stringAgain = encoderDecoders.String2Byte.decode(encodedString)
+        stringAgain = encoderDecoders.String2Byte_v2.decode(encodedString)
 
         assert string == stringAgain , "decoded string does not match the original string"
 
@@ -198,7 +198,7 @@ def test_compatible_2():
 # function to check if the code is still compatible with the previous results
 def test_compatible_3():
 
-    fileName = "String2Byte_yield_test_testCases.bin"
+    fileName = "String2Byte_v2_yield_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()
@@ -207,11 +207,11 @@ def test_compatible_3():
 
     for string , encodedString in pickledList:
     
-        byteFromString = encoderDecoders.String2Byte.encode(string)
+        byteFromString = encoderDecoders.String2Byte_v2.encode(string)
 
         assert encodedString == byteFromString , "encoded strings are different"
 
-        gen = encoderDecoders.String2Byte_yield.decode(encodedString)
+        gen = encoderDecoders.String2Byte_v2.decode_yield(encodedString)
 
         while(True):
             try:
@@ -240,7 +240,7 @@ def test_compatible_3():
 # function to check if the code is still compatible with the previous results
 def test_compatible_4():
 
-    fileName = "String2Byte_yield_test_testCases.bin"
+    fileName = "String2Byte_v2_yield_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()
@@ -249,7 +249,7 @@ def test_compatible_4():
 
     for string , encodedString in pickledList:
     
-        gen = encoderDecoders.String2Byte_yield.encode(string)
+        gen = encoderDecoders.String2Byte_v2.encode_yield(string)
 
         while(True):
             try:
@@ -260,7 +260,7 @@ def test_compatible_4():
 
         assert encodedString == byteFromString , "encoded strings are different"
 
-        gen = encoderDecoders.String2Byte_yield.decode(encodedString)
+        gen = encoderDecoders.String2Byte_v2.decode_yield(encodedString)
 
         while(True):
             try:

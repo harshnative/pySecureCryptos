@@ -26,16 +26,16 @@ def getRandomString():
 
 
 
-# function to test String2Byte encode decode
+# function to test String2Byte_v2 encode decode
 @pytest.mark.repeat(repeatTimes.RepeatTime.value)
 def test_main():
     
 
     string = getRandomString()
 
-    byteFromString = encoderDecoders.String2Byte.encode(string)
+    byteFromString = encoderDecoders.String2Byte_v2.encode(string)
 
-    stringAgain = encoderDecoders.String2Byte.decode(byteFromString)
+    stringAgain = encoderDecoders.String2Byte_v2.decode(byteFromString)
 
     assert string == stringAgain , "decoded string does not match the original string"
 
@@ -55,7 +55,7 @@ def test_main():
 # function to check if the code is still compatible with the previous results
 def test_compatible():
 
-    fileName = "String2Byte_test_testCases.bin"
+    fileName = "String2Byte_v2_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()
@@ -64,11 +64,11 @@ def test_compatible():
 
     for string , encodedString in pickledList:
     
-        byteFromString = encoderDecoders.String2Byte.encode(string)
+        byteFromString = encoderDecoders.String2Byte_v2.encode(string)
 
         assert encodedString == byteFromString , "encoded strings are different"
 
-        stringAgain = encoderDecoders.String2Byte.decode(encodedString)
+        stringAgain = encoderDecoders.String2Byte_v2.decode(encodedString)
 
         assert string == stringAgain , "decoded string does not match the original string"
 
