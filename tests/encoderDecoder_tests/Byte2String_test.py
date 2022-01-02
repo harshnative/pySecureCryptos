@@ -44,7 +44,7 @@ def test_main():
 # function to check if the code is still compatible with the previous results
 def test_compatible():
 
-    fileName = "Byte2String_test_testCases.bin"
+    fileName = "binFiles/encoderDecoder_testcases_bin/Byte2String_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()

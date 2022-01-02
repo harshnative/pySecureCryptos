@@ -125,7 +125,7 @@ def test_main_3():
 # function to check if the code is still compatible with the previous results
 def test_compatible_1():
 
-    fileName = "Byte2String_yield_test_testCases.bin"
+    fileName = "binFiles/encoderDecoder_testcases_bin/Byte2String_yield_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()
@@ -155,7 +155,7 @@ def test_compatible_1():
 # function to check if the code is still compatible with the previous results
 def test_compatible_2():
 
-    fileName = "Byte2String_yield_test_testCases.bin"
+    fileName = "binFiles/encoderDecoder_testcases_bin/Byte2String_yield_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()
@@ -196,7 +196,7 @@ def test_compatible_2():
 # function to check if the code is still compatible with the previous results
 def test_compatible_3():
 
-    fileName = "Byte2String_yield_test_testCases.bin"
+    fileName = "binFiles/encoderDecoder_testcases_bin/Byte2String_yield_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()
@@ -239,7 +239,7 @@ def test_compatible_3():
 # function to check if the code is still compatible with the previous results
 def test_compatible_4():
 
-    fileName = "Byte2String_yield_test_testCases.bin"
+    fileName = "binFiles/encoderDecoder_testcases_bin/Byte2String_yield_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()

@@ -55,7 +55,7 @@ def test_main():
 # function to check if the code is still compatible with the previous results
 def test_compatible():
 
-    fileName = "HexConvertor_test_testCases.bin"
+    fileName = "binFiles/encoderDecoder_testcases_bin/HexConvertor_test_testCases.bin"
 
     with open(fileName , "rb") as file:
         data = file.read()
