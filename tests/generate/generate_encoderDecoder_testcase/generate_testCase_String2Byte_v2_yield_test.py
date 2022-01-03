@@ -26,9 +26,9 @@ def getRandomString():
 
 def main():
 
-    fileName = "String2Byte_v2_yield_test_testCases.bin"
+    fileName = "binFiles/encoderDecoder_testcases_bin/String2Byte_v2_yield_test_testCases.bin"
 
-    number = 100
+    number = 10
 
     outputList = []
 

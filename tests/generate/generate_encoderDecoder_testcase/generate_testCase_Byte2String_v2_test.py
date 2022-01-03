@@ -27,9 +27,9 @@ def getRandomByte():
 
 def main():
 
-    fileName = "Byte2String_v2_test_testCases.bin"
+    fileName = "binFiles/encoderDecoder_testcases_bin/Byte2String_v2_test_testCases.bin"
 
-    number = 100
+    number = 10
 
     outputList = []
 

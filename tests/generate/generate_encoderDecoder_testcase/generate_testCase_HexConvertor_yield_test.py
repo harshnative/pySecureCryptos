@@ -21,9 +21,9 @@ def getRandomByte():
 
 def main():
 
-    fileName = "HexConvertor_yield_test_testCases.bin"
+    fileName = "binFiles/encoderDecoder_testcases_bin/HexConvertor_yield_test_testCases.bin"
 
-    number = 100
+    number = 10
 
     outputList = []
 
