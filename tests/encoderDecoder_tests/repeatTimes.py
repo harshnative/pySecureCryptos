@@ -1,2 +1,2 @@
 class RepeatTime:
-    value = 100
+    value = 10

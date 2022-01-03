@@ -37,7 +37,7 @@ def getRandomString():
     ascii_lowerLimit = 20
 
     minStringLen = 1
-    maxStringLen = 10
+    maxStringLen = 1000
 
     randomStr = ""
     for _ in range(random.randint(minStringLen , maxStringLen)):

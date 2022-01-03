@@ -56,7 +56,7 @@ def test_main():
     while(True):
         try:
             next(gen)
-        except Exception as ex:
+        except StopIteration as ex:
             byteFromString = ex.value
             break
 
@@ -86,7 +86,7 @@ def test_main_2():
     while(True):
         try:
             next(gen)
-        except Exception as ex:
+        except StopIteration as ex:
             stringAgain = ex.value
             break
 
@@ -114,7 +114,7 @@ def test_main_3():
     while(True):
         try:
             next(gen)
-        except Exception as ex:
+        except StopIteration as ex:
             byteFromString = ex.value
             break
 
@@ -123,7 +123,7 @@ def test_main_3():
     while(True):
         try:
             next(gen)
-        except Exception as ex:
+        except StopIteration as ex:
             stringAgain = ex.value
             break
 
@@ -188,7 +188,7 @@ def test_compatible_2():
         while(True):
             try:
                 next(gen)
-            except Exception as ex:
+            except StopIteration as ex:
                 byteFromString = ex.value
                 break
 
@@ -232,7 +232,7 @@ def test_compatible_3():
         while(True):
             try:
                 next(gen)
-            except Exception as ex:
+            except StopIteration as ex:
                 stringAgain = ex.value
                 break
 
@@ -270,7 +270,7 @@ def test_compatible_4():
         while(True):
             try:
                 next(gen)
-            except Exception as ex:
+            except StopIteration as ex:
                 byteFromString = ex.value
                 break
 
@@ -281,7 +281,7 @@ def test_compatible_4():
         while(True):
             try:
                 next(gen)
-            except Exception as ex:
+            except StopIteration as ex:
                 stringAgain = ex.value
                 break
 
