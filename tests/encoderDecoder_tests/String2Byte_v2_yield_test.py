@@ -7,6 +7,22 @@ import pickle
 
 
 
+
+def getAssetionMessage(locals , message):
+    locals_stored = locals
+    
+    result = str(message) + "\n\n\nFunction Vars Dump -\n"
+    count = 1
+
+    for name,val in locals_stored.items():
+        result = result + f"\n\n{count}. {name} is {type(val)} = \n{val}\n"
+        count = count + 1
+
+    return result
+
+
+
+
 # function to generate a random string
 def getRandomString():
     ascii_upperLimit = 126   
@@ -46,7 +62,7 @@ def test_main():
 
     stringAgain = encoderDecoders.String2Byte_v2.decode(byteFromString)
 
-    assert string == stringAgain , "decoded string does not match the original string"
+    assert string == stringAgain , getAssetionMessage(locals() , "decoded string does not match the original string")
 
 
 
@@ -74,7 +90,7 @@ def test_main_2():
             stringAgain = ex.value
             break
 
-    assert string == stringAgain , "decoded string does not match the original string"
+    assert string == stringAgain , getAssetionMessage(locals() , "decoded string does not match the original string")
 
 
 
@@ -111,7 +127,7 @@ def test_main_3():
             stringAgain = ex.value
             break
 
-    assert string == stringAgain , "decoded string does not match the original string"
+    assert string == stringAgain , getAssetionMessage(locals() , "decoded string does not match the original string")
 
 
 
@@ -139,11 +155,11 @@ def test_compatible_1():
     
         byteFromString = encoderDecoders.String2Byte_v2.encode(string)
 
-        assert encodedString == byteFromString , "encoded strings are different"
+        assert encodedString == byteFromString , getAssetionMessage(locals() , "encoded strings are different")
 
         stringAgain = encoderDecoders.String2Byte_v2.decode(encodedString)
 
-        assert string == stringAgain , "decoded string does not match the original string"
+        assert string == stringAgain , getAssetionMessage(locals() , "decoded string does not match the original string")
 
 
 
@@ -176,11 +192,11 @@ def test_compatible_2():
                 byteFromString = ex.value
                 break
 
-        assert encodedString == byteFromString , "encoded strings are different"
+        assert encodedString == byteFromString , getAssetionMessage(locals() , "encoded strings are different")
 
         stringAgain = encoderDecoders.String2Byte_v2.decode(encodedString)
 
-        assert string == stringAgain , "decoded string does not match the original string"
+        assert string == stringAgain , getAssetionMessage(locals() , "decoded string does not match the original string")
 
 
 
@@ -209,7 +225,7 @@ def test_compatible_3():
     
         byteFromString = encoderDecoders.String2Byte_v2.encode(string)
 
-        assert encodedString == byteFromString , "encoded strings are different"
+        assert encodedString == byteFromString , getAssetionMessage(locals() , "encoded strings are different")
 
         gen = encoderDecoders.String2Byte_v2.decode_yield(encodedString)
 
@@ -220,7 +236,7 @@ def test_compatible_3():
                 stringAgain = ex.value
                 break
 
-        assert string == stringAgain , "decoded string does not match the original string"
+        assert string == stringAgain , getAssetionMessage(locals() , "decoded string does not match the original string")
 
 
 
@@ -258,7 +274,7 @@ def test_compatible_4():
                 byteFromString = ex.value
                 break
 
-        assert encodedString == byteFromString , "encoded strings are different"
+        assert encodedString == byteFromString , getAssetionMessage(locals() , "encoded strings are different")
 
         gen = encoderDecoders.String2Byte_v2.decode_yield(encodedString)
 
@@ -269,7 +285,7 @@ def test_compatible_4():
                 stringAgain = ex.value
                 break
 
-        assert string == stringAgain , "decoded string does not match the original string"
+        assert string == stringAgain , getAssetionMessage(locals() , "decoded string does not match the original string")
 
 
 

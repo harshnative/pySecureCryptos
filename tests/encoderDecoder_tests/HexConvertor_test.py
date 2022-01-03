@@ -7,6 +7,26 @@ import pickle
 
 
 
+
+
+def getAssetionMessage(locals , message):
+    locals_stored = locals
+    
+    result = str(message) + "\n\n\nFunction Vars Dump -\n"
+    count = 1
+
+    for name,val in locals_stored.items():
+        result = result + f"\n\n{count}. {name} is {type(val)} = \n{val}\n"
+        count = count + 1
+
+    return result
+
+
+
+
+
+
+
 # function to generate a random byte
 def getRandomByte():
     minByteLen = 1
@@ -33,7 +53,7 @@ def test_main():
 
     byteAgain = encoderDecoders.HexConvertor.decode(stringFromByte)
 
-    assert byte == byteAgain , "decoded byte does not match the original byte"
+    assert byte == byteAgain , getAssetionMessage(locals() , "decoded byte does not match the original byte")
 
 
 
@@ -66,11 +86,11 @@ def test_compatible():
     
         stringFromByte = encoderDecoders.HexConvertor.encode(byte)
 
-        assert encodedByte == stringFromByte , "encoded bytes are different"
+        assert encodedByte == stringFromByte , getAssetionMessage(locals() , "encoded bytes are different")
 
         byteAgain = encoderDecoders.HexConvertor.decode(encodedByte)
 
-        assert byte == byteAgain , "decoded byte does not match the original byte"
+        assert byte == byteAgain , getAssetionMessage(locals() , "decoded byte does not match the original byte")
 
 
 
