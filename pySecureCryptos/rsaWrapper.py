@@ -2,10 +2,11 @@ import secrets
 from Cryptodome.PublicKey import RSA
 from Cryptodome.Cipher import PKCS1_v1_5 as Cipher_PKCS1_v1_5
 from .encoderDecoders import *
-import hashers
+from .hashers import *
 import time
 from .verifier_fernetWrapper_v3 import Keys as vfw_v3_keys
 from .verifier_fernetWrapper_v3 import Encryptor as vfw_v3_encryptor
+from cryptography.fernet import Fernet
 
 
 
@@ -106,16 +107,13 @@ class Encryptor:
         # chunk size
         self.chunkSize = keySize // 12
 
-        # fernet password
-        self.fernet_pass_byte = secrets.token_bytes(512)
-        self.fernet_pass_string = HexConvertor.encode(self.fernet_pass_byte)
-        
         # fernet key
-        self.fernetKey = vfw_v3_keys.getKey(self.fernet_pass_string)
+        self.fernetKey = Fernet.generate_key()
+        self.fernetKey_string = HexConvertor.encode(self.fernetKey)
         
         # encrypted fernet password
-        self.enc_pass_byte = self.encrypt_byte(self.fernet_pass_byte)
-        self.enc_pass_string = self.encrypt_string(self.fernet_pass_string)
+        self.enc_pass_byte = self.encrypt_byte(self.fernetKey)
+        self.enc_pass_string = self.encrypt_string(self.fernetKey_string)
 
 
 
@@ -161,7 +159,7 @@ class Encryptor:
         result = result[:-5]
 
         # get checksum
-        genObj = hashers.SHA256(byte).get_byte_yield()
+        genObj = SHA256(byte).get_byte_yield()
 
         while(True):
             try:
@@ -231,7 +229,7 @@ class Encryptor:
 
 
         # get checksum of decrypted byte
-        genObj = hashers.SHA256(result).get_byte_yield()
+        genObj = SHA256(result).get_byte_yield()
 
         while(True):
             try:
@@ -323,7 +321,7 @@ class Encryptor:
         result = result[:-5]
 
         # get checksum
-        genObj = hashers.SHA256(byteFromString).get_byte_yield()
+        genObj = SHA256(byteFromString).get_byte_yield()
 
         while(True):
             try:
@@ -409,7 +407,7 @@ class Encryptor:
 
 
         # get checksum of decrypted byte
-        genObj = hashers.SHA256(byteFromString).get_byte_yield()
+        genObj = SHA256(byteFromString).get_byte_yield()
 
         while(True):
             try:
@@ -522,14 +520,10 @@ class Encryptor:
             raise TypeError("large_byte parameter expected to be of bytes type instead got {} type".format(type(large_byte)))
 
         # seperate fernet key and byte data
-        large_byte , fernetPass = large_byte.split(b":rsa_v2_encKey:")
+        large_byte , fernetKey = large_byte.split(b":rsa_v2_encKey:")
 
         # decrypt the fernet key and convert it to string
-        dec_fernetPass = self.decrypt_byte(fernetPass)
-        fernetPass_string = HexConvertor.encode(dec_fernetPass)
-        
-        # set fernet key as obj 
-        fernetKey = vfw_v3_keys.getKey(fernetPass_string)
+        dec_fernetKey = self.decrypt_byte(fernetKey)
 
         chunkList = large_byte.split(b"$~$~$")
 
@@ -541,7 +535,7 @@ class Encryptor:
 
         # decrypt each chunk using fernet wrapper
         for i in chunkList:
-            dec_chunk = vfw_v3_encryptor.main_decrypt_byte(i , fernetKey)
+            dec_chunk = vfw_v3_encryptor.main_decrypt_byte(i , dec_fernetKey)
             
             result = result + dec_chunk
 
@@ -632,11 +626,11 @@ class Encryptor:
             raise TypeError("large_string parameter expected to be of str type instead got {} type".format(type(large_string)))
 
         # seperate out fernet key
-        large_string , fernetPass = large_string.split(":rsa_v2_encKey:")
+        large_string , fernetKey = large_string.split(":rsa_v2_encKey:")
 
         # decrypt key and set as obj
-        dec_fernetPass = self.decrypt_string(fernetPass)
-        fernetKey = vfw_v3_keys.getKey(dec_fernetPass)
+        dec_fernetKey = self.decrypt_string(fernetKey)
+        dec_fernetKey = HexConvertor.decode(dec_fernetKey)
 
         chunkList = large_string.split("$~$~$")
 
@@ -648,7 +642,7 @@ class Encryptor:
 
         # decrypt each chunk
         for i in chunkList:
-            dec_chunk = vfw_v3_encryptor.main_decrypt_string(i , fernetKey)
+            dec_chunk = vfw_v3_encryptor.main_decrypt_string(i , dec_fernetKey)
             
             result = result + dec_chunk
 
@@ -701,7 +695,7 @@ class Encryptor:
         result = result[:-5]
 
         # get checksum
-        checksum = hashers.SHA256(byte).get_byte()
+        checksum = SHA256(byte).get_byte()
         
         # encrypt checksum
         encChecksum = self.cipherPublic.encrypt(checksum)
@@ -747,7 +741,7 @@ class Encryptor:
             result = result + dec_chunk
 
         # get checksum of decrypted byte
-        newChecksum = hashers.SHA256(result).get_byte()
+        newChecksum = SHA256(result).get_byte()
 
         # decrypt original checksum
         dec_checksum = self.cipherPrivate.decrypt(checksum , None)
@@ -812,7 +806,7 @@ class Encryptor:
         result = result[:-5]
 
         # get checksum
-        checksum = hashers.SHA256(byteFromString).get_byte()
+        checksum = SHA256(byteFromString).get_byte()
 
         # encrypt checksum
         encChecksum = self.cipherPublic.encrypt(checksum)
@@ -872,7 +866,7 @@ class Encryptor:
             byteFromString = byteFromString + dec_chunk
 
         # get checksum of decrypted byte
-        newChecksum = hashers.SHA256(byteFromString).get_byte()
+        newChecksum = SHA256(byteFromString).get_byte()
         
         # original checksum to byte
         checksum = HexConvertor.decode(checksum)
@@ -1562,5 +1556,12 @@ if __name__ == "__main__":
     # __test_encryptor_byte()
     # __test_encryptor_string()
     # __test_time_byte()
-    __test_encrypt_lByte()
-    # __test_encryptor_lstring()
+    # __test_encrypt_lByte()
+    __test_encryptor_lstring()
+
+
+
+
+
+    #  to run - 
+    # python -m pySecureCryptos.rsaWrapper
