@@ -704,7 +704,7 @@ class Encryptor:
 
     # method to encrypt a large bytes file
     @classmethod
-    def encrypt_bfile(cls , filepath , destinationPath , key):
+    def encrypt_file(cls , filepath , destinationPath , key):
 
         if(type(filepath) != str):
             raise TypeError(f"filename parameter expected to be {str} type instead got {type(filepath)} type.")
@@ -798,7 +798,7 @@ class Encryptor:
 
     # method to decrypt a large bytes file
     @classmethod
-    def decrypt_bfile(cls , filepath , destinationPath , key):
+    def decrypt_file(cls , filepath , destinationPath , key):
 
         # function to yield number of lines
         def _count_generator(reader):
@@ -879,173 +879,6 @@ class Encryptor:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # method to encrypt a large bytes file
-    @classmethod
-    def encrypt_tfile(cls , filepath , destinationPath , key):
-
-        if(type(filepath) != str):
-            raise TypeError(f"filename parameter expected to be {str} type instead got {type(filepath)} type.")
-
-        if(type(destinationPath) != str):
-            raise TypeError(f"destinationPath parameter expected to be {str} type instead got {type(destinationPath)} type.")
-
-        if(type(key) != bytes):
-            raise TypeError(f"key parameter expected to be {bytes} type instead got {type(key)} type.")
-
-        cpuCount = os.cpu_count()
-
-        # chunkSize in bytes
-        chunkSize = 8 * cpuCount * 1024 * 1024
-
-        # check if file path is correct
-        fileCorrect = os.path.isfile(filepath)
-
-        if(not(fileCorrect)):
-            raise FileNotFoundError("no file was found at the path specified")
-
-        # seperate file name and file path
-        head, tail = os.path.split(filepath)
-
-        destinationCorrect = os.path.isdir(destinationPath)
-
-        if(not(destinationCorrect)):
-            raise ("no dir was found at the path specified")
-
-        # add name to dest path
-        destinationPath = destinationPath + tail + ".enc"
-
-        # get file size to calculate total yield
-        fileSize = os.stat(filepath).st_size
-
-        currentCount = 0
-        totalYield = (fileSize // chunkSize) + 1
-
-        # open file
-        with open(filepath , "r") as fil , open(destinationPath , "w") as fil2:
-            for data in cls.__read_in_chunks(fil , chunkSize):
-
-                # encrypt data chunk
-                enc_data = cls.main_encrypt_string(data , key)
-
-                # write encrypted chunk to disk
-                fil2.write(enc_data)
-                fil2.write(b"\n")
-
-                yield currentCount , totalYield
-                currentCount = currentCount + 1
-
-
-        # complete yield if not completed
-        if(currentCount <= totalYield):
-            yield totalYield , totalYield
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # method to decrypt a large bytes file
-    @classmethod
-    def decrypt_tfile(cls , filepath , destinationPath , key):
-
-        # function to yield number of lines
-        def _count_generator(reader):
-            b = reader(1024 * 1024 * 16)
-            while b:
-                yield b
-                b = reader(1024 * 1024 * 16)
-
-        if(type(filepath) != str):
-            raise TypeError(f"filename parameter expected to be {str} type instead got {type(filepath)} type.")
-
-        if(type(destinationPath) != str):
-            raise TypeError(f"destinationPath parameter expected to be {str} type instead got {type(destinationPath)} type.")
-
-        if(type(key) != bytes):
-            raise TypeError(f"key parameter expected to be {bytes} type instead got {type(key)} type.")
-
-        # check if file path is correct
-        fileCorrect = os.path.isfile(filepath)
-
-        if(not(fileCorrect)):
-            raise FileNotFoundError("no file was found at the path specified")
-
-        # seperate file name and file path
-        head, tail = os.path.split(filepath)
-
-        destinationCorrect = os.path.isdir(destinationPath)
-
-        if(not(destinationCorrect)):
-            raise ("no dir was found at the path specified")
-
-        # add name to dest path without .enc extension
-        destinationPath = destinationPath + tail[:-4]
-
-        currentCount = 0
-
-        # calculate number of lines in a file 
-        with open(filepath, 'r') as fp:
-            c_generator = _count_generator(fp.raw.read)
-            totalYield = sum(buffer.count(b'\n') for buffer in c_generator) + 1
-
-
-        # open file
-        with open(filepath , "r") as fil , open(destinationPath , "w") as fil2:
-            for data in cls.__read_in_lines(fil):
-
-                # decrypt data chunk
-                dec_data = cls.main_decrypt_byte(data , key)
-
-                # write decrypted chunk to disk
-                fil2.write(dec_data)
-
-                yield currentCount , totalYield
-                currentCount = currentCount + 1
-
-
-        # complete yield if not completed
-        if(currentCount <= totalYield):
-            yield totalYield , totalYield
 
 
 
@@ -1193,50 +1026,6 @@ def __test_byte_file():
 
 
 
-def __test_string_file():
-
-    print("starting")
-
-    key = Keys.getKey("hello")
-
-    fileName = "bigText.txt"
-
-    filePath = f"/media/veracrypt64/Projects/pyModules/pySecureCryptos/tests/binaryTestMatrial/{fileName}"
-    destPath = "/media/veracrypt64/Projects/pyModules/pySecureCryptos/tests/binaryTestMatrial/"
-    
-    filePath2 = f"/media/veracrypt64/Projects/pyModules/pySecureCryptos/tests/binaryTestMatrial/{fileName}.enc"
-    destPath2 = "/media/veracrypt64/Projects/pyModules/pySecureCryptos/tests/binaryTestMatrial/dec/"
-
-    start = time.perf_counter()
-
-    enc_obj = Encryptor.encrypt_bfile(filePath , destPath , key)
-
-    print()
-    for i in enc_obj:
-        print(f"\r{i}" , end = "")
-    print()
-
-    dec_obj = Encryptor.decrypt_bfile(filePath2 , destPath2 , key)
-
-    print()
-    for i in dec_obj:
-        print(f"\r{i}" , end = "")
-    print()
-
-    end = time.perf_counter()
-
-
-    print("time_taken = {} , to encrypt the size of {} MB".format(end - start , os.stat(filePath).st_size / 1024 / 1024))
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1304,8 +1093,8 @@ def __test_string_main():
 
 
 if __name__ == "__main__":
-    # __test_string_main()
+    __test_string_main()
     # __test_byte_main()
     # __test_byte_file()
-    __test_string_file()
+    # __test_string_file()
     pass
