@@ -249,7 +249,7 @@ data can be between = 8 to 800 MB , depends on the chunk size
 ```python
 
 # encrypt method
-FW.Encryptor.encrypt_bfile(filepath , destinationPath , key)
+FW.Encryptor.encrypt_file(filepath , destinationPath , key)
 ```
 
 Arguments - 
@@ -265,7 +265,7 @@ Arguments -
 ```python
 
 # decrypt method
-FW.Encryptor.decrypt_bfile(filepath , destinationPath , key)
+FW.Encryptor.decrypt_file(filepath , destinationPath , key)
 ```
 
 Arguments - 
@@ -293,14 +293,14 @@ Example -
 
     start = time.perf_counter()
 
-    enc_obj = Encryptor.encrypt_bfile(filePath , destPath , key)
+    enc_obj = Encryptor.encrypt_file(filePath , destPath , key)
 
     print()
     for i in enc_obj:
         print(f"\r{i}" , end = "")
     print()
 
-    dec_obj = Encryptor.decrypt_bfile(filePath2 , destPath2 , key)
+    dec_obj = Encryptor.decrypt_file(filePath2 , destPath2 , key)
 
     print()
     for i in dec_obj:
@@ -459,7 +459,7 @@ data can be between = 8 to 800 MB , depends on the chunk size
 ```python
 
 # encrypt method
-FW.Encryptor.encrypt_tfile(filepath , destinationPath , key)
+FW.Encryptor.encrypt_file(filepath , destinationPath , key)
 ```
 
 Arguments - 
@@ -475,7 +475,7 @@ Arguments -
 ```python
 
 # decrypt method
-FW.Encryptor.decrypt_tfile(filepath , destinationPath , key)
+FW.Encryptor.decrypt_file(filepath , destinationPath , key)
 ```
 
 Arguments - 
@@ -503,14 +503,14 @@ Example -
 
     start = time.perf_counter()
 
-    enc_obj = Encryptor.encrypt_bfile(filePath , destPath , key)
+    enc_obj = Encryptor.encrypt_file(filePath , destPath , key)
 
     print()
     for i in enc_obj:
         print(f"\r{i}" , end = "")
     print()
 
-    dec_obj = Encryptor.decrypt_bfile(filePath2 , destPath2 , key)
+    dec_obj = Encryptor.decrypt_file(filePath2 , destPath2 , key)
 
     print()
     for i in dec_obj:
