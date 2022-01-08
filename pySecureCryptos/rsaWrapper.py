@@ -19,6 +19,17 @@ from cryptography.fernet import Fernet
 #                |___/        |___/                 
 
 
+
+
+
+# key size , avgtime , max time , min time
+# 1024 , 0.13045738699438517 , 0.41157023099367507 , 0.044456824980443344
+# 2048 , 0.6016242760029854 , 1.5902376979938708 , 0.09847884299233556
+# 3072 , 1.8595398340024984 , 3.205021528992802 , 0.6348795160010923
+# 4096 , 4.65693292079086 , 10.478919560002396 , 0.7353818640112877
+# 5120 , 11.271185925399186 , 20.71055350798997 , 4.2160446449997835
+# 6144 , 22.94962278229941 , 41.116515233006794 , 4.3491839109919965
+
 # method to generate RSA keys
 # RSA key generation is expensive process , so keep size low on smaller machines
 class KeyGenerator:
@@ -80,7 +91,7 @@ class KeyGenerator:
 
 class Encryptor:
 
-    def __init__(self , publicKey , privateKey , keySize = 4096):
+    def __init__(self , publicKey , privateKey , keySize = 0):
 
         # type checking the parameters
         if((type(publicKey) != str) and (type(publicKey) != bytes)):
@@ -104,6 +115,22 @@ class Encryptor:
         self.cipherPublic = Cipher_PKCS1_v1_5.new(self.publicKey)
         self.cipherPrivate = Cipher_PKCS1_v1_5.new(self.privateKey)
 
+
+        self.keySizeData = {
+            'publicKey_bytes': {271: 1024, 450: 2048, 624: 3072, 799: 4096, 970: 5120, 1144: 6144}, 
+            'privateKey_bytes': {886: 1024, 1678: 2048, 2458: 3072, 3242: 4096, 4022: 5120, 4802: 6144}, 
+            }
+
+        if(keySize == 0):
+            keySize = self.calculateKeySize(publicKey , privateKey)
+
+            if(keySize == None):
+                raise ValueError("rsa Wrapper failed to find keySize automatically , pass the key size in keySize argument and should be same you used in KeyGenerator class to get keys")
+
+            if(keySize == False):
+                raise ValueError("rsa Wrapper failed to find keySize automatically , pass the key size in keySize argument and should be same you used in KeyGenerator class to get keys , code 1")
+
+
         # chunk size
         self.chunkSize = keySize // 12
 
@@ -116,6 +143,22 @@ class Encryptor:
         self.enc_pass_string = self.encrypt_string(self.fernetKey_string)
 
 
+
+    # function to get the keysize from key and previous data
+    def calculateKeySize(self , publicKey , privateKey):
+
+        len_public = len(publicKey)
+        len_private = len(privateKey)
+
+        keySize = self.keySizeData["publicKey_bytes"].get(len_public , None)
+        keySize2 = self.keySizeData["privateKey_bytes"].get(len_private , None)
+
+        if((keySize == None) or (keySize2 == None)):
+            return None
+        if(keySize != keySize2):
+            return False
+        else:
+            return keySize
 
 
 
@@ -1551,13 +1594,13 @@ def __test_encryptor_lstring():
 
 
 if __name__ == "__main__":
-    # __test_encryptor_byte_yield()
+    __test_encryptor_byte_yield()
     # __test_encryptor_string_yield()
     # __test_encryptor_byte()
     # __test_encryptor_string()
     # __test_time_byte()
     # __test_encrypt_lByte()
-    __test_encryptor_lstring()
+    # __test_encryptor_lstring()
 
 
 
