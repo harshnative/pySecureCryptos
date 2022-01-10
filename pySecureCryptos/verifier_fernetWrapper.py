@@ -32,14 +32,11 @@ class StringEncryptor:
             raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         # getting md5 and sha224 hash of the password passed
-        md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
-        sha224_hashed_password = hashlib.sha224(password.encode("utf-8")).hexdigest()
-
-        # converting sha224_hashed_password to bytes to make it usable in kdf 
-        sha224_hashed_password_bytes = bytes(sha224_hashed_password , "utf-8")
+        md5_hashed_password = hashlib.md5(password.encode("utf-8")).digest()
+        sha224_hashed_password_bytes = hashlib.sha224(password.encode("utf-8")).digest()
 
         # md5_hashed_password will act as a salt
-        salt = bytes(md5_hashed_password , "utf-8")
+        salt = md5_hashed_password
         
         # deriving fernet key from the password
         kdf = PBKDF2HMAC(
@@ -680,13 +677,10 @@ class BytesEncryptor:
 
         # getting md5 and sha224 hash of the password passed
         md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
-        sha224_hashed_password = hashlib.sha224(password.encode("utf-8")).hexdigest()
-
-        # converting sha224_hashed_password to bytes to make it usable in kdf 
-        sha224_hashed_password_bytes = bytes(sha224_hashed_password , "utf-8")
+        sha224_hashed_password_bytes = hashlib.sha224(password.encode("utf-8")).hexdigest()
 
         # md5_hashed_password will act as a salt
-        salt = bytes(md5_hashed_password , "utf-8")
+        salt = md5_hashed_password
         
         # deriving fernet key from the password
         kdf = PBKDF2HMAC(
