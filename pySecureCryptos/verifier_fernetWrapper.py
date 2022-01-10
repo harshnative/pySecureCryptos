@@ -676,8 +676,8 @@ class BytesEncryptor:
             raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         # getting md5 and sha224 hash of the password passed
-        md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
-        sha224_hashed_password_bytes = hashlib.sha224(password.encode("utf-8")).hexdigest()
+        md5_hashed_password = hashlib.md5(password.encode("utf-8")).digest()
+        sha224_hashed_password_bytes = hashlib.sha224(password.encode("utf-8")).digest()
 
         # md5_hashed_password will act as a salt
         salt = md5_hashed_password

@@ -6,6 +6,8 @@ apis.txt
 
 *.html
 
+generateDiagram.py
+
 binFiles/
 
 *.ini
