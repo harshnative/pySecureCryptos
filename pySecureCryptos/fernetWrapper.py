@@ -29,14 +29,11 @@ class StringEncryptor:
             raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         # getting md5 and sha224 hash of the password passed
-        md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
-        sha224_hashed_password = hashlib.sha224(password.encode("utf-8")).hexdigest()
-
-        # converting sha224_hashed_password to bytes to make it usable in kdf 
-        sha224_hashed_password_bytes = bytes(sha224_hashed_password , "utf-8")
+        md5_hashed_password = hashlib.md5(password.encode("utf-8")).digest()
+        sha224_hashed_password_bytes = hashlib.sha224(password.encode("utf-8")).digest()
 
         # md5_hashed_password will act as a salt
-        salt = bytes(md5_hashed_password , "utf-8")
+        salt = md5_hashed_password
         
         # deriving fernet key from the password
         kdf = PBKDF2HMAC(
@@ -126,14 +123,13 @@ class StringEncryptor:
         chunkList = []
 
         for i in range(0 , len_byteFromString , self.chunkSize):
-            if((i+self.chunkSize) < len_byteFromString):
-                chunkList.append(byteFromString[i : i + self.chunkSize]) 
-            else:
-                chunkList.append(byteFromString[i : ])
+            chunkList.append(byteFromString[i : i + self.chunkSize]) 
 
             yield currentYield , totalYields
             currentYield = currentYield + 1
         
+
+
         # if the return required is of string type 
         if(returnString):
 
@@ -337,12 +333,9 @@ class StringEncryptor:
         chunkList = []
 
         for i in range(0 , len_byteFromString , self.chunkSize):
-            if((i+self.chunkSize) < len_byteFromString):
                 chunkList.append(byteFromString[i : i + self.chunkSize]) 
-            else:
-                chunkList.append(byteFromString[i : ])
-
         
+
         # if the return required is of string type 
         if(returnString):
 
@@ -485,14 +478,11 @@ class BytesEncryptor:
             raise TypeError("password parameter expected to be of str type instead got {} type".format(type(password)))
 
         # getting md5 and sha224 hash of the password passed
-        md5_hashed_password = hashlib.md5(password.encode("utf-8")).hexdigest()
-        sha224_hashed_password = hashlib.sha224(password.encode("utf-8")).hexdigest()
-
-        # converting sha224_hashed_password to bytes to make it usable in kdf 
-        sha224_hashed_password_bytes = bytes(sha224_hashed_password , "utf-8")
+        md5_hashed_password = hashlib.md5(password.encode("utf-8")).digest()
+        sha224_hashed_password_bytes = hashlib.sha224(password.encode("utf-8")).digest()
 
         # md5_hashed_password will act as a salt
-        salt = bytes(md5_hashed_password , "utf-8")
+        salt = md5_hashed_password
         
         # deriving fernet key from the password
         kdf = PBKDF2HMAC(
@@ -557,10 +547,7 @@ class BytesEncryptor:
         chunkList = []
 
         for i in range(0 , len_byte , self.chunkSize):
-            if((i+self.chunkSize) < len_byte):
-                chunkList.append(byte[i : i + self.chunkSize]) 
-            else:
-                chunkList.append(byte[i : ])
+            chunkList.append(byte[i : i + self.chunkSize]) 
 
             yield currentYield , totalYields
             currentYield = currentYield + 1
@@ -641,17 +628,14 @@ class BytesEncryptor:
         if(len(byte) == 0):
             raise ValueError("empty byte passed")
 
-        currentYield = 1
         len_byte = len(byte)
 
         # dividing data into chunks
         chunkList = []
 
         for i in range(0 , len_byte , self.chunkSize):
-            if((i+self.chunkSize) < len_byte):
-                chunkList.append(byte[i : i + self.chunkSize]) 
-            else:
-                chunkList.append(byte[i : ])
+            chunkList.append(byte[i : i + self.chunkSize]) 
+
 
         result = b""
 
@@ -681,7 +665,6 @@ class BytesEncryptor:
         if(type(enc_byte) != bytes):
             raise TypeError("enc_byte parameter expected to be of bytes type instead got {} type".format(type(enc_byte)))
 
-        currentYield = 1
 
         chunkList = enc_byte.split(b":~:~:")
 
