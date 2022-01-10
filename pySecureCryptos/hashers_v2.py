@@ -16,7 +16,7 @@ class SHA256:
     # type check parameters and assign objects to self
     # string retruned length is 64
     # byte returned len is 32
-    def __init__(self , bytesObj , chunkSize = 65536):
+    def __init__(self , bytesObj , chunkSize = 1048576):
 
         if(type(bytesObj) != bytes):
             raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
@@ -26,7 +26,6 @@ class SHA256:
         self.bytesObj = bytesObj
         self.lenBytes = len(bytesObj)
 
-        self.sha224_hash = hashlib.sha224()
         self.sha256_hash = hashlib.sha256()
 
         self.chunkSize = chunkSize
@@ -39,7 +38,6 @@ class SHA256:
     # this is a yielder function
     def get_string_yield(self):
 
-        # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1)
         currentCount = 1
 
@@ -66,7 +64,6 @@ class SHA256:
     # this is a yielder function
     def get_byte_yield(self):
 
-        # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1)
         currentCount = 1
 
@@ -161,7 +158,7 @@ class SHA384:
     # type check parameters and assign objects to self
     # string retruned length is 96
     # byte returned len is 48
-    def __init__(self , bytesObj , chunkSize = 65536):
+    def __init__(self , bytesObj , chunkSize = 1048576):
 
         if(type(bytesObj) != bytes):
             raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
@@ -171,7 +168,7 @@ class SHA384:
         self.bytesObj = bytesObj
         self.lenBytes = len(bytesObj)
 
-        self.sha224_hash = hashlib.sha224()
+        
         self.sha384_hash = hashlib.sha384()
 
         self.chunkSize = chunkSize
@@ -184,7 +181,6 @@ class SHA384:
     # this is a yielder function
     def get_string_yield(self):
 
-        # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1) 
         currentCount = 1
 
@@ -211,7 +207,6 @@ class SHA384:
     # this is a yielder function
     def get_byte_yield(self):
 
-        # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1)
         currentCount = 1
 
@@ -320,7 +315,7 @@ class SHA512:
     # type check parameters and assign objects to self
     # string retruned length is 128
     # byte returned len is 64
-    def __init__(self , bytesObj , chunkSize = 65536):
+    def __init__(self , bytesObj , chunkSize = 1048576):
 
         if(type(bytesObj) != bytes):
             raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
@@ -330,7 +325,6 @@ class SHA512:
         self.bytesObj = bytesObj
         self.lenBytes = len(bytesObj)
 
-        self.sha224_hash = hashlib.sha224()
         self.sha512_hash = hashlib.sha512()
 
         self.chunkSize = chunkSize
@@ -343,7 +337,6 @@ class SHA512:
     # this is a yielder function
     def get_string_yield(self):
 
-        # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1)
         currentCount = 1
 
@@ -371,7 +364,6 @@ class SHA512:
     # this is a yielder function
     def get_byte_yield(self):
 
-        # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1)
         currentCount = 1
 
