@@ -2,7 +2,7 @@ from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from .encoderDecoders import *
-from .hashers import *
+from .hashers_v2 import *
 import base64
 import hashlib
 
@@ -89,7 +89,7 @@ class Encryptor:
         currentCount = 1
 
         # number of chunks * 2 + checksum yield
-        totalYield = (((len_byte // self.chunkSize) + 1) * 2) + (((len_byte // 2048) + 1) * 2)
+        totalYield = (((len_byte // self.chunkSize) + 1) * 2) + (((len_byte // 1048576) + 1))
 
 
         # divide data in chunks
@@ -133,6 +133,9 @@ class Encryptor:
         # add checksum to result
         result = result + b":checksum:" + encChecksum
 
+        # complete yield progress
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
         return result
 
 
@@ -157,7 +160,7 @@ class Encryptor:
         currentCount = 1
 
         # number of chunks  + checksum yield
-        totalYield = len(chunkList) + ((((len(chunkList) * self.chunkSize) // 2048) + 1) * 2)
+        totalYield = len(chunkList) + ((((len(chunkList) * self.chunkSize) // 1048576) + 1))
 
         result = b""
 
@@ -226,7 +229,7 @@ class Encryptor:
         currentCount = 1
 
         # number of chunks * 2 + checksum yield
-        totalYield = (((len_string // self.chunkSize) + 1) * 2) + (((len_string // 2048) + 1) * 2)
+        totalYield = (((len_string // self.chunkSize) + 1) * 2) + (((len_string // 1048576) + 1))
 
         # divide data in chunks
         for i in range(0 , len_string , self.chunkSize):
@@ -281,6 +284,10 @@ class Encryptor:
         # add checksum to result
         result = result + ":checksum:" + encChecksum_string
 
+
+        # complete yield progress
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
         return result
 
 
@@ -305,7 +312,7 @@ class Encryptor:
         currentCount = 1
 
         # number of chunks  + checksum yield
-        totalYield = len(chunkList) + ((((len(chunkList) * self.chunkSize) // 2048) + 1) * 2)
+        totalYield = len(chunkList) + ((((len(chunkList) * self.chunkSize) // 1048576) + 1))
 
         result = ""
         byteFromString = b""
@@ -397,6 +404,7 @@ class Encryptor:
         # add checksum to result
         result = result + b":checksum:" + encChecksum
 
+        
         return result
 
 
@@ -819,7 +827,7 @@ def __test_encryptor_string():
 
 
 if __name__ == "__main__":
-    # __test_encryptor_byte_yield()
-    __test_encryptor_string_yield()
+    __test_encryptor_byte_yield()
+    # __test_encryptor_string_yield()
     # __test_encryptor_byte()
     # __test_encryptor_string()

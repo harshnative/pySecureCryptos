@@ -90,7 +90,7 @@ class Encryptor:
         currentCount = 1
 
         # number of chunks * 2 + checksum yield
-        totalYield = (((len_byte // self.chunkSize) + 1) * 2) + (((len_byte // 65536) + 1))
+        totalYield = (((len_byte // self.chunkSize) + 1) * 2) + (((len_byte // 1048576) + 1))
 
 
         # divide data in chunks
@@ -161,7 +161,7 @@ class Encryptor:
         currentCount = 1
 
         # number of chunks  + checksum yield
-        totalYield = len(chunkList) + ((((len(chunkList) * self.chunkSize) // 65536) + 1))
+        totalYield = len(chunkList) + ((((len(chunkList) * self.chunkSize) // 1048576) + 1))
 
         result = b""
 
@@ -230,7 +230,7 @@ class Encryptor:
         currentCount = 1
 
         # number of chunks * 2 + checksum yield
-        totalYield = (((len_string // self.chunkSize) + 1) * 2) + (((len_string // 65536) + 1))
+        totalYield = (((len_string // self.chunkSize) + 1) * 2) + (((len_string // 1048576) + 1))
 
         # divide data in chunks
         for i in range(0 , len_string , self.chunkSize):
@@ -311,7 +311,7 @@ class Encryptor:
         currentCount = 1
 
         # number of chunks  + checksum yield
-        totalYield = len(chunkList) + ((((len(chunkList) * self.chunkSize) // 65536) + 1))
+        totalYield = len(chunkList) + ((((len(chunkList) * self.chunkSize) // 1048576) + 1))
 
         result = ""
         byteFromString = b""
