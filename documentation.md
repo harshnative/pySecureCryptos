@@ -22,14 +22,14 @@ Although the python as many inbuilt modules like onetimpad , crytography , pycry
 
 # Features
 
-1. [Shuffler - shuffle and unshuffle things based on a seed](https://www.letscodeofficial.com/documentations/pySecureCryptos_shuffler#/)
+1. [Shuffler - shuffle and unshuffle things based on a seed](https://www.letscodeofficial.com/documentations/pySecureCryptos%20shuffler#/)
 
 used to jumble things up so that they are hard to read in correct order , used in most encryption algo's in this module.
 
 <br>
 <br>
 
-2. [Encoder Decoder - encode and decode strings and bytes](https://www.letscodeofficial.com/documentations/pSC_encoderDecoders#/)
+2. [Encoder Decoder - encode and decode strings and bytes](https://www.letscodeofficial.com/documentations/pySecureCryptos%20encoderDecoders#/)
 
 used to convert byte into strings and vice versa and string into byte and vice versa
 
@@ -37,7 +37,7 @@ used to convert byte into strings and vice versa and string into byte and vice v
 <br>
 
 
-3. [Fernet Wrapper - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pSC_fernetWrapper#/)
+3. [Fernet Wrapper - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pySecureCryptos%20fernetWrapper#/)
 
 you can encrypt and decrypt any string or byte with just a password. there are also generator function for tracking progress on large encryption and decryptions. Better for large byte datatypes than onetimepad.
 
@@ -45,7 +45,7 @@ you can encrypt and decrypt any string or byte with just a password. there are a
 <br>
 
 
-4. [Onetimepad Wrapper - encrypt and decrypt strings and bytes using onetimepad](https://www.letscodeofficial.com/documentations/pSC_onetimepadWrapper#/)
+4. [Onetimepad Wrapper - encrypt and decrypt strings and bytes using onetimepad](https://www.letscodeofficial.com/documentations/pySecureCryptos%20onetimepadWrapper#/)
 
 you can encrypt and decrypt any string or byte with just a password. there are also generator function for tracking progress on large encryption and decryptions.
 
@@ -53,14 +53,14 @@ you can encrypt and decrypt any string or byte with just a password. there are a
 <br>
 
 
-5. [Verifier Fernet Wrapper - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pSC_V_fernetWrapper#/)
+5. [Verifier Fernet Wrapper - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pySecureCryptos%20Verifier%20fernetWrapper#/)
 
 Same has fernet wrapper , but also adds a encrypted checksum to verify the data integrity 
 
 <br>
 <br>
 
-6. [Verifier Onetimepad Wrapper - encrypt and decrypt strings and bytes using onetimepad](https://www.letscodeofficial.com/documentations/pSC_V_onetimepadWrapper#/)
+6. [Verifier Onetimepad Wrapper - encrypt and decrypt strings and bytes using onetimepad](https://www.letscodeofficial.com/documentations/pySecureCryptos%20Verifier%20onetimepadWrapper#/)
 
 Same has onetimepad wrapper , but also adds a encrypted checksum to verify the data integrity
 
@@ -69,7 +69,7 @@ Same has onetimepad wrapper , but also adds a encrypted checksum to verify the d
 
 
 
-7. [Password Checker - check if you password is secure enough](https://www.letscodeofficial.com/documentations/pSC_passwordChecker#/)
+7. [Password Checker - check if you password is secure enough](https://www.letscodeofficial.com/documentations/pySecureCryptos%20passwordChecker#/)
 
 Has different qualifications for password , low , medium , high and max level security.
 
@@ -78,7 +78,7 @@ For sensitive applications , make sure your password qualifies for at least high
 <br>
 <br>
 
-8. [Hashers - Securely verify documents and passwords](https://www.letscodeofficial.com/documentations/pSC_hashers#/)
+8. [Hashers - Securely verify documents and passwords](https://www.letscodeofficial.com/documentations/pySecureCryptos%20hashers)
 
 contains modified SHA256 , SHA384 , SHA512 algo's
 
@@ -87,7 +87,7 @@ contains modified SHA256 , SHA384 , SHA512 algo's
 
 
 
-9. [rsa Wrapper - encrypt and decrypt strings and bytes](https://www.letscodeofficial.com/documentations/pSC_rsaWrapper#/)
+9. [rsa Wrapper - encrypt and decrypt strings and bytes](https://www.letscodeofficial.com/documentations/pySecureCryptos%20rsaWrapper#/)
 
 #### Recommended asymmetric algo for most use cases.
 
@@ -97,7 +97,7 @@ contains modified SHA256 , SHA384 , SHA512 algo's
 
 
 
-10. [Verifier Fernet Wrapper version 2 - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pSC_V_fernetWrapper_v2#/)
+10. [Verifier Fernet Wrapper version 2 - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pySecureCryptos%20Verifier%20fernetWrapper%20v2#/)
 
 Fastester version of Verifier Fernet Wrapper.
 
@@ -108,7 +108,7 @@ Fastester version of Verifier Fernet Wrapper.
 
 
 
-11. [Verifier Fernet Wrapper version 2.2 - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pSC_V_fernetWrapper_v2_2#/)
+11. [Verifier Fernet Wrapper version 2.2 - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pySecureCryptos%20Verifier%20fernetWrapper%20v2.2#/)
 
 Fastester version of Verifier Fernet Wrapper but with less compatability across.
 
@@ -117,7 +117,7 @@ Fastester version of Verifier Fernet Wrapper but with less compatability across.
 
 
 
-12. [Hashers 2.2 - Securely verify documents and passwords](https://www.letscodeofficial.com/documentations/pSC_hashers_v2#/)
+12. [Hashers 2.2 - Securely verify documents and passwords](https://www.letscodeofficial.com/documentations/pySecureCryptos%20hashers%20v2)
 
 contains modified SHA256 , SHA384 , SHA512 algo's. Much faster than hashers version 1 but is comparitively less secure.
 
@@ -125,7 +125,7 @@ contains modified SHA256 , SHA384 , SHA512 algo's. Much faster than hashers vers
 <br>
 
 
-13. [Verifier Fernet Wrapper version 3 - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pSC_V_fernetWrapper_v3#/)
+13. [Verifier Fernet Wrapper version 3 - encrypt and decrypt strings and bytes using fernet](https://www.letscodeofficial.com/documentations/pySecureCryptos%20Verifier%20fernetWrapper%20v3#/)
 
 Fastest version of Verifier Fernet Wrapper making use of multiple cores of CPU.
 
