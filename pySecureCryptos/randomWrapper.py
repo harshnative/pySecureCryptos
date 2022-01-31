@@ -1,5 +1,4 @@
 import random
-from re import S
 import string
 import time
 import secrets
@@ -8,7 +7,6 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import font as tkFont
 import math
-import codecs
 import numpy
 
 

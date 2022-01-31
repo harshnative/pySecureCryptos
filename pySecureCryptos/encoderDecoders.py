@@ -1,5 +1,4 @@
 import binascii
-from unittest.util import strclass
 
 
 #  _               _                 _                        _            _                  
