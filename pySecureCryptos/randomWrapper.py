@@ -9,6 +9,7 @@ from tkinter import ttk
 from tkinter import font as tkFont
 import math
 import codecs
+import numpy
 
 
 
@@ -241,14 +242,8 @@ class TrueRandom_mouse:
 
         storageList_len = len(self.storageList)
 
-        # center of the storage list
-        median_point = storageList_len // 2
-
-        # diversion need to make from center of storage list
-        sample_diversion = storageList_len // 4
-
         # sub sample from storage list
-        middle_storageList = self.storageList[median_point - sample_diversion : median_point + sample_diversion]
+        middle_storageList = self.storageList[self.single : storageList_len - self.single]
         
         middle_storageList_len = len(middle_storageList)
 
@@ -280,6 +275,59 @@ class TrueRandom_mouse:
 
 
 
+
+
+
+
+
+
+    # function to get random floats from 0 to 1
+    # returns a list of floats possible from sample collected in pool size
+    def getRandomNumbers_float(self):
+        
+        numbersList = []
+
+        storageList_len = len(self.storageList)
+
+        # sub sample from storage list
+        middle_storageList = self.storageList[self.single : storageList_len - self.single]
+        
+        middle_storageList_len = len(middle_storageList)
+
+        # iterate over sub sampled list in chunks of size = single
+        # then multiply all coordinates in the chunk to get the final number
+        for i in range(0 , middle_storageList_len , self.single):
+            currentChunk = middle_storageList[i : i + self.single]
+
+            finalNumber = 1
+            for j in currentChunk:
+                finalNumber = finalNumber * (j[0] + 1) * (j[1] + 1)
+            
+            # scale down the number and add to list
+            numbersList.append(math.log2(finalNumber))
+
+        # calculate mean of numbers
+        mean = numpy.mean(numbersList)
+
+        # calculate standard deviation of numbers
+        sd = numpy.std(numbersList)
+
+        scaled_numbersList = []
+
+        for i in numbersList:
+            # normalize numbers using z score normalization
+            scaled = abs(i - mean) / sd
+
+            # only keep value if greator less than equal to 1
+            if(scaled <= 1):
+                scaled_numbersList.append(scaled)
+
+        return scaled_numbersList
+    
+
+
+
+    # def make_choice(iterable , )
 
 
 
@@ -356,7 +404,7 @@ def __test_randomString2():
 #                                                                                                                              |_____|                                          
 
 
-def __test__TrueRandom_mouse():
+def __test__TrueRandom_mouse_getRandomNumbers_int():
 
     obj = TrueRandom_mouse()
 
@@ -366,7 +414,51 @@ def __test__TrueRandom_mouse():
 
     print(len(rand_int))
 
-    print(rand_int)
+
+
+
+    import matplotlib.pyplot as plt
+
+    plt.scatter(range(len(rand_int)), rand_int, c ="black")
+  
+
+
+    
+    plt.xlabel("X-axis")
+    plt.ylabel("Y-axis")
+    plt.show()
+
+
+
+
+
+
+
+
+def __test__TrueRandom_mouse_getRandomNumbers_float():
+
+    obj = TrueRandom_mouse()
+
+    obj.setSeed()
+
+    rand_floats = obj.getRandomNumbers_float()
+
+    print(len(rand_floats))
+
+    print(rand_floats)
+
+
+    import matplotlib.pyplot as plt
+
+    plt.scatter(range(len(rand_floats)), rand_floats, c ="black")
+
+
+    
+    plt.xlabel("X-axis")
+    plt.ylabel("Y-axis")
+    plt.show()
+
+
 
 
 
@@ -376,4 +468,4 @@ def __test__TrueRandom_mouse():
 
 
 if __name__ == "__main__":
-    __test_randomString2()
+    __test__TrueRandom_mouse_getRandomNumbers_float()
