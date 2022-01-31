@@ -2,7 +2,7 @@ import os
 import sys
 
 def main():
-    pathToPackage = "/media/veracrypt64/Projects/pyModules/pySecureCryptos/pySecureCryptos/dist/"
+    pathToPackage = "/media/veracrypt63/Projects/pyModules/pySecureCryptos/pySecureCryptos/dist/"
     
     choice = input("Type < continue > if the virtual env is activated : ")
 
