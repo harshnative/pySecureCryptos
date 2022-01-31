@@ -4,13 +4,12 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 
-with open("currentVersion.txt" , "r") as file:
-    currentVersion = str(file.read())
+from pySecureCryptos import version
 
 
 setuptools.setup(
     name="pySecureCryptos", # Replace with your own username
-    version=currentVersion,
+    version=version.current_verison,
     author="Harsh Native",
     author_email="Harshnative@gmail.com",
     description="All the tools for cryptography / encryption for everything including databases , files , string , containers and another security methods like hashing and true random number generators in one place.",
