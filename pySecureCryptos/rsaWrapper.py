@@ -93,11 +93,11 @@ class Encryptor:
     def __init__(self , publicKey : Union[str , bytes] , privateKey : Union[str , bytes] , keySize : int = 0):
 
         # type checking the parameters
-        if(type(publicKey) in [str , bytes]):
+        if(type(publicKey) not in (str , bytes)):
             raise TypeError("publicKey parameter expected to be of str or bytes type instead got {} type".format(type(publicKey)))
 
         # type checking the parameters
-        if(type(privateKey) in [str , bytes]):
+        if(type(privateKey) not in (str , bytes)):
             raise TypeError("privateKey parameter expected to be of str or bytes type instead got {} type".format(type(privateKey)))
         
         # if the keys are in str format , convert them back to bytes
