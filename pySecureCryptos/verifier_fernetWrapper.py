@@ -1,3 +1,4 @@
+from typing import Union
 from .shuffler import Shuffler
 import hashlib
 from .encoderDecoders import *
@@ -25,7 +26,7 @@ from .fernetWrapper import StringEncryptor as fw_stringEncryptor
 
 class StringEncryptor:
 
-    def __init__(self , password , iterations=390000):
+    def __init__(self , password : str , iterations : int = 390000):
 
         # type checking the parameters
         if(type(password) != str):
@@ -92,7 +93,7 @@ class StringEncryptor:
     # method to encrypt a string
     # returns encrypted string if returnString = True
     # else returns a byte object
-    def encrypt_yield(self , string , returnString = True):
+    def encrypt_yield(self , string : str , returnString : bool = True) -> Union[str , bytes]:
 
         # type checking the parameters
         if(type(string) != str):
@@ -231,7 +232,7 @@ class StringEncryptor:
 
     # method to decrypt a string
     # returns decrypted string
-    def decrypt_string_yield(self , enc_string):
+    def decrypt_string_yield(self , enc_string : str) -> str:
 
         # type checking the parameters
         if(type(enc_string) != str):
@@ -334,7 +335,7 @@ class StringEncryptor:
     # method to decrypt a string
     # returns decrypted string
     # else returns a byte object
-    def decrypt_byte_yield(self , enc_byte):
+    def decrypt_byte_yield(self , enc_byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
@@ -423,7 +424,7 @@ class StringEncryptor:
     # method to encrypt a string
     # returns encrypted string if returnString = True
     # else returns a byte object
-    def encrypt(self , string , returnString = True):
+    def encrypt(self , string : str , returnString : bool = True) -> Union[str , bytes]:
 
         # type checking the parameters
         if(type(string) != str):
@@ -516,7 +517,7 @@ class StringEncryptor:
 
     # method to decrypt a string
     # returns decrypted string
-    def decrypt_string(self , enc_string):
+    def decrypt_string(self , enc_string : str) -> str:
 
         # type checking the parameters
         if(type(enc_string) != str):
@@ -578,7 +579,7 @@ class StringEncryptor:
     # method to decrypt a string
     # returns decrypted string
     # else returns a byte object
-    def decrypt_byte(self , enc_byte):
+    def decrypt_byte(self , enc_byte : bytes) -> str:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
@@ -669,7 +670,7 @@ class StringEncryptor:
 
 class BytesEncryptor:
 
-    def __init__(self , password , iterations=390000):
+    def __init__(self , password : str , iterations : int = 390000):
 
         # type checking the parameters
         if(type(password) != str):
@@ -733,7 +734,7 @@ class BytesEncryptor:
 
     # method to encrypt a string
     # returns a encrypted byte object
-    def encrypt_yield(self , byte):
+    def encrypt_yield(self , byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -815,7 +816,7 @@ class BytesEncryptor:
 
     # method to decrypt a byte
     # returns a bytes object
-    def decrypt_yield(self , enc_byte):
+    def decrypt_yield(self , enc_byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
@@ -890,7 +891,7 @@ class BytesEncryptor:
 
     # method to encrypt a string
     # returns a encrypted byte object
-    def encrypt(self , byte):
+    def encrypt(self , byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -956,7 +957,7 @@ class BytesEncryptor:
 
     # method to decrypt a byte
     # returns a bytes object
-    def decrypt(self , enc_byte):
+    def decrypt(self , enc_byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):

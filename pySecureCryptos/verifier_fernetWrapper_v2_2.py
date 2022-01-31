@@ -32,7 +32,7 @@ import hashlib
 class Encryptor:
 
     # chunk size in KB
-    def __init__(self , password , iterations=390000 , chunkSize=512):
+    def __init__(self , password : str , iterations : int = 390000 , chunkSize : int = 512):
 
         # type checking the parameters
         if(type(password) != str):
@@ -89,7 +89,7 @@ class Encryptor:
 
     # function to encrypt a byte object
     # generator function
-    def encrypt_byte_yield(self , byte):
+    def encrypt_byte_yield(self , byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -168,7 +168,7 @@ class Encryptor:
 
 
     # function to decrypt the encrypted byte    
-    def decrypt_byte_yield(self , enc_byte):
+    def decrypt_byte_yield(self , enc_byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
@@ -239,7 +239,7 @@ class Encryptor:
 
     # function to encrypt a string object
     # generator function
-    def encrypt_string_yield(self , string):
+    def encrypt_string_yield(self , string : str) -> str:
 
         # type checking the parameters
         if(type(string) != str):
@@ -336,7 +336,7 @@ class Encryptor:
 
 
     # function to decrypt encrypted string
-    def decrypt_string_yield(self , enc_string):
+    def decrypt_string_yield(self , enc_string : str) -> str:
 
         # type checking the parameters
         if(type(enc_string) != str):
@@ -427,7 +427,7 @@ class Encryptor:
 
 
     # function to encrypt a byte object
-    def encrypt_byte(self , byte):
+    def encrypt_byte(self , byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -485,7 +485,7 @@ class Encryptor:
 
 
     # function to decrypt the encrypted byte    
-    def decrypt_byte(self , enc_byte):
+    def decrypt_byte(self , enc_byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
@@ -532,7 +532,7 @@ class Encryptor:
 
 
     # function to encrypt a string object
-    def encrypt_string(self , string):
+    def encrypt_string(self , string : str) -> str:
 
         # type checking the parameters
         if(type(string) != str):
@@ -605,7 +605,7 @@ class Encryptor:
 
 
     
-    def decrypt_string(self , enc_string):
+    def decrypt_string(self , enc_string : str) -> str:
 
         # type checking the parameters
         if(type(enc_string) != str):

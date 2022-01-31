@@ -3,8 +3,15 @@ import copy
 
 
 
+# TODO : you can add yielder method to all the shufflers
+# you can divide the list into equal chunks
+# then shuffle individual list and yield progress
+# then shuffle these individual lists order and combine and return
 
 
+# TODO : you can add true random shuffle
+# choose a element from list using secrets.choice then remove the element form list , then choice another
+# no unshuffle method will be provided
 
 
 
@@ -33,7 +40,7 @@ class Shuffler:
     
     # method to shuffle a passed list using a seed
     @classmethod
-    def shuffe_list(cls , ls :list , seed :str , copyList :bool = True):
+    def shuffe_list(cls , ls : list , seed : str , copyList : bool = True) -> list:
 
         if(type(ls) != list):
             raise TypeError("ls parameter expected to be of list type instead got {} type".format(type(ls)))
@@ -54,7 +61,7 @@ class Shuffler:
     # method to unshuffel a list shuffled using shuffe_list() method of this class
     # seed should be same for both the methods
     @classmethod
-    def unShuffle_list(cls , shuffled_ls :list , seed :str):
+    def unShuffle_list(cls , shuffled_ls : list , seed : str) -> list:
 
         if(type(shuffled_ls) != list):
             raise TypeError("shuffled_ls parameter expected to be of list type instead got {} type".format(type(shuffled_ls)))
@@ -110,7 +117,7 @@ class Shuffler:
 
     # method to shuffle a string
     @classmethod
-    def shuffle_string(cls , string :str , seed :str):
+    def shuffle_string(cls , string : str , seed : str) -> str:
 
         if(type(string) != str):
             raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
@@ -128,7 +135,7 @@ class Shuffler:
 
     # function to shuffle a string
     @classmethod
-    def unShuffle_string(cls , shuffledString :str , seed :str):
+    def unShuffle_string(cls , shuffledString : str , seed : str) -> str:
 
         if(type(shuffledString) != str):
             raise TypeError("shuffledString parameter expected to be of str type instead got {} type".format(type(shuffledString)))
@@ -166,7 +173,7 @@ class Shuffler:
 
     # method to shuffle a byte
     @classmethod
-    def shuffle_byte(cls , byte , seed):
+    def shuffle_byte(cls , byte : bytes , seed : str) -> bytes:
 
         if(type(byte) != bytes):
             raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
@@ -184,7 +191,7 @@ class Shuffler:
 
     # function to shuffle a byte
     @classmethod
-    def unShuffle_byte(cls , shuffledByte  , seed):
+    def unShuffle_byte(cls , shuffledByte : bytes  , seed : str) -> bytes:
 
         if(type(shuffledByte) != bytes):
             raise TypeError("shuffledByte parameter expected to be of bytes type instead got {} type".format(type(shuffledByte)))

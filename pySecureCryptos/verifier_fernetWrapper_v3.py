@@ -31,7 +31,7 @@ from .hashers_v2 import *
 class Keys:
 
     @classmethod
-    def getKey(cls , password , iterations=390000):
+    def getKey(cls , password : str , iterations : int = 390000) -> bytes:
 
         # type checking the parameters
         if(type(password) != str):
@@ -139,7 +139,7 @@ class Encryptor:
     # key should be get from Keys.getKey(password) method
     # chunk size in MB , default is 8 MB. This value depends on your processing power. More the processing power, larger the chunk size should be
     @classmethod
-    def main_encrypt_byte(cls , byte , key , chunkSize = 8):
+    def main_encrypt_byte(cls , byte : bytes , key : bytes , chunkSize : int = 8) -> bytes:
 
         if(type(byte) != bytes):
             raise TypeError(f"byte parameter expected to be {bytes} , instead got {type(byte)}")
@@ -275,7 +275,7 @@ class Encryptor:
     # method to decrypt a large chunk of data
     # data will be decrypted using multiprocessing
     @classmethod
-    def main_decrypt_byte(cls , enc_byte , key):
+    def main_decrypt_byte(cls , enc_byte : bytes , key : bytes) -> bytes:
 
         # init shared var
         manager = multiprocessing.Manager()
@@ -407,7 +407,7 @@ class Encryptor:
     # chunk size in MB , default is 8 MB. This value depends on your processing power. More the processing power, larger the chunk size should be
     # if the string as some chars which are outside the scope of utf-8 then , then use comp = True , it increases compatibility
     @classmethod
-    def main_encrypt_string(cls , string , key , chunkSize = 4):
+    def main_encrypt_string(cls , string : str , key : bytes , chunkSize : int = 4) -> bytes:
 
         if(type(string) != str):
             raise TypeError(f"string parameter expected to be {str} , instead got {type(string)}")
@@ -569,7 +569,7 @@ class Encryptor:
     # method to decrypt a large chunk of data
     # data will be decrypted using multiprocessing
     @classmethod
-    def main_decrypt_string(cls , enc_string , key):
+    def main_decrypt_string(cls , enc_string : str , key : bytes) -> str:
 
         # init shared var
         manager = multiprocessing.Manager()
@@ -701,7 +701,7 @@ class Encryptor:
 
     # method to encrypt a large bytes file
     @classmethod
-    def encrypt_file(cls , filepath , destinationPath , key):
+    def encrypt_file(cls , filepath : str , destinationPath : str , key : bytes) -> None:
 
         if(type(filepath) != str):
             raise TypeError(f"filename parameter expected to be {str} type instead got {type(filepath)} type.")
@@ -795,7 +795,7 @@ class Encryptor:
 
     # method to decrypt a large bytes file
     @classmethod
-    def decrypt_file(cls , filepath , destinationPath , key):
+    def decrypt_file(cls , filepath : str , destinationPath : str , key : bytes) -> None:
 
         # function to yield number of lines
         def _count_generator(reader):

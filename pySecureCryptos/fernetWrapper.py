@@ -23,7 +23,7 @@ from typing import Union
 
 class StringEncryptor:
 
-    def __init__(self , password : str , iterations : int = 390000) -> None:
+    def __init__(self , password : str , iterations : int = 390000):
 
         # type checking the parameters
         if(type(password) != str):
@@ -471,7 +471,7 @@ class StringEncryptor:
 
 class BytesEncryptor:
 
-    def __init__(self , password : str , iterations : int = 390000) -> None:
+    def __init__(self , password : str , iterations : int = 390000):
 
         # type checking the parameters
         if(type(password) != str):

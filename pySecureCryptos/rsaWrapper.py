@@ -7,7 +7,7 @@ import time
 from .verifier_fernetWrapper_v3 import Keys as vfw_v3_keys
 from .verifier_fernetWrapper_v3 import Encryptor as vfw_v3_encryptor
 from cryptography.fernet import Fernet
-
+from typing import Union
 
 
 
@@ -35,7 +35,7 @@ from cryptography.fernet import Fernet
 class KeyGenerator:
 
     # generate the key in constructor
-    def __init__(self , size = 4096):
+    def __init__(self , size : int = 4096):
 
         # type checking the parameters
         if(type(size) != int):
@@ -48,23 +48,23 @@ class KeyGenerator:
         self.key = RSA.generate(size)
 
     # return the private key in byte
-    def get_privateKey_bytes(self):
+    def get_privateKey_bytes(self) -> bytes:
         private_key = self.key.export_key()
         return private_key
 
     # return private key in strings
-    def get_privateKey_string(self):
+    def get_privateKey_string(self) -> str:
         private_key = self.key.export_key()
         hexPrivateKey = HexConvertor.encode(private_key)
         return hexPrivateKey
 
     # return public key in bytes
-    def get_publicKey_bytes(self):
+    def get_publicKey_bytes(self) -> bytes:
         public_key = self.key.public_key().export_key()
         return public_key
 
     # return public key in strings
-    def get_publicKey_string(self):
+    def get_publicKey_string(self) -> str:
         public_key = self.key.public_key().export_key()
         hexpublicKey = HexConvertor.encode(public_key)
         return hexpublicKey
@@ -91,14 +91,14 @@ class KeyGenerator:
 
 class Encryptor:
 
-    def __init__(self , publicKey , privateKey , keySize = 0):
+    def __init__(self , publicKey : Union[str , bytes] , privateKey : Union[str , bytes] , keySize : int = 0):
 
         # type checking the parameters
-        if((type(publicKey) != str) and (type(publicKey) != bytes)):
+        if(type(publicKey) in [str , bytes]):
             raise TypeError("publicKey parameter expected to be of str or bytes type instead got {} type".format(type(publicKey)))
 
         # type checking the parameters
-        if((type(privateKey) != str) and (type(privateKey) != bytes)):
+        if(type(privateKey) in [str , bytes]):
             raise TypeError("privateKey parameter expected to be of str or bytes type instead got {} type".format(type(privateKey)))
         
         # if the keys are in str format , convert them back to bytes
@@ -145,7 +145,7 @@ class Encryptor:
 
 
     # function to get the keysize from key and previous data
-    def calculateKeySize(self , publicKey , privateKey):
+    def calculateKeySize(self , publicKey : bytes , privateKey : bytes) -> Union[None , False , int]:
 
         len_public = len(publicKey)
         len_private = len(privateKey)
@@ -165,7 +165,7 @@ class Encryptor:
 
     # function to encrypt a byte object
     # generator function
-    def encrypt_byte_yield(self , byte):
+    def encrypt_byte_yield(self , byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -243,7 +243,7 @@ class Encryptor:
 
 
     # function to decrypt the encrypted byte    
-    def decrypt_byte_yield(self , enc_byte):
+    def decrypt_byte_yield(self , enc_byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
@@ -317,7 +317,7 @@ class Encryptor:
 
     # function to encrypt a string object
     # generator function
-    def encrypt_string_yield(self , string):
+    def encrypt_string_yield(self , string : str) -> str:
 
         # type checking the parameters
         if(type(string) != str):
@@ -412,7 +412,7 @@ class Encryptor:
 
 
     # function to decrypt encrypted string
-    def decrypt_string_yield(self , enc_string):
+    def decrypt_string_yield(self , enc_string : str) -> str:
 
         # type checking the parameters
         if(type(enc_string) != str):
@@ -499,9 +499,8 @@ class Encryptor:
 
 
     # function to encrypt a large byte object using multiprocessing
-    # uses a 512 bit key fernet encryption and then attaches that key to result using rsa encryption
     # chunkSize in MB
-    def encrypt_lbyte_yield(self , large_byte , chunkSize = 8):
+    def encrypt_lbyte_yield(self , large_byte : bytes , chunkSize : int = 8) -> bytes:
 
         # type checking the parameters
         if(type(large_byte) != bytes):
@@ -556,7 +555,7 @@ class Encryptor:
 
 
     # method to decyprt the byte encrypted using multi processing
-    def decrypt_lbyte_yield(self , large_byte):
+    def decrypt_lbyte_yield(self , large_byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(large_byte) != bytes):
@@ -608,7 +607,7 @@ class Encryptor:
 
     # function to encrypt a large string object using multiprocessing
     # chunkSize size in MB
-    def encrypt_lstring_yield(self , large_string , chunkSize = 4):
+    def encrypt_lstring_yield(self , large_string : str , chunkSize : int = 4) -> str:
 
         # type checking the parameters
         if(type(large_string) != str):
@@ -662,7 +661,7 @@ class Encryptor:
 
 
     # function to decrypt a large string object using multi processing
-    def decrypt_lstring_yield(self , large_string):
+    def decrypt_lstring_yield(self , large_string : str) -> str:
 
         # type checking the parameters
         if(type(large_string) != str):
@@ -715,7 +714,7 @@ class Encryptor:
 
 
     # function to encrypt a byte object
-    def encrypt_byte(self , byte):
+    def encrypt_byte(self , byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -764,7 +763,7 @@ class Encryptor:
 
 
     # function to decrypt the encrypted byte    
-    def decrypt_byte(self , enc_byte):
+    def decrypt_byte(self , enc_byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(enc_byte) != bytes):
@@ -813,7 +812,7 @@ class Encryptor:
 
 
     # function to encrypt a string object
-    def encrypt_string(self , string):
+    def encrypt_string(self , string : str) -> str:
 
         # type checking the parameters
         if(type(string) != str):
@@ -880,7 +879,7 @@ class Encryptor:
 
 
     
-    def decrypt_string(self , enc_string):
+    def decrypt_string(self , enc_string : str) -> str:
 
         # type checking the parameters
         if(type(enc_string) != str):

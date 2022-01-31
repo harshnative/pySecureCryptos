@@ -16,7 +16,7 @@ class SHA256:
     # type check parameters and assign objects to self
     # string retruned length is 64
     # byte returned len is 32
-    def __init__(self , bytesObj : bytes , chunkSize : int = 1048576) -> None:
+    def __init__(self , bytesObj : bytes , chunkSize : int = 1048576):
 
         if(type(bytesObj) != bytes):
             raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
@@ -158,7 +158,7 @@ class SHA384:
     # type check parameters and assign objects to self
     # string retruned length is 96
     # byte returned len is 48
-    def __init__(self , bytesObj : bytes , chunkSize : int = 1048576) -> None:
+    def __init__(self , bytesObj : bytes , chunkSize : int = 1048576):
 
         if(type(bytesObj) != bytes):
             raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
@@ -315,7 +315,7 @@ class SHA512:
     # type check parameters and assign objects to self
     # string retruned length is 128
     # byte returned len is 64
-    def __init__(self , bytesObj : bytes , chunkSize : int = 1048576) -> None:
+    def __init__(self , bytesObj : bytes , chunkSize : int = 1048576):
 
         if(type(bytesObj) != bytes):
             raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
