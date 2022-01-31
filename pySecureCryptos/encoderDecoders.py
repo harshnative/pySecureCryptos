@@ -1,4 +1,5 @@
 import binascii
+from unittest.util import strclass
 
 
 #  _               _                 _                        _            _                  
@@ -13,7 +14,7 @@ class Byte2String:
 
     # method to convert any byte into string
     @classmethod
-    def encode(cls , byte):
+    def encode(cls , byte : bytes) -> str:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -43,7 +44,7 @@ class Byte2String:
     # method to convert the output string from above method into byte again
     # returns a bytes type object
     @classmethod
-    def decode(cls , string):
+    def decode(cls , string : str) -> bytes:
 
         # type checking the parameters
         if(type(string) != str):
@@ -93,7 +94,7 @@ class String2Byte:
     # method to convert string to byte
     # returns bytes
     @classmethod
-    def encode(cls , string):
+    def encode(cls , string : str) -> bytes:
 
         # type checking the parameters
         if(type(string) != str):
@@ -113,8 +114,9 @@ class String2Byte:
         return bytes(intList)
 
 
+
     @classmethod
-    def decode(cls , byte):
+    def decode(cls , byte : bytes) -> str:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -163,7 +165,7 @@ class Byte2String_yield:
 
     # method to convert any byte into string
     @classmethod
-    def encode(cls , byte):
+    def encode(cls , byte : bytes) -> str:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -199,7 +201,7 @@ class Byte2String_yield:
     # method to convert the output string from above method into byte again
     # returns a bytes type object
     @classmethod
-    def decode(cls , string):
+    def decode(cls , string : str) -> bytes:
 
         # type checking the parameters
         if(type(string) != str):
@@ -254,7 +256,7 @@ class String2Byte_yield:
     # method to convert string to byte
     # returns bytes
     @classmethod
-    def encode(cls , string):
+    def encode(cls , string : str) -> bytes:
 
         # type checking the parameters
         if(type(string) != str):
@@ -280,7 +282,7 @@ class String2Byte_yield:
 
 
     @classmethod
-    def decode(cls , byte):
+    def decode(cls , byte : bytes) -> str:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -335,7 +337,7 @@ class HexConvertor:
     # encode byte into string
     # hexlify function returns hex in byte format , which needs to be encoded in string
     @classmethod
-    def encode(cls , byte):
+    def encode(cls , byte : bytes) -> str:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -346,7 +348,7 @@ class HexConvertor:
 
     # function to convert the encoded string into byte
     @classmethod
-    def decode(cls , string):
+    def decode(cls , string : str) -> bytes:
 
         # type checking the parameters
         if(type(string) != str):
@@ -359,7 +361,7 @@ class HexConvertor:
     # generator version
     # encode byte into string
     @classmethod
-    def encode_yield(cls , byte , chunkSize = 1):
+    def encode_yield(cls , byte : bytes , chunkSize : int = 1) -> str:
         
 
         # type checking the parameters
@@ -397,7 +399,7 @@ class HexConvertor:
     # generator verion
     # decode - convert encoded string back to byte
     @classmethod
-    def decode_yield(cls , string , chunkSize = 1):
+    def decode_yield(cls , string : str , chunkSize : int = 1) -> bytes:
 
         # type checking the parameters
         if(type(string) != str):
@@ -458,7 +460,7 @@ class String2Byte_v2:
 
     # method to convert string to byte using utf-8 encoding
     @classmethod
-    def encode(cls , string):
+    def encode(cls , string : str) -> bytes:
 
         # type checking the parameters
         if(type(string) != str):
@@ -469,7 +471,7 @@ class String2Byte_v2:
 
     # method to convert byte again to string using utf-8 encoding
     @classmethod
-    def decode(cls , byte):
+    def decode(cls , byte : bytes) -> str:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -481,7 +483,7 @@ class String2Byte_v2:
     # generator version of the encoder
     # chunk size in MB
     @classmethod
-    def encode_yield(cls , string , chunkSize = 1):
+    def encode_yield(cls , string : str , chunkSize : int = 1) -> bytes:
 
         # type checking the parameters
         if(type(string) != str):
@@ -519,7 +521,7 @@ class String2Byte_v2:
 
     # generator version of the decoder
     @classmethod
-    def decode_yield(cls , byte , chunkSize = 1):
+    def decode_yield(cls , byte : bytes , chunkSize : int = 1) -> str:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -585,7 +587,7 @@ class Byte2String_v2:
     # method to convert byte to string
     # does not encode every type of byte
     @classmethod
-    def encode(cls , byte):
+    def encode(cls , byte : bytes) -> str:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -596,7 +598,7 @@ class Byte2String_v2:
 
     # method to convert the string back to byte
     @classmethod
-    def decode(cls , string):
+    def decode(cls , string : str) -> bytes:
 
         # type checking the parameters
         if(type(string) != str):
@@ -608,7 +610,7 @@ class Byte2String_v2:
     # generator version of the encoder
     # chunk size in MB
     @classmethod
-    def encode_yield(cls , byte , chunkSize = 1):
+    def encode_yield(cls , byte : bytes , chunkSize : int = 1) -> str:
 
         # type checking the parameters
         if(type(byte) != bytes):
@@ -648,7 +650,7 @@ class Byte2String_v2:
 
     # generator version of the decoder
     @classmethod
-    def decode_yield(cls , string , chunkSize = 1):
+    def decode_yield(cls , string : str , chunkSize : int = 1) -> bytes:
 
         # type checking the parameters
         if(type(string) != str):
@@ -1225,7 +1227,7 @@ def __test_byte2stringv2_2():
     
 if __name__ == "__main__":
     # __test_string2bytev2()
-    __test_byte2stringv2()
+    __test()
     # __test_HexConvertor2()
 
 

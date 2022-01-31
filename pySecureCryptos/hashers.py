@@ -16,7 +16,7 @@ class SHA256:
     # type check parameters and assign objects to self
     # string retruned length is 64
     # byte returned len is 32
-    def __init__(self , bytesObj , chunkSize = 2048):
+    def __init__(self , bytesObj : bytes , chunkSize : int = 2048) -> None:
 
         if(type(bytesObj) != bytes):
             raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
@@ -37,7 +37,7 @@ class SHA256:
 
     # function to get the string of the hashed object
     # this is a yielder function
-    def get_string_yield(self):
+    def get_string_yield(self) -> str:
 
         # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1) * 2
@@ -74,7 +74,7 @@ class SHA256:
 
     # function to get the byte of the hashed object
     # this is a yielder function
-    def get_byte_yield(self):
+    def get_byte_yield(self) -> bytes:
 
         # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1) * 2
@@ -109,7 +109,7 @@ class SHA256:
 
     # function to get the string of the hashed object
     # this is a yielder function
-    def get_string(self):
+    def get_string(self) -> str:
 
         # sha224 hash
         for i in range(0 , self.lenBytes , self.chunkSize):
@@ -136,7 +136,7 @@ class SHA256:
 
     # function to get the byte of the hashed object
     # this is a yielder function
-    def get_byte(self):
+    def get_byte(self) -> bytes:
 
         # sha224 hash
         for i in range(0 , self.lenBytes , self.chunkSize):
@@ -199,7 +199,7 @@ class SHA384:
     # type check parameters and assign objects to self
     # string retruned length is 96
     # byte returned len is 48
-    def __init__(self , bytesObj , chunkSize = 2048):
+    def __init__(self , bytesObj : bytes , chunkSize : int = 2048) -> None:
 
         if(type(bytesObj) != bytes):
             raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
@@ -220,7 +220,7 @@ class SHA384:
 
     # function to get the string of the hashed object
     # this is a yielder function
-    def get_string_yield(self):
+    def get_string_yield(self) -> str:
 
         # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1) * 2
@@ -257,7 +257,7 @@ class SHA384:
 
     # function to get the byte of the hashed object
     # this is a yielder function
-    def get_byte_yield(self):
+    def get_byte_yield(self) -> bytes:
 
         # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1) * 2
@@ -292,7 +292,7 @@ class SHA384:
 
     # function to get the string of the hashed object
     # this is a yielder function
-    def get_string(self):
+    def get_string(self) -> str:
 
         # sha224 hash
         for i in range(0 , self.lenBytes , self.chunkSize):
@@ -319,7 +319,7 @@ class SHA384:
 
     # function to get the byte of the hashed object
     # this is a yielder function
-    def get_byte(self):
+    def get_byte(self) -> bytes:
 
         # sha224 hash
         for i in range(0 , self.lenBytes , self.chunkSize):
@@ -396,7 +396,7 @@ class SHA512:
     # type check parameters and assign objects to self
     # string retruned length is 128
     # byte returned len is 64
-    def __init__(self , bytesObj , chunkSize = 2048):
+    def __init__(self , bytesObj : bytes , chunkSize : int = 2048) -> None:
 
         if(type(bytesObj) != bytes):
             raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
@@ -417,7 +417,7 @@ class SHA512:
 
     # function to get the string of the hashed object
     # this is a yielder function
-    def get_string_yield(self):
+    def get_string_yield(self) -> str:
 
         # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1) * 2
@@ -454,7 +454,7 @@ class SHA512:
 
     # function to get the byte of the hashed object
     # this is a yielder function
-    def get_byte_yield(self):
+    def get_byte_yield(self) -> bytes:
 
         # total yield - 2 times , one for 224 hash and second for 256 hash
         totalYield = ((self.lenBytes // self.chunkSize) + 1) * 2
@@ -489,7 +489,7 @@ class SHA512:
 
     # function to get the string of the hashed object
     # this is a yielder function
-    def get_string(self):
+    def get_string(self) -> str:
 
         # sha224 hash
         for i in range(0 , self.lenBytes , self.chunkSize):
@@ -516,7 +516,7 @@ class SHA512:
 
     # function to get the byte of the hashed object
     # this is a yielder function
-    def get_byte(self):
+    def get_byte(self) -> bytes:
 
         # sha224 hash
         for i in range(0 , self.lenBytes , self.chunkSize):

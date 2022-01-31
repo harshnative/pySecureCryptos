@@ -2,7 +2,7 @@ from .shuffler import Shuffler
 import hashlib
 import onetimepad
 from .encoderDecoders import *
-
+from typing import Union
 
 
 
@@ -22,7 +22,7 @@ from .encoderDecoders import *
 class StringEncryptor:
 
     @classmethod
-    def encrypt(cls , string , password):
+    def encrypt(cls , string : str , password : str) -> str:
 
         # type checking the parameters
         if(type(string) != str):
@@ -87,7 +87,7 @@ class StringEncryptor:
 
 
     @classmethod
-    def decrypt(cls , enc_string , password):
+    def decrypt(cls , enc_string : str , password : str) -> str:
 
         # type checking the parameters
         if(type(enc_string) != str):
@@ -177,7 +177,7 @@ class StringEncryptor:
 class StringEncryptor_yield:
 
     @classmethod
-    def encrypt(cls , string , password):
+    def encrypt(cls , string : str , password : str) -> str:
 
         # type checking the parameters
         if(type(string) != str):
@@ -247,7 +247,7 @@ class StringEncryptor_yield:
 
 
     @classmethod
-    def decrypt(cls , enc_string , password):
+    def decrypt(cls , enc_string : str , password : str) -> str:
 
         # type checking the parameters
         if(type(enc_string) != str):
@@ -353,7 +353,7 @@ class StringEncryptor_yield:
 class BytesEncryptor:
 
     @classmethod
-    def encrypt(cls , byteObject , password , returnByteObject = True):
+    def encrypt(cls , byteObject : bytes , password : str , returnByteObject : bool = True) -> Union[bytes , str]:
 
         # type checking the parameters
         if((type(byteObject) != bytes) and (type(byteObject) != bytearray)):
@@ -417,7 +417,7 @@ class BytesEncryptor:
 
 
     @classmethod
-    def decrypt(cls , enc_string , password):
+    def decrypt(cls , enc_string : str , password : str) -> bytes:
 
         # type checking the parameters
         if((type(enc_string) != str)):
@@ -477,7 +477,7 @@ class BytesEncryptor:
 
 
     @classmethod
-    def decrypt_byte(cls , enc_byteObject , password):
+    def decrypt_byte(cls , enc_byteObject : bytes , password : str) -> bytes:
 
         # type checking the parameters
         if((type(enc_byteObject) != bytes) and (type(enc_byteObject) != bytearray)):
@@ -567,7 +567,7 @@ class BytesEncryptor:
 class BytesEncryptor_yield:
 
     @classmethod
-    def encrypt(cls , byteObject , password , returnByteObject = True):
+    def encrypt(cls , byteObject : bytes , password : str , returnByteObject : bool = True) -> Union[bytes , str]:
 
         # type checking the parameters
         if((type(byteObject) != bytes) and (type(byteObject) != bytearray)):
@@ -669,7 +669,7 @@ class BytesEncryptor_yield:
 
 
     @classmethod
-    def decrypt(cls , enc_string , password):
+    def decrypt(cls , enc_string : str , password : str) -> bytes:
 
         # type checking the parameters
         if((type(enc_string) != str)):
@@ -753,7 +753,7 @@ class BytesEncryptor_yield:
 
 
     @classmethod
-    def decrypt_byte(cls , enc_byteObject , password):
+    def decrypt_byte(cls , enc_byteObject : bytes , password : str) -> bytes:
 
         # type checking the parameters
         if((type(enc_byteObject) != bytes) and (type(enc_byteObject) != bytearray)):
