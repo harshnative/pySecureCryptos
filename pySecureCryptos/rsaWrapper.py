@@ -144,7 +144,7 @@ class Encryptor:
 
 
     # function to get the keysize from key and previous data
-    def calculateKeySize(self , publicKey : bytes , privateKey : bytes) -> Union[None , False , int]:
+    def calculateKeySize(self , publicKey : bytes , privateKey : bytes) -> Union[None , bool , int]:
 
         len_public = len(publicKey)
         len_private = len(privateKey)
