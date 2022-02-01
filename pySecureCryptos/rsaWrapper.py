@@ -90,7 +90,7 @@ class KeyGenerator:
 
 class Encryptor:
 
-    def __init__(self , publicKey : Union[str , bytes] , privateKey : Union[str , bytes] , keySize : int = 0):
+    def __init__(self , publicKey : Union[str , bytes] , privateKey : Union[str , bytes] , keySize : int = 4096):
 
         # type checking the parameters
         if(type(publicKey) not in (str , bytes)):
@@ -115,21 +115,6 @@ class Encryptor:
         self.cipherPrivate = Cipher_PKCS1_v1_5.new(self.privateKey)
 
 
-        self.keySizeData = {
-            'publicKey_bytes': {271: 1024, 450: 2048, 624: 3072, 799: 4096, 970: 5120, 1144: 6144}, 
-            'privateKey_bytes': {886: 1024, 1678: 2048, 2458: 3072, 3242: 4096, 4022: 5120, 4802: 6144}, 
-            }
-
-        if(keySize == 0):
-            keySize = self.calculateKeySize(publicKey , privateKey)
-
-            if(keySize == None):
-                raise ValueError("rsa Wrapper failed to find keySize automatically , pass the key size in keySize argument and should be same you used in KeyGenerator class to get keys")
-
-            if(keySize == False):
-                raise ValueError("rsa Wrapper failed to find keySize automatically , pass the key size in keySize argument and should be same you used in KeyGenerator class to get keys , code 1")
-
-
         # chunk size
         self.chunkSize = keySize // 12
 
@@ -143,21 +128,6 @@ class Encryptor:
 
 
 
-    # function to get the keysize from key and previous data
-    def calculateKeySize(self , publicKey : bytes , privateKey : bytes) -> Union[None , bool , int]:
-
-        len_public = len(publicKey)
-        len_private = len(privateKey)
-
-        keySize = self.keySizeData["publicKey_bytes"].get(len_public , None)
-        keySize2 = self.keySizeData["privateKey_bytes"].get(len_private , None)
-
-        if((keySize == None) or (keySize2 == None)):
-            return None
-        if(keySize != keySize2):
-            return False
-        else:
-            return keySize
 
 
 
@@ -1427,7 +1397,7 @@ def __test_encrypt_lByte():
     encObj = Encryptor(publicKey_bytes , privateKey_bytes)
 
     # 64 Mb of data
-    myByte = b"h" * 1024 * 1024 * 64
+    myByte = b"h" * 1024 * 1024 * 128
 
     print(f"encrypting byte of len = {len(myByte)}")
 
@@ -1520,7 +1490,7 @@ def __test_encryptor_lstring():
     encObj = Encryptor(publicKey_bytes , privateKey_bytes)
 
     # 48 mb of data
-    myString = "h" * 1024 * 1024 * 48
+    myString = "h" * 1024 * 1024 * 128
 
     print(f"encrypting string of len = {len(myString)}")
 
@@ -1602,8 +1572,8 @@ if __name__ == "__main__":
     # __test_encryptor_byte()
     # __test_encryptor_string()
     # __test_time_byte()
-    # __test_encrypt_lByte()
-    __test_encryptor_lstring()
+    __test_encrypt_lByte()
+    # __test_encryptor_lstring()
 
 
 
