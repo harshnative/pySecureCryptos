@@ -7,7 +7,7 @@ from .verifier_fernetWrapper_v3 import Keys as vfw_v3_keys
 from .verifier_fernetWrapper_v3 import Encryptor as vfw_v3_encryptor
 from cryptography.fernet import Fernet
 from typing import Union
-
+import os
 
 
 #  _                                                
@@ -499,7 +499,7 @@ class Encryptor:
 
     # function to encrypt a large byte object using multiprocessing
     # chunkSize in MB
-    def encrypt_lbyte_yield(self , large_byte : bytes , chunkSize : int = 8) -> bytes:
+    def encrypt_lbyte_yield(self , large_byte : bytes) -> bytes:
 
         # type checking the parameters
         if(type(large_byte) != bytes):
@@ -507,8 +507,10 @@ class Encryptor:
 
         lenByte = len(large_byte)
 
+        cpuCount = os.cpu_count()
+
         # chunk size in bytes
-        bytes_chunkSize = chunkSize * 1024 * 1024
+        bytes_chunkSize = cpuCount * 8 * 1024 * 1024
 
 
         # calc total yield
@@ -520,7 +522,7 @@ class Encryptor:
         # encrypt each chunk using fernet
         for i in range(0 , lenByte , bytes_chunkSize):
             chunk = large_byte[i: i + bytes_chunkSize]
-            enc_chunk = vfw_v3_encryptor.main_encrypt_byte(chunk , self.fernetKey , chunkSize)
+            enc_chunk = vfw_v3_encryptor.main_encrypt_byte(chunk , self.fernetKey)
             
             result = result + enc_chunk + b"$~$~$"
 
@@ -606,16 +608,19 @@ class Encryptor:
 
     # function to encrypt a large string object using multiprocessing
     # chunkSize size in MB
-    def encrypt_lstring_yield(self , large_string : str , chunkSize : int = 4) -> str:
+    def encrypt_lstring_yield(self , large_string : str) -> str:
 
         # type checking the parameters
         if(type(large_string) != str):
             raise TypeError("large_string parameter expected to be of str type instead got {} type".format(type(large_string)))
 
         len_string = len(large_string)
-        
+
+        cpuCount = os.cpu_count()
+
         # chunk size in bytes
-        bytes_chunkSize = chunkSize * 1024 * 1024
+        bytes_chunkSize = cpuCount * 4 * 1024 * 1024
+
         
         # calc total yield
         currentCount = 0
@@ -626,7 +631,7 @@ class Encryptor:
         # decrypt each chunk using fernet wrapper v3 
         for i in range(0 , len_string , bytes_chunkSize):
             chunk = large_string[i: i + bytes_chunkSize]
-            enc_chunk = vfw_v3_encryptor.main_encrypt_string(chunk , self.fernetKey , chunkSize)
+            enc_chunk = vfw_v3_encryptor.main_encrypt_string(chunk , self.fernetKey)
             
             result = result + enc_chunk + "$~$~$"
 
