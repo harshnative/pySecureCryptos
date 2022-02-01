@@ -53,21 +53,21 @@ class StringEncryptor:
         self.chunkSize = 256
         self.chunkSize__outputSize = 440
         self.chunkSize__inputSize = {}
-        self.__getInputSize()
+        self._getInputSize()
 
         self.simpleByteEnc_obj = fw_bytesEncryptor(password , iterations)
         self.simpleStringEnc_obj = fw_stringEncryptor(password , iterations)
 
 
-    def __getInputSize(self , max=256):
+    def _getInputSize(self , max=256):
 
         for i in range(max+1):
-            outputSize = self.__getOutputSize(i)
+            outputSize = self._getOutputSize(i)
             self.chunkSize__inputSize[outputSize] = i
 
 
 
-    def __getOutputSize(self , inputSize):
+    def _getOutputSize(self , inputSize):
         string = "h" * inputSize
 
         string_byte = bytes(string , "utf-8")
@@ -107,7 +107,7 @@ class StringEncryptor:
         # if the returnString is True - String2Byte_yield will yield a total of len_string times + number of chunks the data is divided into two times , one for dividing and one for ecrypting + yield times of Byte2String_yield function - depends on the output size of the encryptor (general outputs of the normal chunk + output of the chunk which as less size)
         # else String2Byte_yield will yield a total of len_string times + number of chunks the data is divided into two times , one for dividing and one for ecrypting + checksum
         if(returnString):
-            totalYields = int(len_string) + ((int(len_string // self.chunkSize)+1)*2) + int(((self.chunkSize__outputSize) * (len_string // self.chunkSize)) + self.__getOutputSize(len_string % self.chunkSize)) + int((len(string) // 2048) + 1)
+            totalYields = int(len_string) + ((int(len_string // self.chunkSize)+1)*2) + int(((self.chunkSize__outputSize) * (len_string // self.chunkSize)) + self._getOutputSize(len_string % self.chunkSize)) + int((len(string) // 2048) + 1)
         else:
             totalYields = int(len_string) + ((int(len_string // self.chunkSize)+1)*2) + int((len(string) // 2048) + 1)
 
@@ -697,7 +697,7 @@ class BytesEncryptor:
         self.chunkSize = 256
         self.chunkSize__outputSize = 440
         self.chunkSize__inputSize = {}
-        self.__getInputSize()
+        self._getInputSize()
 
 
         self.simpleByteEnc_obj = fw_bytesEncryptor(password , iterations)
@@ -705,15 +705,15 @@ class BytesEncryptor:
 
 
 
-    def __getInputSize(self , max=256):
+    def _getInputSize(self , max=256):
 
         for i in range(max+1):
-            outputSize = self.__getOutputSize(i)
+            outputSize = self._getOutputSize(i)
             self.chunkSize__inputSize[outputSize] = i
 
 
 
-    def __getOutputSize(self , inputSize):
+    def _getOutputSize(self , inputSize):
         byte = b"h" * inputSize
 
         enc_byte = self.fernetObj.encrypt(byte)

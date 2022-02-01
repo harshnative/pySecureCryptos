@@ -92,7 +92,7 @@ class Encryptor:
     # method to encrypt a single chunk of data 
     # return dict is the shared variable in multiprocessing
     @classmethod
-    def __encrypt_byte(cls , index , byte  , key , returnDict):
+    def _encrypt_byte(cls , index , byte  , key , returnDict):
 
         # init fernet obj and encrypt data
         fernetObj = Fernet(key)
@@ -106,7 +106,7 @@ class Encryptor:
     
     # method to encrypt a single chunk of data 
     @classmethod
-    def __encrypt_byte_normal(cls , byte  , key):
+    def _encrypt_byte_normal(cls , byte  , key):
 
         # init fernet obj and encrypt data
         fernetObj = Fernet(key)
@@ -178,7 +178,7 @@ class Encryptor:
 
         # encrypt each chunk using multi processing
         for index , i in enumerate(chunkList):
-            p = multiprocessing.Process(target=Encryptor.__encrypt_byte, args=(index , i , key , return_dict , ))
+            p = multiprocessing.Process(target=Encryptor._encrypt_byte, args=(index , i , key , return_dict , ))
             processes.append(p)
             p.start()
 
@@ -204,7 +204,7 @@ class Encryptor:
         # generating checksum
         checksum = SHA512(byte).get_byte()
 
-        encChecksum = cls.__encrypt_byte_normal(checksum , key)
+        encChecksum = cls._encrypt_byte_normal(checksum , key)
 
         result = result + b":vfw_v3_checksum:"  + encChecksum
 
@@ -228,7 +228,7 @@ class Encryptor:
     # method to decrypt a single chunk of data 
     # return dict is the shared variable in multiprocessing
     @classmethod
-    def __decrypt_byte(cls , index , enc_byte  , key , returnDict):
+    def _decrypt_byte(cls , index , enc_byte  , key , returnDict):
 
         # init fernet obj and decrypt data
         fernetObj = Fernet(key)
@@ -243,7 +243,7 @@ class Encryptor:
     
     # method to decrypt a single chunk of data 
     @classmethod
-    def __decrypt_byte_normal(cls , enc_byte  , key):
+    def _decrypt_byte_normal(cls , enc_byte  , key):
 
         # init fernet obj and decrypt data
         fernetObj = Fernet(key)
@@ -289,7 +289,7 @@ class Encryptor:
 
         # init process of decryption for each chunk
         for index , i in enumerate(chunkList):
-            p = multiprocessing.Process(target=Encryptor.__decrypt_byte, args=(index , i , key , return_dict , ))
+            p = multiprocessing.Process(target=Encryptor._decrypt_byte, args=(index , i , key , return_dict , ))
             processes.append(p)
             p.start()
 
@@ -310,7 +310,7 @@ class Encryptor:
 
         
         # checksum match
-        decChecksum = cls.__decrypt_byte_normal(checksum , key)
+        decChecksum = cls._decrypt_byte_normal(checksum , key)
 
         newChecksum = SHA512(result).get_byte()
 
@@ -342,7 +342,7 @@ class Encryptor:
     # method to encrypt a single chunk of data 
     # return dict is the shared variable in multiprocessing
     @classmethod
-    def __encrypt_string(cls , index , string  , key , returnDict):
+    def _encrypt_string(cls , index , string  , key , returnDict):
 
         # init fernet obj and encrypt data
         fernetObj = Fernet(key)
@@ -359,7 +359,7 @@ class Encryptor:
 
     # method to encrypt a single chunk of data 
     @classmethod
-    def __encrypt_string_normal(cls , string  , key):
+    def _encrypt_string_normal(cls , string  , key):
 
         # init fernet obj and encrypt data
         fernetObj = Fernet(key)
@@ -448,7 +448,7 @@ class Encryptor:
 
         # encrypt each chunk using multi processing
         for index , i in enumerate(chunkList):
-            p = multiprocessing.Process(target=Encryptor.__encrypt_string, args=(index , i , key , return_dict , ))
+            p = multiprocessing.Process(target=Encryptor._encrypt_string, args=(index , i , key , return_dict , ))
             processes.append(p)
             p.start()
 
@@ -475,7 +475,7 @@ class Encryptor:
         # generating checksum
         checksum = SHA512(String2Byte_v2.encode(string)).get_string()
 
-        encChecksum = cls.__encrypt_string_normal(checksum , key)
+        encChecksum = cls._encrypt_string_normal(checksum , key)
 
         result = result + ":vfw_v3_checksum:"  + encChecksum
 
@@ -512,7 +512,7 @@ class Encryptor:
     # method to decrypt a single chunk of data 
     # return dict is the shared variable in multiprocessing
     @classmethod
-    def __decrypt_string(cls , index , enc_string  , key , returnDict):
+    def _decrypt_string(cls , index , enc_string  , key , returnDict):
 
         # init fernet obj and decrypt data
         fernetObj = Fernet(key)
@@ -530,7 +530,7 @@ class Encryptor:
 
     # method to decrypt a single chunk of data 
     @classmethod
-    def __decrypt_string_normal(cls , enc_string  , key):
+    def _decrypt_string_normal(cls , enc_string  , key):
 
         # init fernet obj and decrypt data
         fernetObj = Fernet(key)
@@ -583,7 +583,7 @@ class Encryptor:
 
         # init process of decryption for each chunk
         for index , i in enumerate(chunkList):
-            p = multiprocessing.Process(target=Encryptor.__decrypt_string, args=(index , i , key , return_dict , ))
+            p = multiprocessing.Process(target=Encryptor._decrypt_string, args=(index , i , key , return_dict , ))
             processes.append(p)
             p.start()
 
@@ -603,7 +603,7 @@ class Encryptor:
             result = result + dec_chunk
 
         # checksum match
-        decChecksum = cls.__decrypt_string_normal(checksum , key)
+        decChecksum = cls._decrypt_string_normal(checksum , key)
 
         newChecksum = SHA512(String2Byte_v2.encode(result)).get_string()
 
@@ -644,7 +644,7 @@ class Encryptor:
 
     # function to read a file in chunks
     @classmethod
-    def __read_in_chunks(cls , file_object, chunk_size=4096):
+    def _read_in_chunks(cls , file_object, chunk_size=4096):
         """Lazy function (generator) to read a file piece by piece.
         Default chunk size: 1k."""
         while True:
@@ -657,7 +657,7 @@ class Encryptor:
 
     # function to read a file in sepearte lines
     @classmethod
-    def __read_in_lines(cls , file_object):
+    def _read_in_lines(cls , file_object):
         while True:
             line = file_object.readline()
         
@@ -742,7 +742,7 @@ class Encryptor:
 
         # open file
         with open(filepath , "rb") as fil , open(destinationPath , "wb") as fil2:
-            for data in cls.__read_in_chunks(fil , chunkSize):
+            for data in cls._read_in_chunks(fil , chunkSize):
 
                 # encrypt data chunk
                 enc_data = cls.main_encrypt_byte(data , key)
@@ -840,7 +840,7 @@ class Encryptor:
 
         # open file
         with open(filepath , "rb") as fil , open(destinationPath , "wb") as fil2:
-            for data in cls.__read_in_lines(fil):
+            for data in cls._read_in_lines(fil):
 
                 # decrypt data chunk
                 dec_data = cls.main_decrypt_byte(data , key)
