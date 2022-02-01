@@ -20,6 +20,43 @@ Although the python as many inbuilt modules like onetimpad , crytography , pycry
 <br>
 <br>
 
+
+
+
+
+
+
+# Installation - 
+
+```bash
+pip install pySecureCryptos==0.4
+```
+
+check out the change log [here](https://www.letscodeofficial.com/documentations/pySecureCryptos%20change%20logs#/)
+
+<br>
+<br>
+
+
+### Warnings - 
+
+1. This module does not provide any garantee for perfect unbreakable security. Nothing is secure in the world of computer. But this modules makes its best to provide encryption system and is circulated as good will.
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
 # Features
 
 1. [Shuffler - shuffle and unshuffle things based on a seed](https://www.letscodeofficial.com/documentations/pySecureCryptos%20shuffler#/)
@@ -137,3 +174,10 @@ Fastest version of Verifier Fernet Wrapper making use of multiple cores of CPU.
 <br>
 <br>
 
+
+
+
+
+# Issues - 
+
+Raise Issues at github - https://github.com/harshnative/pySecureCryptos
