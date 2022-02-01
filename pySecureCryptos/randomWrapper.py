@@ -30,7 +30,7 @@ class RandomString:
     # size = size of the string required
     # seed = seed you want to set in random.seed() func , if None is passed , it will use the system time as seed
     @classmethod
-    def generate(cls , size , seed = None , lowerCase = True , upperCase = True , nums = True , specialChars = True , space = False):
+    def generate(cls , size : int , seed : str = None , lowerCase : bool = True , upperCase : bool = True , nums : bool = True , specialChars : bool = True , space : bool = False) -> str:
 
         if(type(size) != int):
             raise TypeError("size parameter expected to be of int type instead got {} type".format(type(size)))
@@ -82,7 +82,7 @@ class RandomString:
     
     # method to generate a string from the secrets module which claims to be secure
     @classmethod
-    def generate_secrets(cls , size , lowerCase = True , upperCase = True , nums = True , specialChars = True , space = False):
+    def generate_secrets(cls , size : int , lowerCase : bool = True , upperCase : bool = True , nums : bool = True , specialChars : bool = True , space : bool = False) -> str:
 
         if(type(size) != int):
             raise TypeError("size parameter expected to be of int type instead got {} type".format(type(size)))
@@ -149,7 +149,7 @@ class TrueRandom_mouse:
     # higher the size , more numbers can be generated at a time
     # single = number of points from mouse movement collection used to generate a new number
     # higher the single , more randomness it has
-    def __init__(self ,  size = 10000 , single = 100):
+    def __init__(self ,  size : int = 10000 , single : int = 100):
         if(type(size) != int):
             raise TypeError(f"size parameter expected to be of {int} type instead got {type(size)} type")
 
@@ -175,7 +175,7 @@ class TrueRandom_mouse:
 
 
     # method to open a tkinter window to collect the mouse movements inside it
-    def setSeed(self , window_title = "Move your mouse" , window_height = 600 , window_width = 800 , window_bg = "#121212" , progress_bar_margin = 50 , progress_bar_through_color = "#FFFFFF" , progress_bar_bar_color = "#3700B3" , progress_bar_thickness = 32 , button_font_size=32 , button_font_weight='bold' , button_bg='#BB86FC' , button_activebackground='#03DAC6' , button_fg = "#FFFFFF" , button_text = "ok"):
+    def setSeed(self , window_title : str = "Move your mouse" , window_height : int = 600 , window_width : int = 800 , window_bg : str = "#121212" , progress_bar_margin : int = 50 , progress_bar_through_color : str = "#FFFFFF" , progress_bar_bar_color : str = "#3700B3" , progress_bar_thickness : int = 32 , button_font_size : int = 32 , button_font_weight : str = 'bold' , button_bg : str = '#BB86FC' , button_activebackground : str = '#03DAC6' , button_fg : str = "#FFFFFF" , button_text : str = "ok") -> None:
         self.storageList = []
 
         # setting up window
@@ -227,7 +227,7 @@ class TrueRandom_mouse:
     # returns a list of integers possible from sample collected in pool size
     # a is the lower limit of number
     # b is the upper limit of number
-    def getRandomNumbers_int(self , a , b):
+    def getRandomNumbers_int(self , a : int , b : int) -> list:
 
         if(type(a) != int):
             raise TypeError(f"a parameter expected to be of {int} type instead got {type(a)} type")
@@ -281,7 +281,7 @@ class TrueRandom_mouse:
 
     # function to get random floats from 0 to 1
     # returns a list of floats possible from sample collected in pool size
-    def getRandomNumbers_float(self):
+    def getRandomNumbers_float(self) -> list:
         
         numbersList = []
 
