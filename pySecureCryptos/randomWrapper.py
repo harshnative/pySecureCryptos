@@ -1,3 +1,4 @@
+from typing import Union
 import random
 import string
 import time
@@ -325,7 +326,90 @@ class TrueRandom_mouse:
 
 
 
-    # def make_choice(iterable , )
+
+    # function to make a choice from a iterable 
+    # returns a list of choosen iterable of size = size
+    # if the size is greator than max possible choices from sample pool , then error will be raised
+    # but if raise error is false then error will not be raised instead list of max possible size will be returned
+    def make_choices(self , iterable : Union[tuple , list] , size : int , raiseError : bool = True) -> list:
+
+        if(type(iterable) not in [tuple , list]):
+            raise TypeError(f"b iterable expected to be of {[tuple , list]} type instead got {type(iterable)} type")
+
+
+        if(type(size) != int):
+            raise TypeError(f"size parameter expected to be of {int} type instead got {type(size)} type")
+
+
+        if(type(raiseError) != bool):
+            raise TypeError(f"raiseError parameter expected to be of {bool} type instead got {type(raiseError)} type")
+
+
+        len_iterable = len(iterable)
+
+        newIterable = []
+
+        # get random ints in the range of list length
+        randomInts = self.getRandomNumbers_int(0 , len_iterable - 1)
+
+        len_randomInts = len(randomInts)
+
+        # if the size is in limit of pool size
+        if(size <= len_randomInts):
+
+            # get the corresponding elements from iterable according to index in random index list
+            for i in range(size):
+                newIterable.append(iterable[randomInts[i]])
+
+        elif(raiseError):
+            raise RuntimeError(f"Size requested could not be made form seed collected , max size which can be returned = {len_randomInts}")
+
+        else:
+            for i in randomInts:
+                newIterable.append(iterable[i])
+
+        return newIterable
+
+
+
+
+
+
+    # function to return a random string
+    def getRandomString(self , size : int , lowerCase : bool = True , upperCase : bool = True , nums : bool = True , specialChars : bool = True , space : bool = False , raiseError : bool = True) -> str:
+
+        if(type(size) != int):
+            raise TypeError(f"size parameter expected to be of {int} type instead got {type(size)} type")
+
+        if(type(raiseError) != bool):
+            raise TypeError(f"raiseError parameter expected to be of {bool} type instead got {type(raiseError)} type")
+
+        charList = []
+
+        if(lowerCase):
+            charList.extend(list(string.ascii_lowercase))
+        
+        if(upperCase):
+            charList.extend(list(string.ascii_uppercase))
+        
+        if(nums):
+            charList.extend(list(string.digits))
+
+        if(specialChars):
+            charList.extend(list("~`!@#$%^&*()_+-=|[]\:<>?;,./"))
+        
+        if(space):
+            charList.append(" ")
+
+        random_string_list = self.make_choices(charList , size , raiseError)
+
+        randomString = "".join(random_string_list)
+
+        return randomString
+
+
+
+        
 
 
 
@@ -419,9 +503,6 @@ def __test__TrueRandom_mouse_getRandomNumbers_int():
 
     plt.scatter(range(len(rand_int)), rand_int, c ="black")
   
-
-
-    
     plt.xlabel("X-axis")
     plt.ylabel("Y-axis")
     plt.show()
@@ -449,8 +530,6 @@ def __test__TrueRandom_mouse_getRandomNumbers_float():
     import matplotlib.pyplot as plt
 
     plt.scatter(range(len(rand_floats)), rand_floats, c ="black")
-
-
     
     plt.xlabel("X-axis")
     plt.ylabel("Y-axis")
@@ -465,5 +544,61 @@ def __test__TrueRandom_mouse_getRandomNumbers_float():
 
 
 
+
+
+def __test__TrueRandom_mouse_make_choices():
+
+    obj = TrueRandom_mouse()
+
+    obj.setSeed()
+
+    myList = [1,2,3,4,5,6,7,8,9,0]
+
+    choiceList = obj.make_choices(myList , 8 , raiseError=False)
+
+    print(len(choiceList))
+
+    print(choiceList)
+
+
+    import matplotlib.pyplot as plt
+
+    plt.scatter(range(len(myList)), myList, c ="black")
+    plt.scatter(range(len(choiceList)), choiceList, c ="red")
+    
+    plt.xlabel("X-axis")
+    plt.ylabel("Y-axis")
+    plt.show()
+
+
+
+
+
+
+
+
+
+
+
+def __test__TrueRandom_mouse_getRandomString():
+
+    obj = TrueRandom_mouse()
+
+    obj.setSeed()
+
+    randomString = obj.getRandomString(16 , raiseError=False)
+
+    print(len(randomString))
+
+    print(randomString)
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
-    __test__TrueRandom_mouse_getRandomNumbers_float()
+    __test__TrueRandom_mouse_getRandomString()
