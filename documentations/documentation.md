@@ -192,3 +192,41 @@ Wrapper containing many methods to generate random things from integers to strin
 # Issues - 
 
 Raise Issues at github - https://github.com/harshnative/pySecureCryptos
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+# Contributors
+<a href="https://www.letscodeofficial.com/"><img src="https://www.letscodeofficial.com/static/images/favicon.ico" width="150" height="150" /><h3>Lets Code Official</h3></a>
+
+
+</br>
+</br>
+</br>
+
+<a href="https://github.com/harshnative/"><img src="https://www.letscodeofficial.com/static/images/jarvis/HarshNativeProfile.JPG" width="150" height="150" /><h3>Harsh Native</h3></a>
+
+
+More contributors are listed on website - https://www.letscodeofficial.com/jarvis_contributors
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
