@@ -166,6 +166,17 @@ contains modified SHA256 , SHA384 , SHA512 algo's. Much faster than hashers vers
 
 Fastest version of Verifier Fernet Wrapper making use of multiple cores of CPU.
 
+
+
+<br>
+<br>
+
+
+14. [Random Wrapper](https://www.letscodeofficial.com/documentations/pySecureCryptos%20Random%20Wrapper#/)
+
+Wrapper containing many methods to generate random things from integers to strings. It even has its own True Random Generator from mouse movements.
+
+
 <br>
 <br>
 <br>
