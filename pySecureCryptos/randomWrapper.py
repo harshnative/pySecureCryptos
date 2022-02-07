@@ -12,7 +12,7 @@ import math
 import numpy
 from .hashers_v2 import *
 import pathlib
-
+import bisect
 
 
 #  ____                        _                       ____    _            _                  
@@ -687,7 +687,7 @@ class OTP:
         file_otp , timeout = data.split(",")
         file_otp = int(file_otp)
         timeout = int(timeout)
-        
+
         if(file_otp == otp):
 
             if(timeout < int(time.time())):
@@ -739,6 +739,118 @@ class OTP:
 
 
 
+
+
+
+class NonRepeatNumbers:
+
+    # min - lower limit
+    # max - upper limit
+    # filePath = path were otp file will be stored
+    # fileName = name of file you want to store otp in
+    # if fileName is None , a random name will be assigned , you can get filePath using .fileName attribute
+    # store = save state to disk
+    def __init__(self , min , max , filePath = "./" , fileName = None , store = True):
+        self.min = min
+        self.max = max
+        self.store = store
+        
+        path = pathlib.Path(filePath)
+
+        if(not(path.is_dir())):
+            raise FileNotFoundError(f"no dir at {path}")
+        
+        self.doneList = []
+
+        self.fileName = fileName
+
+        # make file name
+        if(self.fileName == None):
+            self.fileName = RandomID(prefix="NonRepeatNumbers_file_" , suffix=".txt").md5()
+
+        self.fileName = pathlib.Path(filePath , self.fileName)
+
+        # generate object
+        if(self.store):
+            with open(self.fileName , "r") as file:
+
+                # restore data which is already generated
+                if(fileName != None):
+                    data = file.read()
+
+                    dataList = data.splitlines()
+
+                    self.doneList = sorted([int(i) for i in dataList])
+
+                    self.doneList.insert(0 , self.min - 1)
+                    self.doneList.append(self.max + 1)
+
+
+        else:
+            self.doneList.append(self.max + 1)
+            
+
+
+
+
+
+
+    # main function
+    # function to generate a unique value
+    # returns one value at a time
+    def generate(self):
+
+        """
+        process - 
+
+        lets say we need to generate random numbers btw 0 and 100
+
+        we add -1 and 101 to done list and also suppose 10 and 25 are already generated
+
+        doneList = [-1 , 10 , 25 , 101]
+
+
+        now we traverse this done list
+        we can generate new random number btw [-1 , 10] , [10 , 25] , [25 , 101]
+                                      index = [ 0 , 1 ] , [ 1 , 2 ] , [ 2 , 3  ]
+                                      general index = [ i , i+1 ]
+
+        we randomly pick in which we will generate a value
+        
+        then we generate a random value and update done list in which i and i+1 should be excluded as they are already generated
+
+        constraint - number at i+1 index should not be 1 + number at i index 
+        as their is no number btw i and i+1
+        ex - no random number btw 4 and 5 as 4 and 5 are already generated and no integer btw 4 and 5 , so 4,5 pair will not be generated
+
+        """
+        functionPairList = []
+
+        # generating the pair list for random number function
+        for i in range(len(self.doneList) - 1):
+            if(self.doneList[i] < (self.doneList[i+1] - 1)):
+                functionPairList.append([self.doneList[i] , self.doneList[i+1]])
+
+
+        # if no pair list is generated means all numbers in range are already generated
+        if(len(functionPairList) == 0):
+            raise RuntimeError("No New Random Number can be generated within {}-{} range".format(self.min , self.max))
+
+        # choosing a random pair from pair list
+        functionPairListChossen = secrets.choice(functionPairList)
+
+        # generating random number
+        random.seed(secrets.token_bytes(256))
+        randomInt = random.randint(functionPairListChossen[0]+1 , functionPairListChossen[1]-1)
+
+        # insert into done list
+        bisect.insort(self.doneList, randomInt)
+
+        if(self.store):
+            with open(self.fileName , "a") as file:
+                file.write(str(randomInt) + "\n")
+
+        return randomInt
 
 
 
@@ -1024,5 +1136,59 @@ def __test_OTP():
     print(mainOTP , obj.verifyOTP(mainOTP) , obj.verifyOTP(123456) , obj.getTimeLeft())
 
 
+
+
+
+
+
+
+
+
+
+
+
+#  _                  _                       _   _                   ____                                  _     _   _                       _                          
+# | |_    ___   ___  | |_                    | \ | |   ___    _ __   |  _ \    ___   _ __     ___    __ _  | |_  | \ | |  _   _   _ __ ___   | |__     ___   _ __   ___  
+# | __|  / _ \ / __| | __|       _____       |  \| |  / _ \  | '_ \  | |_) |  / _ \ | '_ \   / _ \  / _` | | __| |  \| | | | | | | '_ ` _ \  | '_ \   / _ \ | '__| / __| 
+# | |_  |  __/ \__ \ | |_       |_____|      | |\  | | (_) | | | | | |  _ <  |  __/ | |_) | |  __/ | (_| | | |_  | |\  | | |_| | | | | | | | | |_) | |  __/ | |    \__ \ 
+#  \__|  \___| |___/  \__|                   |_| \_|  \___/  |_| |_| |_| \_\  \___| | .__/   \___|  \__,_|  \__| |_| \_|  \__,_| |_| |_| |_| |_.__/   \___| |_|    |___/ 
+#                                                                                   |_|                                                                                  
+
+
+def __test_NonRepeatNumbers():
+
+    obj = NonRepeatNumbers(0,1000)
+
+    for i in range(1002):
+        print(i , obj.generate())
+
+
+
+
+
+
+def __test_NonRepeatNumbers_2():
+    fileName="test_NonRepeatNumbers.txt"
+
+    with open(fileName , "w") as file:
+        pass
+    
+    obj = NonRepeatNumbers(0,1000 , fileName = fileName)
+
+    for i in range(500):
+        print(i , obj.generate())
+
+    input()
+
+    obj = NonRepeatNumbers(0,1000 , fileName = fileName)
+
+    for i in range(502):
+        print(i , obj.generate())
+
+
+
+
+
+
 if __name__ == "__main__":
-    __test_OTP()
+    __test_NonRepeatNumbers_2()
