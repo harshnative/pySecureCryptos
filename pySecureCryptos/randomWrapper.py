@@ -1,3 +1,4 @@
+from selectors import EpollSelector
 from typing import Union
 import random
 import string
@@ -10,7 +11,7 @@ from tkinter import font as tkFont
 import math
 import numpy
 from .hashers_v2 import *
-
+import pathlib
 
 
 
@@ -450,21 +451,291 @@ class TrueRandom_mouse:
 
 
 
+
+
+
+
+
+
+#  ____                        _                       ___   ____   
+# |  _ \    __ _   _ __     __| |   ___    _ __ ___   |_ _| |  _ \  
+# | |_) |  / _` | | '_ \   / _` |  / _ \  | '_ ` _ \   | |  | | | | 
+# |  _ <  | (_| | | | | | | (_| | | (_) | | | | | | |  | |  | |_| | 
+# |_| \_\  \__,_| |_| |_|  \__,_|  \___/  |_| |_| |_| |___| |____/  
+                                                                  
+
+
+
+# class to generate a non repeating random string id
 class RandomID:
 
-    def __init__(self , len_bytes = 32 , prefix = "" , sufix = ""):
+    # len_bytes = length of random bytes to be used as salt
+    # prefix = string to add to id start
+    # sufix = string to add to id end
+    # adder = prefix + adder + id + adder + sufix
+    # md5 - 32
+    # sha1 - 40
+    # sha224 - 56
+    # sha256 - 64
+    # sha384 - 96
+    # sha512 - 128
+    def __init__(self , len_bytes = 32 , prefix = "" , suffix = ""):
 
+        # assign to self
         self.len_bytes = len_bytes
         self.prefix = prefix
-        self.sufix = sufix
+        self.sufix = suffix
 
 
-
-    def md5(self) -> str:
+        # current time in bytes
         currentTime = String2Byte_v2.encode(str(time.time()))
+
+        # random bytes
         randomBytes = secrets.token_bytes(self.len_bytes)
 
-        finalBytes = currentTime + randomBytes
+        # final bytes
+        self.finalBytes = currentTime + randomBytes
+
+
+
+    # method to return a md5 hashed id
+    def md5(self) -> str:
+
+        genObj = MD5(self.finalBytes).get_string_yield()
+
+        while(True):
+            try:
+                next(genObj)
+            except StopIteration as ex:
+                return self.prefix + ex.value + self.sufix
+                
+
+
+
+    # method to return a sha1 hashed id
+    def sha1(self) -> str:
+
+        genObj = SHA1(self.finalBytes).get_string_yield()
+
+        while(True):
+            try:
+                next(genObj)
+            except StopIteration as ex:
+                return self.prefix + ex.value + self.sufix
+                
+                
+
+
+    # method to return a sha224 hashed id
+    def sha224(self) -> str:
+
+        genObj = SHA224(self.finalBytes).get_string_yield()
+
+        while(True):
+            try:
+                next(genObj)
+            except StopIteration as ex:
+                return self.prefix + ex.value + self.sufix
+                
+                
+
+
+    # method to return a sha256 hashed id
+    def sha256(self) -> str:
+
+        genObj = SHA256(self.finalBytes).get_string_yield()
+
+        while(True):
+            try:
+                next(genObj)
+            except StopIteration as ex:
+                return self.prefix + ex.value + self.sufix
+                
+                
+
+
+    # method to return a sha384 hashed id
+    def sha384(self) -> str:
+
+        genObj = SHA384(self.finalBytes).get_string_yield()
+
+        while(True):
+            try:
+                next(genObj)
+            except StopIteration as ex:
+                return self.prefix + ex.value + self.sufix
+                
+                
+
+
+    # method to return a sha512 hashed id
+    def sha512(self) -> str:
+
+        genObj = SHA512(self.finalBytes).get_string_yield()
+
+        while(True):
+            try:
+                next(genObj)
+            except StopIteration as ex:
+                return self.prefix + ex.value + self.sufix
+                
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class OTP:
+
+    # size in digits like 6 or 4 digit otp
+    # timeout in secs
+    # filePath = path were otp file will be stored
+    # fileName = name of file you want to store otp in
+    # if fileName is None , a random name will be assigned , you can get filePath using .fileName attribute
+    def __init__(self , size = 6 , timeout = 180 , filePath = "./" , fileName = None):
+        self.timeout = timeout
+        
+        path = pathlib.Path(filePath)
+
+        if(not(path.is_dir())):
+            raise FileNotFoundError(f"no dir at {path}")
+
+        if(fileName == None):
+            fileName = RandomID(prefix="OTP_file_" , suffix=".txt").md5()
+
+        self.fileName = pathlib.Path(filePath , fileName)
+
+        self.digits = [str(i) for i in range(10)]
+        self.size = size
+        self.expireTime = int(time.time())
+
+
+
+    # function to generate a otp
+    def generateOTP(self):
+        otp = ""
+
+        for i in range(self.size):
+            otp = otp + secrets.choice(self.digits)
+
+        self.expireTime = int(time.time()) + self.timeout
+
+        with open(self.fileName , "w") as file:
+            file.write(f"{otp},{self.expireTime}")
+
+        return int(otp)
+
+
+
+
+    # get otp
+    # returns None if OTP is not generated , or is expired
+    # else returns OTP
+    def getOTP(self):
+
+        try:
+            with open(self.fileName , "r") as file:
+                data = file.read()
+        except FileNotFoundError:
+            return None
+
+        file_otp , timeout = data.split(",")
+        file_otp = int(file_otp)
+        timeout = int(timeout)
+
+        if(timeout < int(time.time())):
+            return None
+
+        return file_otp
+
+
+
+
+    # verify the otp
+    # True if valid
+    # False if expired
+    # None if not valid
+    def verifyOTP(self , otp):
+        try:
+            with open(self.fileName , "r") as file:
+                data = file.read()
+        except FileNotFoundError:
+            return None
+
+        file_otp , timeout = data.split(",")
+        file_otp = int(file_otp)
+        timeout = int(timeout)
+        
+        if(file_otp == otp):
+
+            if(timeout < int(time.time())):
+                return False
+
+            else:
+                return True
+
+        else:
+            return None
+
+
+
+
+    # get otp verification time left
+    # return None if OTP is expired
+    # else return time left in seconds
+    def getTimeLeft(self):
+        try:
+            with open(self.fileName , "r") as file:
+                data = file.read()
+        except FileNotFoundError:
+            return None
+
+        file_otp , timeout = data.split(",")
+        file_otp = int(file_otp)
+        timeout = int(timeout)
+
+        if(timeout < int(time.time())):
+            return None
+        else:
+            return abs(int(time.time()) - timeout)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -671,5 +942,87 @@ def __test__TrueRandom_mouse_getRandomBytes():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+#  _                  _                       ____                        _                       ___   ____   
+# | |_    ___   ___  | |_                    |  _ \    __ _   _ __     __| |   ___    _ __ ___   |_ _| |  _ \  
+# | __|  / _ \ / __| | __|       _____       | |_) |  / _` | | '_ \   / _` |  / _ \  | '_ ` _ \   | |  | | | | 
+# | |_  |  __/ \__ \ | |_       |_____|      |  _ <  | (_| | | | | | | (_| | | (_) | | | | | | |  | |  | |_| | 
+#  \__|  \___| |___/  \__|                   |_| \_\  \__,_| |_| |_|  \__,_|  \___/  |_| |_| |_| |___| |____/  
+                                                                                                             
+
+
+
+def __test_RandomID():
+    obj = RandomID()
+
+    print(obj.md5() , len(obj.md5()))
+    print(obj.sha1() , len(obj.sha1()))
+    print(obj.sha224() , len(obj.sha224()))
+    print(obj.sha256() , len(obj.sha256()))
+    print(obj.sha384() , len(obj.sha384()))
+    print(obj.sha512() , len(obj.sha512()))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  _                  _                        ___    _____   ____   
+# | |_    ___   ___  | |_                     / _ \  |_   _| |  _ \  
+# | __|  / _ \ / __| | __|       _____       | | | |   | |   | |_) | 
+# | |_  |  __/ \__ \ | |_       |_____|      | |_| |   | |   |  __/  
+#  \__|  \___| |___/  \__|                    \___/    |_|   |_|     
+                                                                   
+
+
+def __test_OTP():
+
+    obj = OTP(timeout=10)
+
+    mainOTP = obj.generateOTP()
+
+    print(mainOTP)
+
+    while(True):
+        otp = obj.getOTP()
+
+        if(otp == None):
+            print("getOTP == None")
+            break
+    
+        print(otp , obj.verifyOTP(otp) , obj.verifyOTP(123456) , obj.getTimeLeft())
+
+        time.sleep(0.9)
+
+    print(mainOTP , obj.verifyOTP(mainOTP) , obj.verifyOTP(123456) , obj.getTimeLeft())
+
+    time.sleep(0.9)
+
+    print(mainOTP , obj.verifyOTP(mainOTP) , obj.verifyOTP(123456) , obj.getTimeLeft())
+
+
 if __name__ == "__main__":
-    __test__TrueRandom_mouse_getRandomBytes()
+    __test_OTP()
