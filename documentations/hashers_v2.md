@@ -69,6 +69,9 @@ from pySecureCryptos import hashers_v2 as hashers
 1. sha256
 2. sha384
 3. sha512
+4. md5
+5. sha1
+6. sha224
 
 <br>
 <br>
@@ -105,13 +108,13 @@ from pySecureCryptos import hashers_v2 as hashers
 <br>
 
 ``` python
-hashObj = hashers.SHA256(bytesObj , chunkSize = 2048)
+hashObj = hashers.SHA256(bytesObj , chunkSize = 1048576)
 ```
 
 Arguments - 
 
 * bytesObj -> bytesObj to generate the hash of. you can use [encoder decoder](https://www.letscodeofficial.com/documentations/pSC_encoderDecoders#/) to convert string into byte.
-* chunkSize -> bytes data is divided into chunks to hash properly. chunkSize determines the size of chunk of each hash updater. default it is set to 2048. 
+* chunkSize -> bytes data is divided into chunks to hash properly. chunkSize determines the size of chunk of each hash updater. default it is set to 1048576. 
 * returns a obj of class SHA256 use below methods to get the final hash.
 
 <br>
@@ -365,13 +368,13 @@ hashed len = 32
 <br>
 
 ``` python
-hashObj = hashers.SHA384(bytesObj , chunkSize = 2048)
+hashObj = hashers.SHA384(bytesObj , chunkSize = 1048576)
 ```
 
 Arguments - 
 
 * bytesObj -> bytesObj to generate the hash of. you can use [encoder decoder](https://www.letscodeofficial.com/documentations/pSC_encoderDecoders#/) to convert string into byte.
-* chunkSize -> bytes data is divided into chunks to hash properly. chunkSize determines the size of chunk of each hash updater. default it is set to 2048. 
+* chunkSize -> bytes data is divided into chunks to hash properly. chunkSize determines the size of chunk of each hash updater. default it is set to 1048576. 
 * returns a obj of class SHA384 use below methods to get the final hash.
 
 <br>
@@ -630,13 +633,13 @@ hashed len = 48
 <br>
 
 ``` python
-hashObj = hashers.SHA512(bytesObj , chunkSize = 2048)
+hashObj = hashers.SHA512(bytesObj , chunkSize = 1048576)
 ```
 
 Arguments - 
 
 * bytesObj -> bytesObj to generate the hash of. you can use [encoder decoder](https://www.letscodeofficial.com/documentations/pSC_encoderDecoders#/) to convert string into byte.
-* chunkSize -> bytes data is divided into chunks to hash properly. chunkSize determines the size of chunk of each hash updater. default it is set to 2048. 
+* chunkSize -> bytes data is divided into chunks to hash properly. chunkSize determines the size of chunk of each hash updater. default it is set to 1048576. 
 * returns a obj of class SHA512 use below methods to get the final hash.
 
 <br>
@@ -865,4 +868,870 @@ hashed len = 64
 <br>
 <br>
 
-NOTE -> SHA512 is latest and recommended in mordern era.
+### NOTE -> SHA512 is latest and recommended in mordern era.
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+ _  _    
+| || |   
+| || |_  
+|__   _| 
+   |_|   
+          -->
+
+
+# 4. MD5
+
+<br>
+<br>
+
+``` python
+hashObj = hashers.MD5(bytesObj , chunkSize = 1048576)
+```
+
+Arguments - 
+
+* bytesObj -> bytesObj to generate the hash of. you can use [encoder decoder](https://www.letscodeofficial.com/documentations/pSC_encoderDecoders#/) to convert string into byte.
+* chunkSize -> bytes data is divided into chunks to hash properly. chunkSize determines the size of chunk of each hash updater. default it is set to 1048576. 
+* returns a obj of class md5 use below methods to get the final hash.
+
+<br>
+<br>
+<br>
+
+### 4.1 get string value of hash
+
+``` python
+hashObj.get_string()
+```
+
+* returns string value of the hash.
+
+<br>
+<br>
+<br>
+
+
+### 4.2 get byte value of hash
+
+``` python
+hashObj.get_byte()
+```
+
+* returns byte value of the hash.
+
+<br>
+<br>
+<br>
+
+
+Example [ string ] - 
+
+``` python
+
+    bytesObj = b"hello world"
+
+    shaObj = MD5(bytesObj)
+
+    md5Hash = shaObj.get_string()
+
+    print(f"\nhashed value = {md5Hash}")
+    print(f"\nhashed len = {len(md5Hash)}")
+```
+
+Output - 
+
+``` shell
+
+hashed value = 5eb63bbbe01eeed093cb22bb8f5acdc3
+
+hashed len = 32
+```
+
+
+<br>
+<br>
+<br>
+
+
+Example [ byte ] - 
+
+``` python
+
+    bytesObj = b"hello world"
+
+    shaObj = MD5(bytesObj)
+
+    md5Hash = shaObj.get_byte()
+
+    print(f"\nhashed value = {md5Hash}")
+    print(f"\nhashed len = {len(md5Hash)}")
+```
+
+Output - 
+
+``` shell
+
+hashed value = b'^\xb6;\xbb\xe0\x1e\xee\xd0\x93\xcb"\xbb\x8fZ\xcd\xc3'
+
+hashed len = 16
+```
+
+
+
+<br>
+<br>
+<br>
+
+
+NOTE -> both the above methods have yielder / generators versions which are suitable for hashing large data. it returns the progress after processing each chunk. see example below to see how to use.
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 4.3 generator version - get string value of hash
+
+``` python
+hashObj.get_string_yield()
+```
+
+* returns a generator obj. see example below to know how to get the hash value from it.
+
+<br>
+<br>
+<br>
+
+
+### 4.4 generator version - get byte value of hash
+
+``` python
+hashObj.get_byte_yield()
+```
+
+* returns a generator obj. see example below to know how to get the hash value from it.
+
+<br>
+<br>
+<br>
+
+
+Example [ string ] - 
+
+``` python
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = MD5(bytesObj)
+
+    genObj = shaObj.get_string_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            md5Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {md5Hash}")
+    print(f"\nhashed len = {len(md5Hash)}")
+```
+
+Output - 
+
+``` shell
+
+(12, 12)
+
+hashed value = 41d59387d34ef45557d7db17788a16df
+
+hashed len = 32
+```
+
+
+<br>
+<br>
+<br>
+
+
+Example [ byte ] - 
+
+``` python
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = MD5(bytesObj)
+
+    genObj = shaObj.get_byte_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            md5Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {md5Hash}")
+    print(f"\nhashed len = {len(md5Hash)}")
+```
+
+Output - 
+
+``` shell
+
+(12, 12)
+
+hashed value = b'A\xd5\x93\x87\xd3N\xf4UW\xd7\xdb\x17x\x8a\x16\xdf'
+
+hashed len = 16
+```
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+ ____   
+| ___|  
+|___ \  
+ ___) | 
+|____/  
+        
+ -->
+
+
+# 5. SHA1
+
+<br>
+<br>
+
+``` python
+hashObj = hashers.SHA1(bytesObj , chunkSize = 1048576)
+```
+
+Arguments - 
+
+* bytesObj -> bytesObj to generate the hash of. you can use [encoder decoder](https://www.letscodeofficial.com/documentations/pSC_encoderDecoders#/) to convert string into byte.
+* chunkSize -> bytes data is divided into chunks to hash properly. chunkSize determines the size of chunk of each hash updater. default it is set to 1048576. 
+* returns a obj of class sha1 use below methods to get the final hash.
+
+<br>
+<br>
+<br>
+
+### 5.1 get string value of hash
+
+``` python
+hashObj.get_string()
+```
+
+* returns string value of the hash.
+
+<br>
+<br>
+<br>
+
+
+### 5.2 get byte value of hash
+
+``` python
+hashObj.get_byte()
+```
+
+* returns byte value of the hash.
+
+<br>
+<br>
+<br>
+
+
+Example [ string ] - 
+
+``` python
+
+    bytesObj = b"hello world"
+
+    shaObj = SHA1(bytesObj)
+
+    sha1Hash = shaObj.get_string()
+
+    print(f"\nhashed value = {sha1Hash}")
+    print(f"\nhashed len = {len(sha1Hash)}")
+```
+
+Output - 
+
+``` shell
+
+hashed value = 2aae6c35c94fcfb415dbe95f408b9ce91ee846ed
+
+hashed len = 40
+```
+
+
+<br>
+<br>
+<br>
+
+
+Example [ byte ] - 
+
+``` python
+
+    bytesObj = b"hello world"
+
+    shaObj = SHA1(bytesObj)
+
+    sha1Hash = shaObj.get_byte()
+
+    print(f"\nhashed value = {sha1Hash}")
+    print(f"\nhashed len = {len(sha1Hash)}")
+```
+
+Output - 
+
+``` shell
+
+hashed value = b'*\xael5\xc9O\xcf\xb4\x15\xdb\xe9_@\x8b\x9c\xe9\x1e\xe8F\xed'
+
+hashed len = 20
+```
+
+
+
+<br>
+<br>
+<br>
+
+
+NOTE -> both the above methods have yielder / generators versions which are suitable for hashing large data. it returns the progress after processing each chunk. see example below to see how to use.
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 5.3 generator version - get string value of hash
+
+``` python
+hashObj.get_string_yield()
+```
+
+* returns a generator obj. see example below to know how to get the hash value from it.
+
+<br>
+<br>
+<br>
+
+
+### 5.4 generator version - get byte value of hash
+
+``` python
+hashObj.get_byte_yield()
+```
+
+* returns a generator obj. see example below to know how to get the hash value from it.
+
+<br>
+<br>
+<br>
+
+
+Example [ string ] - 
+
+``` python
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = SHA1(bytesObj)
+
+    genObj = shaObj.get_string_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            sha1Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {sha1Hash}")
+    print(f"\nhashed len = {len(sha1Hash)}")
+
+```
+
+Output - 
+
+``` shell
+
+(12, 12)
+
+hashed value = 55c0e5b0bbad089bb6b2fd506e3631ee4ea034c1
+
+hashed len = 40
+```
+
+
+<br>
+<br>
+<br>
+
+
+Example [ byte ] - 
+
+``` python
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = SHA1(bytesObj)
+
+    genObj = shaObj.get_byte_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            sha1Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {sha1Hash}")
+    print(f"\nhashed len = {len(sha1Hash)}")
+```
+
+Output - 
+
+``` shell
+
+(12, 12)
+
+hashed value = b'U\xc0\xe5\xb0\xbb\xad\x08\x9b\xb6\xb2\xfdPn61\xeeN\xa04\xc1'
+
+hashed len = 20
+```
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+  __    
+ / /_   
+| '_ \  
+| (_) | 
+ \___/  
+         -->
+
+
+# 6. SHA224
+
+<br>
+<br>
+
+``` python
+hashObj = hashers.SHA224(bytesObj , chunkSize = 1048576)
+```
+
+Arguments - 
+
+* bytesObj -> bytesObj to generate the hash of. you can use [encoder decoder](https://www.letscodeofficial.com/documentations/pSC_encoderDecoders#/) to convert string into byte.
+* chunkSize -> bytes data is divided into chunks to hash properly. chunkSize determines the size of chunk of each hash updater. default it is set to 1048576. 
+* returns a obj of class sha224 use below methods to get the final hash.
+
+<br>
+<br>
+<br>
+
+### 6.1 get string value of hash
+
+``` python
+hashObj.get_string()
+```
+
+* returns string value of the hash.
+
+<br>
+<br>
+<br>
+
+
+### 6.2 get byte value of hash
+
+``` python
+hashObj.get_byte()
+```
+
+* returns byte value of the hash.
+
+<br>
+<br>
+<br>
+
+
+Example [ string ] - 
+
+``` python
+
+    bytesObj = b"hello world"
+
+    shaObj = SHA224(bytesObj)
+
+    sha224Hash = shaObj.get_string()
+
+    print(f"\nhashed value = {sha224Hash}")
+    print(f"\nhashed len = {len(sha224Hash)}")
+```
+
+Output - 
+
+``` shell
+
+hashed value = 2f05477fc24bb4faefd86517156dafdecec45b8ad3cf2522a563582b
+
+hashed len = 56
+```
+
+
+<br>
+<br>
+<br>
+
+
+Example [ byte ] - 
+
+``` python
+
+    bytesObj = b"hello world"
+
+    shaObj = SHA224(bytesObj)
+
+    sha224Hash = shaObj.get_byte()
+
+    print(f"\nhashed value = {sha224Hash}")
+    print(f"\nhashed len = {len(sha224Hash)}")
+```
+
+Output - 
+
+``` shell
+
+hashed value = b'/\x05G\x7f\xc2K\xb4\xfa\xef\xd8e\x17\x15m\xaf\xde\xce\xc4[\x8a\xd3\xcf%"\xa5cX+'
+
+hashed len = 28
+```
+
+
+
+<br>
+<br>
+<br>
+
+
+NOTE -> both the above methods have yielder / generators versions which are suitable for hashing large data. it returns the progress after processing each chunk. see example below to see how to use.
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 6.3 generator version - get string value of hash
+
+``` python
+hashObj.get_string_yield()
+```
+
+* returns a generator obj. see example below to know how to get the hash value from it.
+
+<br>
+<br>
+<br>
+
+
+### 6.4 generator version - get byte value of hash
+
+``` python
+hashObj.get_byte_yield()
+```
+
+* returns a generator obj. see example below to know how to get the hash value from it.
+
+<br>
+<br>
+<br>
+
+
+Example [ string ] - 
+
+``` python
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = SHA224(bytesObj)
+
+    genObj = shaObj.get_string_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            sha224Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {sha224Hash}")
+    print(f"\nhashed len = {len(sha224Hash)}")
+
+```
+
+Output - 
+
+``` shell
+
+(12, 12)
+
+hashed value = 5d8e44a01a813db2befbbc2bf7d13d01d1c9485b417a2b8f0d28fdea
+
+hashed len = 56
+```
+
+
+<br>
+<br>
+<br>
+
+
+Example [ byte ] - 
+
+``` python
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = SHA224(bytesObj)
+
+    genObj = shaObj.get_byte_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            sha224Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {sha224Hash}")
+    print(f"\nhashed len = {len(sha224Hash)}")
+```
+
+Output - 
+
+``` shell
+
+(12, 12)
+
+hashed value = b']\x8eD\xa0\x1a\x81=\xb2\xbe\xfb\xbc+\xf7\xd1=\x01\xd1\xc9H[Az+\x8f\r(\xfd\xea'
+
+hashed len = 28
+```
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
