@@ -2,6 +2,289 @@ import hashlib
 
 
 
+
+
+
+
+
+
+
+#  __  __   ____    ____   
+# |  \/  | |  _ \  | ___|  
+# | |\/| | | | | | |___ \  
+# | |  | | | |_| |  ___) | 
+# |_|  |_| |____/  |____/  
+                         
+
+
+class MD5:
+
+    # constructor
+    # type check parameters and assign objects to self
+    # string retruned length is 32
+    # byte returned len is 16
+    def __init__(self , bytesObj : bytes , chunkSize : int = 1048576):
+
+        if(type(bytesObj) != bytes):
+            raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
+        if(type(chunkSize) != int):
+            raise TypeError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
+
+        self.bytesObj = bytesObj
+        self.lenBytes = len(bytesObj)
+
+        self.md5_hash = hashlib.md5()
+
+        self.chunkSize = chunkSize
+
+    
+
+
+
+    # function to get the string of the hashed object
+    # this is a yielder function
+    def get_string_yield(self) -> str:
+
+        totalYield = ((self.lenBytes // self.chunkSize) + 1)
+        currentCount = 1
+
+        
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.md5_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        # get string 
+        finalHash = self.md5_hash.hexdigest()
+
+        # return
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+        return finalHash
+
+    
+
+
+
+    # function to get the byte of the hashed object
+    # this is a yielder function
+    def get_byte_yield(self) -> bytes:
+
+        totalYield = ((self.lenBytes // self.chunkSize) + 1)
+        currentCount = 1
+
+        # sha256 hash
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.md5_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        # get string 
+        finalHash = self.md5_hash.digest()
+
+        # return
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+        return finalHash
+
+
+
+    # function to get the string of the hashed object
+    # this is a yielder function
+    def get_string(self) -> str:
+
+        # sha256 hash
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.md5_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+        # get string 
+        finalHash = self.md5_hash.hexdigest()
+
+        # return
+        return finalHash
+
+    
+
+
+
+    # function to get the byte of the hashed object
+    # this is a yielder function
+    def get_byte(self) -> bytes:
+
+        # sha256 hash
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.md5_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+        # get string 
+        finalHash = self.md5_hash.digest()
+
+        # return
+        return finalHash
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  ____    _   _      _      _  
+# / ___|  | | | |    / \    / | 
+# \___ \  | |_| |   / _ \   | | 
+#  ___) | |  _  |  / ___ \  | | 
+# |____/  |_| |_| /_/   \_\ |_| 
+                              
+
+
+
+class SHA1:
+
+    # constructor
+    # type check parameters and assign objects to self
+    # string retruned length is 40
+    # byte returned len is 20
+    def __init__(self , bytesObj : bytes , chunkSize : int = 1048576):
+
+        if(type(bytesObj) != bytes):
+            raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
+        if(type(chunkSize) != int):
+            raise TypeError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
+
+        self.bytesObj = bytesObj
+        self.lenBytes = len(bytesObj)
+
+        self.sha1_hash = hashlib.sha1()
+
+        self.chunkSize = chunkSize
+
+    
+
+
+
+    # function to get the string of the hashed object
+    # this is a yielder function
+    def get_string_yield(self) -> str:
+
+        totalYield = ((self.lenBytes // self.chunkSize) + 1)
+        currentCount = 1
+
+        
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.sha1_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        # get string 
+        finalHash = self.sha1_hash.hexdigest()
+
+        # return
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+        return finalHash
+
+    
+
+
+
+    # function to get the byte of the hashed object
+    # this is a yielder function
+    def get_byte_yield(self) -> bytes:
+
+        totalYield = ((self.lenBytes // self.chunkSize) + 1)
+        currentCount = 1
+
+        # sha256 hash
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.sha1_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        # get string 
+        finalHash = self.sha1_hash.digest()
+
+        # return
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+        return finalHash
+
+
+
+    # function to get the string of the hashed object
+    # this is a yielder function
+    def get_string(self) -> str:
+
+        # sha256 hash
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.sha1_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+        # get string 
+        finalHash = self.sha1_hash.hexdigest()
+
+        # return
+        return finalHash
+
+    
+
+
+
+    # function to get the byte of the hashed object
+    # this is a yielder function
+    def get_byte(self) -> bytes:
+
+        # sha256 hash
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.sha1_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+        # get string 
+        finalHash = self.sha1_hash.digest()
+
+        # return
+        return finalHash
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #  ____    _   _      _      ____    ____     __    
 # / ___|  | | | |    / \    |___ \  | ___|   / /_   
 # \___ \  | |_| |   / _ \     __) | |___ \  | '_ \  
@@ -782,7 +1065,223 @@ def __test_sha512_2():
 
 
 
+#  _                  _                       ____    _   _      _      _  
+# | |_    ___   ___  | |_                    / ___|  | | | |    / \    / | 
+# | __|  / _ \ / __| | __|       _____       \___ \  | |_| |   / _ \   | | 
+# | |_  |  __/ \__ \ | |_       |_____|       ___) | |  _  |  / ___ \  | | 
+#  \__|  \___| |___/  \__|                   |____/  |_| |_| /_/   \_\ |_| 
+                                                                         
+                                                                                  
+
+def __test_sha1_yield():
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = SHA1(bytesObj)
+
+    genObj = shaObj.get_string_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            sha1Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {sha1Hash}")
+    print(f"\nhashed len = {len(sha1Hash)}")
+
+
+
+
+
+
+def __test_sha1_yield2():
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = SHA1(bytesObj)
+
+    genObj = shaObj.get_byte_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            sha1Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {sha1Hash}")
+    print(f"\nhashed len = {len(sha1Hash)}")
+
+
+
+
+
+
+
+def __test_sha1():
+
+    bytesObj = b"hello world"
+
+    shaObj = SHA1(bytesObj)
+
+    sha1Hash = shaObj.get_string()
+
+    print(f"\nhashed value = {sha1Hash}")
+    print(f"\nhashed len = {len(sha1Hash)}")
+
+
+
+
+
+def __test_sha1_2():
+
+    bytesObj = b"hello world"
+
+    shaObj = SHA1(bytesObj)
+
+    sha1Hash = shaObj.get_byte()
+
+    print(f"\nhashed value = {sha1Hash}")
+    print(f"\nhashed len = {len(sha1Hash)}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  _                  _                       ____    _   _      _      _  
+# | |_    ___   ___  | |_                    / ___|  | | | |    / \    / | 
+# | __|  / _ \ / __| | __|       _____       \___ \  | |_| |   / _ \   | | 
+# | |_  |  __/ \__ \ | |_       |_____|       ___) | |  _  |  / ___ \  | | 
+#  \__|  \___| |___/  \__|                   |____/  |_| |_| /_/   \_\ |_| 
+                                                                         
+                                                                                  
+
+def __test_md5_yield():
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = MD5(bytesObj)
+
+    genObj = shaObj.get_string_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            md5Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {md5Hash}")
+    print(f"\nhashed len = {len(md5Hash)}")
+
+
+
+
+
+
+def __test_md5_yield2():
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = MD5(bytesObj)
+
+    genObj = shaObj.get_byte_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            md5Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {md5Hash}")
+    print(f"\nhashed len = {len(md5Hash)}")
+
+
+
+
+
+
+
+def __test_md5():
+
+    bytesObj = b"hello world"
+
+    shaObj = MD5(bytesObj)
+
+    md5Hash = shaObj.get_string()
+
+    print(f"\nhashed value = {md5Hash}")
+    print(f"\nhashed len = {len(md5Hash)}")
+
+
+
+
+
+def __test_md5_2():
+
+    bytesObj = b"hello world"
+
+    shaObj = MD5(bytesObj)
+
+    md5Hash = shaObj.get_byte()
+
+    print(f"\nhashed value = {md5Hash}")
+    print(f"\nhashed len = {len(md5Hash)}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     # __test_sha512_yield2()
-    # __test_sha512_2()
-    __test_sha512_yield2()
+    # __test_md5()
+    # __test_md5_2()
+    # __test_md5_yield()
+    # __test_md5_yield2()
+    __test_sha1()
+    __test_sha1_2()
+    __test_sha1_yield()
+    __test_sha1_yield2()
