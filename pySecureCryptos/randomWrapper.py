@@ -409,9 +409,24 @@ class TrueRandom_mouse:
 
 
 
-        
+    # function to get random bytes
+    # if raise error is true than run time error will be raised if size required cannot be acheived by the sample pool
+    def getRandomBytes(self , size : int , raiseError : bool = True) -> str:
 
+        # get random ints in the range of list length
+        randomInts = self.getRandomNumbers_int(0 , 256)
 
+        len_randomInts = len(randomInts)
+
+        # if the size is in limit of pool size
+        if(size <= len_randomInts):
+            return bytes(randomInts[:size])
+
+        elif(raiseError):
+            raise RuntimeError(f"Size requested could not be made form seed collected , max size which can be returned = {len_randomInts}")
+
+        else:
+            return bytes(randomInts)
 
 
 
@@ -600,5 +615,26 @@ def __test__TrueRandom_mouse_getRandomString():
 
 
 
+
+def __test__TrueRandom_mouse_getRandomBytes():
+
+    obj = TrueRandom_mouse()
+
+    obj.setSeed()
+
+    randomBytes = obj.getRandomBytes(16 , raiseError=False)
+
+    print(len(randomBytes))
+
+    print(randomBytes)
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
-    __test__TrueRandom_mouse_getRandomString()
+    __test__TrueRandom_mouse_getRandomBytes()
