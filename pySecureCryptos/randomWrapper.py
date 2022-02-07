@@ -607,6 +607,20 @@ class RandomID:
 
 
 
+
+
+
+
+
+
+#   ___    _____   ____   
+#  / _ \  |_   _| |  _ \  
+# | | | |   | |   | |_) | 
+# | |_| |   | |   |  __/  
+#  \___/    |_|   |_|     
+                        
+
+
 class OTP:
 
     # size in digits like 6 or 4 digit otp
@@ -614,7 +628,7 @@ class OTP:
     # filePath = path were otp file will be stored
     # fileName = name of file you want to store otp in
     # if fileName is None , a random name will be assigned , you can get filePath using .fileName attribute
-    def __init__(self , size = 6 , timeout = 180 , filePath = "./" , fileName = None):
+    def __init__(self , size = 6 , timeout = 180 , filePath = "./" , fileName = None , oneTime = True):
         self.timeout = timeout
         
         path = pathlib.Path(filePath)
@@ -630,6 +644,7 @@ class OTP:
         self.digits = [str(i) for i in range(10)]
         self.size = size
         self.expireTime = int(time.time())
+        self.oneTime = oneTime
 
 
 
@@ -677,7 +692,10 @@ class OTP:
     # True if valid
     # False if expired
     # None if not valid
-    def verifyOTP(self , otp):
+    def verifyOTP(self , otp : int):
+
+        otp = int(otp)
+
         try:
             with open(self.fileName , "r") as file:
                 data = file.read()
@@ -694,6 +712,9 @@ class OTP:
                 return False
 
             else:
+                if(self.oneTime):
+                    with open(self.fileName , "w") as file:
+                        file.write(",")
                 return True
 
         else:
@@ -741,6 +762,24 @@ class OTP:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+#  _   _                   ____                                  _     _   _                       _                          
+# | \ | |   ___    _ __   |  _ \    ___   _ __     ___    __ _  | |_  | \ | |  _   _   _ __ ___   | |__     ___   _ __   ___  
+# |  \| |  / _ \  | '_ \  | |_) |  / _ \ | '_ \   / _ \  / _` | | __| |  \| | | | | | | '_ ` _ \  | '_ \   / _ \ | '__| / __| 
+# | |\  | | (_) | | | | | |  _ <  |  __/ | |_) | |  __/ | (_| | | |_  | |\  | | |_| | | | | | | | | |_) | |  __/ | |    \__ \ 
+# |_| \_|  \___/  |_| |_| |_| \_\  \___| | .__/   \___|  \__,_|  \__| |_| \_|  \__,_| |_| |_| |_| |_.__/   \___| |_|    |___/ 
+#                                        |_|                                                                                  
 
 class NonRepeatNumbers:
 
@@ -851,6 +890,33 @@ class NonRepeatNumbers:
                 file.write(str(randomInt) + "\n")
 
         return randomInt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
