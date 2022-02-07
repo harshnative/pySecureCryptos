@@ -9,7 +9,7 @@ from tkinter import ttk
 from tkinter import font as tkFont
 import math
 import numpy
-
+from .hashers_v2 import *
 
 
 
@@ -430,6 +430,41 @@ class TrueRandom_mouse:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class RandomID:
+
+    def __init__(self , len_bytes = 32 , prefix = "" , sufix = ""):
+
+        self.len_bytes = len_bytes
+        self.prefix = prefix
+        self.sufix = sufix
+
+
+
+    def md5(self) -> str:
+        currentTime = String2Byte_v2.encode(str(time.time()))
+        randomBytes = secrets.token_bytes(self.len_bytes)
+
+        finalBytes = currentTime + randomBytes
 
 
 
