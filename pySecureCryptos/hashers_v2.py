@@ -285,6 +285,149 @@ class SHA1:
 
 
 
+
+
+
+
+
+
+
+#  ____    _   _      _      ____    ____    _  _    
+# / ___|  | | | |    / \    |___ \  |___ \  | || |   
+# \___ \  | |_| |   / _ \     __) |   __) | | || |_  
+#  ___) | |  _  |  / ___ \   / __/   / __/  |__   _| 
+# |____/  |_| |_| /_/   \_\ |_____| |_____|    |_|   
+                                                   
+
+
+
+
+class SHA224:
+
+    # constructor
+    # type check parameters and assign objects to self
+    # string retruned length is 56
+    # byte returned len is 28
+    def __init__(self , bytesObj : bytes , chunkSize : int = 1048576):
+
+        if(type(bytesObj) != bytes):
+            raise TypeError("bytesObj parameter expected to be of bytes type instead got {} type".format(type(bytesObj)))
+        if(type(chunkSize) != int):
+            raise TypeError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
+
+        self.bytesObj = bytesObj
+        self.lenBytes = len(bytesObj)
+
+        self.sha224_hash = hashlib.sha224()
+
+        self.chunkSize = chunkSize
+
+    
+
+
+
+    # function to get the string of the hashed object
+    # this is a yielder function
+    def get_string_yield(self) -> str:
+
+        totalYield = ((self.lenBytes // self.chunkSize) + 1)
+        currentCount = 1
+
+        
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.sha224_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        # get string 
+        finalHash = self.sha224_hash.hexdigest()
+
+        # return
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+        return finalHash
+
+    
+
+
+
+    # function to get the byte of the hashed object
+    # this is a yielder function
+    def get_byte_yield(self) -> bytes:
+
+        totalYield = ((self.lenBytes // self.chunkSize) + 1)
+        currentCount = 1
+
+        # sha256 hash
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.sha224_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        # get string 
+        finalHash = self.sha224_hash.digest()
+
+        # return
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+        return finalHash
+
+
+
+    # function to get the string of the hashed object
+    # this is a yielder function
+    def get_string(self) -> str:
+
+        # sha256 hash
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.sha224_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+        # get string 
+        finalHash = self.sha224_hash.hexdigest()
+
+        # return
+        return finalHash
+
+    
+
+
+
+    # function to get the byte of the hashed object
+    # this is a yielder function
+    def get_byte(self) -> bytes:
+
+        # sha256 hash
+        for i in range(0 , self.lenBytes , self.chunkSize):
+            self.sha224_hash.update(self.bytesObj[i : i+self.chunkSize])
+
+        # get string 
+        finalHash = self.sha224_hash.digest()
+
+        # return
+        return finalHash
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #  ____    _   _      _      ____    ____     __    
 # / ___|  | | | |    / \    |___ \  | ___|   / /_   
 # \___ \  | |_| |   / _ \     __) | |___ \  | '_ \  
@@ -1170,15 +1313,13 @@ def __test_sha1_2():
 
 
 
-
-
-#  _                  _                       ____    _   _      _      _  
-# | |_    ___   ___  | |_                    / ___|  | | | |    / \    / | 
-# | __|  / _ \ / __| | __|       _____       \___ \  | |_| |   / _ \   | | 
-# | |_  |  __/ \__ \ | |_       |_____|       ___) | |  _  |  / ___ \  | | 
-#  \__|  \___| |___/  \__|                   |____/  |_| |_| /_/   \_\ |_| 
-                                                                         
-                                                                                  
+#  _                  _                          _   ____   
+# | |_    ___   ___  | |_        _ __ ___     __| | | ___|  
+# | __|  / _ \ / __| | __|      | '_ ` _ \   / _` | |___ \  
+# | |_  |  __/ \__ \ | |_       | | | | | | | (_| |  ___) | 
+#  \__|  \___| |___/  \__|      |_| |_| |_|  \__,_| |____/  
+                                                          
+                                                      
 
 def __test_md5_yield():
 
@@ -1275,13 +1416,122 @@ def __test_md5_2():
 
 
 
+
+
+
+
+#  _                  _                       ____    _   _      _      ____    ____    _  _    
+# | |_    ___   ___  | |_                    / ___|  | | | |    / \    |___ \  |___ \  | || |   
+# | __|  / _ \ / __| | __|       _____       \___ \  | |_| |   / _ \     __) |   __) | | || |_  
+# | |_  |  __/ \__ \ | |_       |_____|       ___) | |  _  |  / ___ \   / __/   / __/  |__   _| 
+#  \__|  \___| |___/  \__|                   |____/  |_| |_| /_/   \_\ |_____| |_____|    |_|   
+                                                                                              
+
+
+
+def __test_sha224_yield():
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = SHA224(bytesObj)
+
+    genObj = shaObj.get_string_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            sha224Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {sha224Hash}")
+    print(f"\nhashed len = {len(sha224Hash)}")
+
+
+
+
+
+
+def __test_sha224_yield2():
+
+    bytesObj = b"hello world" * 1024 * 1024
+
+    shaObj = SHA224(bytesObj)
+
+    genObj = shaObj.get_byte_yield()
+
+    print()
+    while(True):
+        try:
+            result = next(genObj)
+            print(f"\r{result}" , end="")
+        except StopIteration as ex:
+            sha224Hash = ex.value
+            break
+    print()
+
+    print(f"\nhashed value = {sha224Hash}")
+    print(f"\nhashed len = {len(sha224Hash)}")
+
+
+
+
+
+
+
+def __test_sha224():
+
+    bytesObj = b"hello world"
+
+    shaObj = SHA224(bytesObj)
+
+    sha224Hash = shaObj.get_string()
+
+    print(f"\nhashed value = {sha224Hash}")
+    print(f"\nhashed len = {len(sha224Hash)}")
+
+
+
+
+
+def __test_sha224_2():
+
+    bytesObj = b"hello world"
+
+    shaObj = SHA224(bytesObj)
+
+    sha224Hash = shaObj.get_byte()
+
+    print(f"\nhashed value = {sha224Hash}")
+    print(f"\nhashed len = {len(sha224Hash)}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     # __test_sha512_yield2()
     # __test_md5()
     # __test_md5_2()
     # __test_md5_yield()
     # __test_md5_yield2()
-    __test_sha1()
-    __test_sha1_2()
-    __test_sha1_yield()
-    __test_sha1_yield2()
+    # __test_sha1()
+    # __test_sha1_2()
+    # __test_sha1_yield()
+    # __test_sha1_yield2()
+    __test_sha224()
+    __test_sha224_2()
+    __test_sha224_yield()
+    __test_sha224_yield2()
