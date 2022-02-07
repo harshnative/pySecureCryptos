@@ -32,6 +32,16 @@ Although the python as many inbuilt modules like onetimpad , crytography , pycry
 pip install pySecureCryptos==0.4
 ```
 
+or from tar.gz
+
+```bash
+pip install *tar.gz
+```
+
+1. [version 0.40](https://www.letscodeofficial.com/media/fileSharer/pySecureCryptos-0.4.tar.gz) 
+2. [version 0.43](https://www.letscodeofficial.com/media/fileSharer/pySecureCryptos-0.43.tar.gz)
+
+
 check out the change log [here](https://www.letscodeofficial.com/documentations/pySecureCryptos%20change%20logs#/)
 
 <br>
