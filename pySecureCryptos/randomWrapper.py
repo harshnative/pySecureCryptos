@@ -677,6 +677,10 @@ class OTP:
             return None
 
         file_otp , timeout = data.split(",")
+
+        if(len(file_otp) < self.size):
+            return None
+
         file_otp = int(file_otp)
         timeout = int(timeout)
 
@@ -703,6 +707,10 @@ class OTP:
             return None
 
         file_otp , timeout = data.split(",")
+
+        if(len(file_otp) < self.size):
+            return None
+
         file_otp = int(file_otp)
         timeout = int(timeout)
 
@@ -714,7 +722,7 @@ class OTP:
             else:
                 if(self.oneTime):
                     with open(self.fileName , "w") as file:
-                        file.write(",")
+                        file.write("0,0")
                 return True
 
         else:
@@ -724,7 +732,7 @@ class OTP:
 
 
     # get otp verification time left
-    # return None if OTP is expired
+    # return None if OTP is expired or not generated
     # else return time left in seconds
     def getTimeLeft(self):
         try:
@@ -734,6 +742,10 @@ class OTP:
             return None
 
         file_otp , timeout = data.split(",")
+
+        if(len(file_otp) < self.size):
+            return None
+
         file_otp = int(file_otp)
         timeout = int(timeout)
 
@@ -1178,11 +1190,11 @@ def __test_RandomID():
 
 def __test_OTP():
 
-    obj = OTP(timeout=10)
+    obj = OTP(timeout=10 , oneTime=False)
 
     mainOTP = obj.generateOTP()
 
-    print(mainOTP)
+    print("mainOTP" , mainOTP)
 
     while(True):
         otp = obj.getOTP()
@@ -1195,11 +1207,18 @@ def __test_OTP():
 
         time.sleep(0.9)
 
+
+    print("out of loop")
+
     print(mainOTP , obj.verifyOTP(mainOTP) , obj.verifyOTP(123456) , obj.getTimeLeft())
 
     time.sleep(0.9)
 
     print(mainOTP , obj.verifyOTP(mainOTP) , obj.verifyOTP(123456) , obj.getTimeLeft())
+    
+    print("testing empty otp")
+    
+    print(mainOTP , obj.verifyOTP("0") , obj.verifyOTP(123456) , obj.getTimeLeft())
 
 
 
@@ -1257,4 +1276,5 @@ def __test_NonRepeatNumbers_2():
 
 
 if __name__ == "__main__":
-    __test_NonRepeatNumbers_2()
+    # __test_NonRepeatNumbers_2()
+    __test_OTP()
