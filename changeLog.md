@@ -13,6 +13,11 @@ initial public version
 
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 
@@ -25,3 +30,16 @@ initial public version
 * OTP generator in randomWrapper
 * Non repeating number generator in randomWrapper
 * Random ID generator in randomWrapper
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+# 0.44
+
+* fixed critical empty otp bug in otp generator in random wrapper
