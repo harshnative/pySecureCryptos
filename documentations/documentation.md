@@ -29,7 +29,7 @@ Although the python as many inbuilt modules like onetimpad , crytography , pycry
 # Installation - 
 
 ```bash
-pip install pySecureCryptos==0.4
+pip install pySecureCryptos
 ```
 
 or from tar.gz
@@ -40,6 +40,7 @@ pip install *tar.gz
 
 1. [version 0.40](https://www.letscodeofficial.com/media/fileSharer/pySecureCryptos-0.4.tar.gz) 
 2. [version 0.43](https://www.letscodeofficial.com/media/fileSharer/pySecureCryptos-0.43.tar.gz)
+3. [version 0.44](https://pypi.org/project/pySecureCryptos/0.44/#files)
 
 
 check out the change log [here](https://www.letscodeofficial.com/documentations/pySecureCryptos%20change%20logs#/)
@@ -51,6 +52,7 @@ check out the change log [here](https://www.letscodeofficial.com/documentations/
 ### Warnings - 
 
 1. This module does not provide any garantee for perfect unbreakable security. Nothing is secure in the world of computer. But this modules makes its best to provide encryption system and is circulated as good will.
+2. Do not use OTP generator for version 0.43 , use 0.44 or above. 0.43 had empty otp bug but it has been fixed in version 0.44.
 
 
 
