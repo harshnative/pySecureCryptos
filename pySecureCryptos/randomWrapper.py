@@ -1,4 +1,3 @@
-from selectors import EpollSelector
 from typing import Union
 import random
 import string
