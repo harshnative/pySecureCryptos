@@ -41,6 +41,7 @@ pip install *tar.gz
 1. [version 0.40](https://www.letscodeofficial.com/media/fileSharer/pySecureCryptos-0.4.tar.gz) 
 2. [version 0.43](https://www.letscodeofficial.com/media/fileSharer/pySecureCryptos-0.43.tar.gz)
 3. [version 0.44](https://pypi.org/project/pySecureCryptos/0.44/#files)
+4. [version 0.46](https://pypi.org/project/pySecureCryptos/0.46/#files)
 
 
 check out the change log [here](https://www.letscodeofficial.com/documentations/pySecureCryptos%20change%20logs#/)
@@ -53,6 +54,8 @@ check out the change log [here](https://www.letscodeofficial.com/documentations/
 
 1. This module does not provide any garantee for perfect unbreakable security. Nothing is secure in the world of computer. But this modules makes its best to provide encryption system and is circulated as good will.
 2. Do not use OTP generator for version 0.43 , use 0.44 or above. 0.43 had empty otp bug but it has been fixed in version 0.44.
+3. RandomWrapper EpollSelector bug as been fixed in version 0.46.
+4. Numpy installation required for version 0.43 and 0.44.
 
 
 
