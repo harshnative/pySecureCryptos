@@ -26,7 +26,7 @@ setuptools.setup(
     install_requires=[
    'cryptography==35.0.0',
    'onetimepad==1.4',
-   'pycryptodomex==3.11.0'
+   'pycryptodomex==3.11.0',
    'numpy==1.22.2'
     ],
 
