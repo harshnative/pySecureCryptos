@@ -8,9 +8,7 @@ import pickle
 
 
 # function to generate a random byte
-def getRandomByte():
-    minByteLen = 1
-    maxByteLen = 1000
+def getRandomByte(minByteLen = 1 , maxByteLen = 1000):
 
     byte = secrets.token_bytes(random.randint(minByteLen , maxByteLen))
 
@@ -85,7 +83,7 @@ def main2():
     for i in range(number):
         print(i)
 
-        byte = getRandomByte()
+        byte = getRandomByte(1 , 1000 * 1000 * 100)
         password = getRandomString(1 , 100)
 
         genObj = aesWrapper.Encryptor(password).encrypt_byte_yield(byte)

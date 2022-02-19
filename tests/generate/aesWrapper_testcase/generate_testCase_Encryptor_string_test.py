@@ -85,7 +85,7 @@ def main2():
     for i in range(number):
         print(i)
 
-        string = getRandomString()
+        string = getRandomString(1 , 1000 * 1000 * 100)
         password = getRandomString(1,100)
 
         genObj = aesWrapper.Encryptor(password).encrypt_string_yield(string)
