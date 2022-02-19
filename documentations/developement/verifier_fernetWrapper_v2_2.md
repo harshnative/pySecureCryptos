@@ -368,7 +368,7 @@ ok
 You need to make a object from the class Encryptor
 
 ```python
-encObj = FW.Encryptor(password , iterations=390000 , chunkSize=4096)
+encObj = FW.Encryptor(password , iterations=390000 , chunkSize=512)
 ```
 
 
@@ -376,11 +376,7 @@ Arguments -
 
 * password -> password will be used to encrypt the string. should be at least 10 to 12 digits long containing combination of lower , upper case and digits as well as special chars. The more strong and longer and not easily guessable the password is , the stronger is the encryption.
 * iterations -> a fernet encryption key is derived using your password using cryptography built in function - PBKDF2HMAC. iterations should be set as high as possible. but not to much high as it can reduce your codes performance and increase load on hardware. default 390000 is sufficient and recommend value.
-* chunkSize - chunk size in bytes , each chunks is encrypted individually and then joined together
-
-
-<br>
-<br>
+* chunkSize - chunk size in KB , each chunks is encrypted individually and then joined together
 
 ### 2.1 encrypt string
 

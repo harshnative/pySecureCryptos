@@ -1,14 +1,8 @@
-# verifier fernet Wrapper v2.2
+# verifier fernet Wrapper v2
 
-version 2.2 of the verifier fernet wrapper.
+version 2 of the verifier fernet wrapper.
 
-This is much faster than version one and version 2 due to increased chunk size and controlled yield making more use of CPU at a time and using inbuilt conversion methods.
-
-But as less compatability for strings. as strings needed to be converted in bytes. to encrypt the strings , strings should be utf-8 compatible.
-
-if you need to encrypt strings which are not utf-8 compatible then use [version 2](https://www.letscodeofficial.com/documentations/pSC_V_fernetWrapper_v2#/) of fernet wrapper.
-
-
+This is much faster than version one due to increased chunk size and controlled yield making more use of CPU at a time.
 
 
 
@@ -43,7 +37,7 @@ if you need to encrypt strings which are not utf-8 compatible then use [version 
 # Importing - 
 
 ``` python
-from pySecureCryptos import verifier_fernetWrapper_v2_2 as FW 
+from pySecureCryptos import verifier_fernetWrapper_v2 as FW 
 ```
 
 
@@ -79,8 +73,8 @@ from pySecureCryptos import verifier_fernetWrapper_v2_2 as FW
 
 # Methods - 
 
-1. Encrypt and Decrypt bytes
-2. Encrypt and Decrypt string
+1. Encrypt and Decrypt strings
+2. Encrypt and Decrypt bytes
 
 
 <br>
@@ -128,7 +122,7 @@ from pySecureCryptos import verifier_fernetWrapper_v2_2 as FW
 You need to make a object from the class Encryptor
 
 ```python
-encObj = FW.Encryptor(password , iterations=390000 , chunkSize=512)
+encObj = FW.Encryptor(password , iterations=390000 , chunkSize=4096)
 ```
 
 
@@ -136,7 +130,7 @@ Arguments -
 
 * password -> password will be used to encrypt the string. should be at least 10 to 12 digits long containing combination of lower , upper case and digits as well as special chars. The more strong and longer and not easily guessable the password is , the stronger is the encryption.
 * iterations -> a fernet encryption key is derived using your password using cryptography built in function - PBKDF2HMAC. iterations should be set as high as possible. but not to much high as it can reduce your codes performance and increase load on hardware. default 390000 is sufficient and recommend value.
-* chunkSize - chunk size in KB , each chunks is encrypted individually and then joined together
+* chunkSize - chunk size in bytes , each chunks is encrypted individually and then joined together
 
 <br>
 <br>
@@ -200,10 +194,11 @@ Output -
 ```shell
 making obj
 encrypting byte of len = 11
-encryptedByte = b'gAAAAABhvnyULbH_tto_0U2A3XDgyZ3zpKrVomyjQW2JD5TiJS_kjGTHzXAH2NVfNhh7gVKkFNlGsBdckSG0I9qhKJouvyOA8w==:checksum:gAAAAABhvnyU650YlgyT-gJ1A1L_Ne9wL_i8XV68zr4z43OqS551b9oVCVJRu57c1B2J51e9JxHqQd-JJQpC5hNWpIF1YlsYxwqV8RvZCiTX1Mk0GNFP2KGrPeS7cwbRRREhA5C4PSMj' len = 250
+encryptedByte = b'gAAAAABhqjHkS1_hipcuPNdQ5EpGnm0nLpqZ7yHmGYtETcMRMChyh64SQq0f4__ZahHja1XOCQ682o6KeWXeT-s1eweLcA-ulQ==:checksum:gAAAAABhqjHkI-8bPhF-KIYZgZZ24z9qes5N9cofz3LkJoWJKdT2QOGEP2dDndYhpzfsr1XdXTnoif0ykdm-4nsG5CSWn9qtsgk9E72PzgA0zdeuofjowQvFkix-PYsNvAwUpNrr_NVs' len = 250
 decryptedByte = b'hello world' len = 11
 
 ok
+
 ```
 
 
@@ -269,7 +264,7 @@ Example -
     print("making obj")
     encObj = Encryptor(password)
 
-    myByte = b"h" * 1024 * 1024 * 16
+    myByte = b"hello world" * 12345
 
     print(f"encrypting byte of len = {len(myByte)}")
 
@@ -316,15 +311,16 @@ Example -
 Output - 
 
 ```shell
-encrypting byte of len = 16777216
+making obj
+encrypting byte of len = 135795
 
 Progress: |██████████████████████████████████████████████████| 100.0% Complete
 
-encryptedByte len = 22373041
+encryptedByte len = 184727
 
 Progress: |██████████████████████████████████████████████████| 100.0% Complete
 
-decryptedByte len = 16777216
+decryptedByte len = 135795
 
 ok
 ```
@@ -368,7 +364,7 @@ ok
 You need to make a object from the class Encryptor
 
 ```python
-encObj = FW.Encryptor(password , iterations=390000 , chunkSize=512)
+encObj = FW.Encryptor(password , iterations=390000 , chunkSize=4096)
 ```
 
 
@@ -376,7 +372,11 @@ Arguments -
 
 * password -> password will be used to encrypt the string. should be at least 10 to 12 digits long containing combination of lower , upper case and digits as well as special chars. The more strong and longer and not easily guessable the password is , the stronger is the encryption.
 * iterations -> a fernet encryption key is derived using your password using cryptography built in function - PBKDF2HMAC. iterations should be set as high as possible. but not to much high as it can reduce your codes performance and increase load on hardware. default 390000 is sufficient and recommend value.
-* chunkSize - chunk size in KB , each chunks is encrypted individually and then joined together
+* chunkSize - chunk size in bytes , each chunks is encrypted individually and then joined together
+
+
+<br>
+<br>
 
 ### 2.1 encrypt string
 
@@ -438,7 +438,7 @@ Output -
 ```shell
 making obj
 encrypting string of len = 11
-encryptedString = 6741414141414268766e306a722d74644c5a333743534c597772314430767074387370642d3074347167634d2d635562775472526b76674c61494a3241725633343465553768346659424a474c3752636b75584e7453474352715578724454554d513d3d:checksum:6741414141414268766e306a73762d366837796c6952556f6f613077577136654e62786873646f5f4e6f6679716d7971526745414845382d5f3351716c4b7347544e7a2d4d644e5f795674465a4f584c3869756a343555514e76655275357530795f5834374e6737494e6e2d6342414944436d386b5a61686649774f49686859486c6538382d36314c726834 len = 490
+encryptedString = 6741414141414268716a4b42625779627573714c746e57703456417a736e49625f6363304e6e497148706b784f59595f3734596d61363939535f6c6f394e417955687639515967676e6b525734696e684671504f345351597931496a384d714b57673d3d:checksum:6741414141414268716a4b424b626a453562514533564f324d484f6c564f62536d65674b304e54586b464b65472d6b6b6a7a6459744e73326f6c316a64546b574f354a364e73695a4c4a5f7a7144387551516a7842623766477873555a4947355a542d633437737a336e5f7944524a446b74774a4a4d7848626d766c764f647955645561484d346c4a383336 len = 490
 decryptedString = hello world len = 11
 
 ok
@@ -505,7 +505,7 @@ Example -
     print("making obj")
     encObj = Encryptor(password)
 
-    myString = "h" * 1024 * 1024 * 16
+    myString = "hello world" * 12345
 
     print(f"encrypting string of len = {len(myString)}")
 
@@ -552,15 +552,15 @@ Output -
 
 ```shell
 making obj
-encrypting string of len = 16777216
+encrypting string of len = 135795
 
 Progress: |██████████████████████████████████████████████████| 100.0% Complete
 
-encryptedString len = 44745917
+encryptedString len = 369279
 
 Progress: |██████████████████████████████████████████████████| 100.0% Complete
 
-decryptedString len = 16777216
+decryptedString len = 135795
 
 ok
 ```

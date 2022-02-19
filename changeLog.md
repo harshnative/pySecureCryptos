@@ -43,3 +43,29 @@ initial public version
 # 0.44
 
 * fixed critical empty otp bug in otp generator in random wrapper
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+# 0.46
+
+* new numpy requirement in setup.py
+* removed EpollSelector bug from randomWrapper
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+# 0.47
+
+* added new aes wrapper
