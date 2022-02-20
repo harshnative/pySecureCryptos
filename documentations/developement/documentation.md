@@ -192,12 +192,26 @@ Fastest version of Verifier Fernet Wrapper making use of multiple cores of CPU.
 
 Wrapper containing many methods to generate random things from integers to strings. It even has its own True Random Generator from mouse movements.
 
+
+
+<br>
+<br>
+
+
 15. [AES Wrapper](https://www.letscodeofficial.com/documentations/pySecureCryptos%20AES%20Wrapper#/)
 
 Wrapper Encryptions methods using AES encryption algo.
 
 #### Recommended symmetric algo for most use cases.
 
+
+<br>
+<br>
+
+
+16. [Fernet + AES Wrapper](https://www.letscodeofficial.com/documentations/pySecureCryptos%20Fernet%20+%20AES%20Wrapper#/)
+
+Wrapper Encryptions methods using fernet + AES encryption algo.
 
 <br>
 <br>
