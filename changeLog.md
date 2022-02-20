@@ -69,3 +69,15 @@ initial public version
 # 0.47
 
 * added new aes wrapper
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+# 0.48
+
+* added new fernet + aes wrapper

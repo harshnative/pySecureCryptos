@@ -43,7 +43,6 @@ pip install *tar.gz
 3. [version 0.44](https://pypi.org/project/pySecureCryptos/0.44/#files)
 4. [version 0.46](https://pypi.org/project/pySecureCryptos/0.46/#files)
 5. [version 0.47](https://pypi.org/project/pySecureCryptos/0.47/#files)
-6. [version 0.48](https://pypi.org/project/pySecureCryptos/0.48/#files)
 
 
 check out the change log [here](https://www.letscodeofficial.com/documentations/pySecureCryptos%20change%20logs#/)
@@ -193,26 +192,12 @@ Fastest version of Verifier Fernet Wrapper making use of multiple cores of CPU.
 
 Wrapper containing many methods to generate random things from integers to strings. It even has its own True Random Generator from mouse movements.
 
-
-
-<br>
-<br>
-
-
 15. [AES Wrapper](https://www.letscodeofficial.com/documentations/pySecureCryptos%20AES%20Wrapper#/)
 
 Wrapper Encryptions methods using AES encryption algo.
 
 #### Recommended symmetric algo for most use cases.
 
-
-<br>
-<br>
-
-
-16. [Fernet + AES Wrapper](https://www.letscodeofficial.com/documentations/pySecureCryptos%20Fernet%20+%20AES%20Wrapper#/)
-
-Wrapper Encryptions methods using fernet + AES encryption algo.
 
 <br>
 <br>
