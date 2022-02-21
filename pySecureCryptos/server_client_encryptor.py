@@ -715,5 +715,5 @@ def __test_encryptor_byte():
 
 
 if __name__ == "__main__":
-    __test_encryptor_byte_yield()
-    # __test_encryptor_byte()
+    # __test_encryptor_byte_yield()
+    __test_encryptor_byte()
