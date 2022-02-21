@@ -81,3 +81,15 @@ initial public version
 # 0.48
 
 * added new fernet + aes wrapper
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+# 0.49
+
+* added new server client encryption algo
