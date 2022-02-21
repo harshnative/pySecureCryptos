@@ -44,6 +44,7 @@ pip install *tar.gz
 4. [version 0.46](https://pypi.org/project/pySecureCryptos/0.46/#files)
 5. [version 0.47](https://pypi.org/project/pySecureCryptos/0.47/#files)
 6. [version 0.48](https://pypi.org/project/pySecureCryptos/0.48/#files)
+7. [version 0.49](https://pypi.org/project/pySecureCryptos/0.49/#files)
 
 
 check out the change log [here](https://www.letscodeofficial.com/documentations/pySecureCryptos%20change%20logs#/)
@@ -214,6 +215,24 @@ Wrapper Encryptions methods using AES encryption algo.
 
 Wrapper Encryptions methods using fernet + AES encryption algo.
 
+
+
+<br>
+<br>
+
+
+17. [server client encryptor](https://www.letscodeofficial.com/documentations/pySecureCryptos%20server%20client%20encryptor#/)
+
+* Combines properties of symmetric and asymmetric encryption algo.
+* Combines RSA and AES encryption for faster encryption.
+* Since it uses RSA , module as in built checking for message authentication i.e checks if the message is sent by the original sender.
+
+#### Recommended asymmetric algo for most use cases.
+
+
+<br>
+<br>
+
 <br>
 <br>
 <br>
@@ -250,7 +269,7 @@ Raise Issues at github - https://github.com/harshnative/pySecureCryptos
 
 
 
-# Version Specfic Readme - 
+# Version Specific Readme - 
 
 At github - https://github.com/harshnative/pySecureCryptos/tree/master/documentations/version_specific
 
