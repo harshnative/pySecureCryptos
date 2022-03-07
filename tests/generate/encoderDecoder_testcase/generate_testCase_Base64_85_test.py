@@ -21,7 +21,7 @@ def getRandomByte():
 
 def main():
 
-    fileName = "binFiles/encoderDecoder_testcases_bin/Base36Encoder_yield_test_testCases.bin"
+    fileName = "binFiles/encoderDecoder_testcases_bin/Base64_85_test_testCases.bin"
 
     number = 10
 
@@ -31,14 +31,7 @@ def main():
         print(i)
 
         byte = getRandomByte()
-        gen = encoderDecoders.Base36Encoder.encode_yield(byte)
-
-        while(True):
-            try:
-                next(gen)
-            except StopIteration as ex:
-                stringFromByte = ex.value
-                break
+        stringFromByte = encoderDecoders.Base64_85.encode(byte)
         
         outputList.append([byte , stringFromByte])
         
