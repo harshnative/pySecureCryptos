@@ -1120,6 +1120,140 @@ class Base64_16():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Base64_32():
+    # encode byte into string
+    @classmethod
+    def encode(cls , byte : bytes) -> str:
+
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
+        return str(base64.b32encode(byte) , "utf-8")
+
+
+    # function to convert the encoded string into byte
+    @classmethod
+    def decode(cls , string : str) -> bytes:
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
+        return base64.b32decode(bytes(string , "utf-8"))
+
+
+
+    # generator version
+    # encode byte into string
+    @classmethod
+    def encode_yield(cls , byte : bytes , chunkSize : int = 1) -> str:
+        
+
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
+        # type checking the parameters
+        if(type(chunkSize) != int):
+            raise TypeError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
+
+
+        # convert chunk size into bytes
+        chunkSize = chunkSize * 1024 * 1024
+        
+        lenByte = len(byte)
+
+        result = ""
+
+        currentYield = 1
+        totalYield = (lenByte // chunkSize) + 1
+
+        # encode each chunk
+        # output chunk size is twice the input chunk size
+        for i in range(0 , lenByte , chunkSize):
+            stringFromByte = str(base64.b32encode(byte[i : i+chunkSize]) , "utf-8")
+            result = result + stringFromByte + ":__:"
+
+            yield currentYield , totalYield
+            currentYield = currentYield + 1
+
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
+
+        result = result[:-4]
+        return result 
+
+
+    # generator verion
+    # decode - convert encoded string back to byte
+    @classmethod
+    def decode_yield(cls , string : str) -> bytes:
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
+
+        # convert chunk size into bytes , chunk before decoding is twice the size of decoded chunk
+        chunkList = string.split(":__:")
+        
+        result = b""
+
+        currentYield = 1
+        totalYield = len(chunkList)
+
+        # decode each chunk
+        for i in chunkList:
+            byteFromString = base64.b32decode(bytes(i , "utf-8"))
+            result = result + byteFromString
+
+            yield currentYield , totalYield
+            currentYield = currentYield + 1
+
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
+        return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #  ____         ____         ____                              ____   
 # / ___|       |___ \       | __ )                    __   __ |___ \  
 # \___ \         __) |      |  _ \        _____       \ \ / /   __) | 
@@ -2266,12 +2400,98 @@ def __test_Base64_16_2():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def __test_Base64_32():
+
+    myByte = b"hello world"
+
+    stringFromByte = Base64_32.encode(myByte)
+
+    print(f"stringFromByte = {stringFromByte}")
+
+    byteAgain = Base64_32.decode(stringFromByte)
+
+    print(f"byte Again = {byteAgain}")
+
+
+
+
+def __test_Base64_32_2():
+
+
+    # big object to encode decode 
+    myByte = b"hello world" * 1024 * 1024 * 16
+
+    print("myByte len = " , len(myByte) , "\n")
+
+    # creating the generator obj for the method
+    generatorObj_encode = Base64_32.encode_yield(myByte)
+
+    # looping until generator obj returns
+    while(True):
+        try:
+            # generator obj yield current count - (on) and total count - (total steps)
+            currentCount , totalCount = next(generatorObj_encode)
+
+            # sample progress bar
+            printProgressBar(currentCount, totalCount, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        # as soon as the generator object returns StopIteration is raised
+        # except it as a var and var.value is the thing that generator object returned
+        except StopIteration as ex:
+
+            # getting the returned value
+            stringFromByte = ex.value
+            break
+
+    print("stringFromByte len = " , len(stringFromByte) , "\n")
+    
+    # similarly for decode
+    generatorObj_decode = Base64_32.decode_yield(stringFromByte)
+
+    while(True):
+        try:
+            currentCount , totalCount = next(generatorObj_decode)
+            printProgressBar(currentCount, totalCount, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        except StopIteration as ex:
+            byteAgain = ex.value
+            break
+
+    print("byteAgain len = " , len(byteAgain) , "\n")
+
+    if(myByte == byteAgain):
+        print("\nok")
+    else:
+        print("\nerror")
+
+    
+
+
+
+
+
+
 def __main():
     import time
     start = time.perf_counter()
 
-    # __test_Base64_16()
-    __test_Base64_16_2()
+    # __test_Base64_32()
+    __test_Base64_32_2()
 
     end = time.perf_counter()
 
