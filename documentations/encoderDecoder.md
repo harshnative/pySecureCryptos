@@ -56,12 +56,12 @@ from pySecureCryptos import encoderDecoders as ED
 
 4. S2B v2 - Convert String to Byte & vice versa {[Recommended]()}
 5. B2S v2 - Convert Byte to String & vice versa
-6. Base36Encoder - Convert Byte to String & vice versa 
-7. Base90Encoder - Convert Byte to String & vice versa 
-8. Base64_64 - Convert Byte to String & vice versa 
+<!-- 6. Base36Encoder - Convert Byte to String & vice versa  -->
+<!-- 7. Base90Encoder - Convert Byte to String & vice versa  -->
+8. Base64_64 - Convert Byte to String & vice versa {[Recommended]()}
 9. Base64_16 - Convert Byte to String & vice versa 
 10. Base64_32 - Convert Byte to String & vice versa 
-11. Base64_85 - Convert Byte to String & vice versa 
+11. Base64_85 - Convert Byte to String & vice versa {[Recommended]()}
 
 <br>
 
@@ -1214,7 +1214,7 @@ ok
          -->
 
 
-
+<!-- 
 # 6. Base36Encoder - Convert Byte to String & vice versa
 
 
@@ -1406,7 +1406,7 @@ Time taken = 7.930383637998602
 <br>
 <br>
 <br>
-
+ -->
 
 
 
@@ -1463,7 +1463,7 @@ Time taken = 7.930383637998602
         
  -->
 
-
+<!-- 
 
 # 7. Base90Encoder - Convert Byte to String & vice versa
 
@@ -1662,7 +1662,7 @@ Time taken = 23.05900487799954
 <br>
 <br>
 <br>
-<br>
+<br> -->
 
 
 
