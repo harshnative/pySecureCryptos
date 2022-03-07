@@ -93,3 +93,16 @@ initial public version
 # 0.49
 
 * added new server client encryption algo
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+# 0.51
+
+* added new base16 , base32 , base64 , base85 encoder decoders
