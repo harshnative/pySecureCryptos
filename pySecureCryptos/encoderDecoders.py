@@ -1,5 +1,6 @@
 import binascii
 from numpy import base_repr
+import string
 
 
 #  _               _                 _                        _            _                  
@@ -437,6 +438,408 @@ class HexConvertor:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  _                            ____     __     _____                              _                
+# | |__     __ _   ___    ___  |___ \   / /_   | ____|  _ __     ___    ___     __| |   ___   _ __  
+# | '_ \   / _` | / __|  / _ \   __) | | '_ \  |  _|   | '_ \   / __|  / _ \   / _` |  / _ \ | '__| 
+# | |_) | | (_| | \__ \ |  __/  / __/  | (_) | | |___  | | | | | (__  | (_) | | (_| | |  __/ | |    
+# |_.__/   \__,_| |___/  \___| |_____|  \___/  |_____| |_| |_|  \___|  \___/   \__,_|  \___| |_|    
+                                                                                                  
+
+
+
+
+# convert byte to base 36 and vice versa
+class Base36Encoder:
+
+    # encode byte into string
+    @classmethod
+    def encode(cls , byte : bytes , chunkSize : int = 128) -> str:
+        
+
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
+        # type checking the parameters
+        if(type(chunkSize) != int):
+            raise TypeError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
+
+
+        # convert chunk size into bytes
+        lenByte = len(byte)
+
+        result = ""
+
+        # encode each chunk
+        # output chunk size is twice the input chunk size
+        for i in range(0 , lenByte , chunkSize):
+            hex_from_byte = binascii.hexlify(byte[i : i+chunkSize])
+            decimal_from_hex = int(hex_from_byte , 16)
+            base36_from_decimal = base_repr(decimal_from_hex , 36)
+
+            result = result + base36_from_decimal + "-"
+
+        result = result[:-1]
+        return result 
+
+
+
+
+    # decode - convert encoded string back to byte
+    @classmethod
+    def decode(cls , string : str) -> bytes:
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
+
+        # convert chunk size into bytes , chunk before decoding is twice the size of decoded chunk
+        chunkList = string.split("-")
+        
+        result = b""
+
+        # decode each chunk
+        for i in chunkList:
+            decimal_from_base36 = int(i , 36)
+            hex_from_decimal = hex(decimal_from_base36)
+            byte_from_hex = binascii.unhexlify(hex_from_decimal[2:])
+
+            result = result + byte_from_hex
+
+        return result 
+
+
+
+    # generator version
+    # encode byte into string
+    @classmethod
+    def encode_yield(cls , byte : bytes , chunkSize : int = 128) -> str:
+        
+
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
+        # type checking the parameters
+        if(type(chunkSize) != int):
+            raise TypeError("chunkSize parameter expected to be of int type instead got {} type".format(type(chunkSize)))
+
+
+        # convert chunk size into bytes
+        lenByte = len(byte)
+
+        result = ""
+
+        currentYield = 1
+        totalYield = (lenByte // chunkSize) + 1
+
+        # encode each chunk
+        # output chunk size is twice the input chunk size
+        for i in range(0 , lenByte , chunkSize):
+            hex_from_byte = binascii.hexlify(byte[i : i+chunkSize])
+            decimal_from_hex = int(hex_from_byte , 16)
+            base36_from_decimal = base_repr(decimal_from_hex , 36)
+
+            result = result + base36_from_decimal + "-"
+
+            yield currentYield , totalYield
+            currentYield = currentYield + 1
+
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
+
+        result = result[:-1]
+        return result 
+
+
+
+    # generator verion
+    # decode - convert encoded string back to byte
+    @classmethod
+    def decode_yield(cls , string : str) -> bytes:
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
+
+        # convert chunk size into bytes , chunk before decoding is twice the size of decoded chunk
+        chunkList = string.split("-")
+        
+        result = b""
+
+        currentYield = 1
+        totalYield = len(chunkList)
+
+        # decode each chunk
+        for i in chunkList:
+            decimal_from_base36 = int(i , 36)
+            hex_from_decimal = hex(decimal_from_base36)
+            byte_from_hex = binascii.unhexlify(hex_from_decimal[2:])
+
+            result = result + byte_from_hex
+
+
+            yield currentYield , totalYield
+            currentYield = currentYield + 1
+
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
+        return result 
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  ____                          ___     ___    _____                              _                
+# | __ )    __ _   ___    ___   / _ \   / _ \  | ____|  _ __     ___    ___     __| |   ___   _ __  
+# |  _ \   / _` | / __|  / _ \ | (_) | | | | | |  _|   | '_ \   / __|  / _ \   / _` |  / _ \ | '__| 
+# | |_) | | (_| | \__ \ |  __/  \__, | | |_| | | |___  | | | | | (__  | (_) | | (_| | |  __/ | |    
+# |____/   \__,_| |___/  \___|    /_/   \___/  |_____| |_| |_|  \___|  \___/   \__,_|  \___| |_|    
+                                                                                                  
+
+
+# convert byte to base 90 and vice versa
+class Base90Encoder:
+
+
+    def __init__(self):
+        printableChars = list(string.printable[:-5])
+        printableChars.remove("'")
+        printableChars.remove('"')
+        printableChars.remove('\\')
+        printableChars.remove('`')
+        printableChars.remove(' ')
+
+        self.printableChars = printableChars
+
+        power_cache = []
+
+        for i in range(4096):
+            power_cache.append(90 ** i)
+
+        self.power_cache = power_cache
+
+
+
+    def _base90encoder(self , integer):
+        base90 = ""
+
+        while(integer >= 90):
+            rem = integer % 90
+            integer = integer // 90
+            base90 = base90 + self.printableChars[rem]
+
+        base90 = base90 + self.printableChars[integer]
+
+        return base90
+
+
+
+    def _base90decoder(self , base90):
+        finalint = 0
+
+        for index , char in enumerate(base90):
+
+            indexValue_valueArray = None
+
+            for i,j in enumerate(self.printableChars):
+                if(j == char):
+                    indexValue_valueArray = i
+
+            
+            finalint = finalint + (indexValue_valueArray * self.power_cache[index])
+            
+        return finalint
+
+
+
+    # generator version
+    # encode byte into string
+    def encode_yield(self , byte : bytes) -> str:
+        
+
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
+        # convert chunk size into bytes
+        chunkSize = 2048
+        
+        # convert chunk size into bytes
+        lenByte = len(byte)
+
+        result = ""
+
+        currentYield = 1
+        totalYield = (lenByte // chunkSize) + 1
+
+        # encode each chunk
+        # output chunk size is twice the input chunk size
+        for i in range(0 , lenByte , chunkSize):
+            hex_from_byte = binascii.hexlify(byte[i : i+chunkSize])
+            decimal_from_hex = int(hex_from_byte , 16)
+            base36_from_decimal = self._base90encoder(decimal_from_hex)
+
+            result = result + base36_from_decimal + " "
+
+            yield currentYield , totalYield
+            currentYield = currentYield + 1
+
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
+
+        result = result[:-1]
+        return result 
+
+
+    
+
+
+    # generator verion
+    # decode - convert encoded string back to byte
+    def decode_yield(self , string : str) -> bytes:
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
+
+        # convert chunk size into bytes , chunk before decoding is twice the size of decoded chunk
+        chunkList = string.split(" ")
+        
+        result = b""
+
+        currentYield = 1
+        totalYield = len(chunkList)
+
+        # decode each chunk
+        for i in chunkList:
+            decimal_from_base36 = self._base90decoder(i)
+            hex_from_decimal = hex(decimal_from_base36)
+            byte_from_hex = binascii.unhexlify(hex_from_decimal[2:])
+
+            result = result + byte_from_hex
+
+
+            yield currentYield , totalYield
+            currentYield = currentYield + 1
+
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
+        return result 
+
+
+
+
+
+
+    # generator version
+    # encode byte into string
+    def encode(self , byte : bytes) -> str:
+        
+
+        # type checking the parameters
+        if(type(byte) != bytes):
+            raise TypeError("byte parameter expected to be of bytes type instead got {} type".format(type(byte)))
+
+        # convert chunk size into bytes
+        chunkSize = 2048
+        
+        # convert chunk size into bytes
+        lenByte = len(byte)
+
+        result = ""
+
+        # encode each chunk
+        # output chunk size is twice the input chunk size
+        for i in range(0 , lenByte , chunkSize):
+            hex_from_byte = binascii.hexlify(byte[i : i+chunkSize])
+            decimal_from_hex = int(hex_from_byte , 16)
+            base36_from_decimal = self._base90encoder(decimal_from_hex)
+
+            result = result + base36_from_decimal + " "
+
+        result = result[:-1]
+        return result 
+
+
+    
+
+
+    # generator verion
+    # decode - convert encoded string back to byte
+    def decode(self , string : str) -> bytes:
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
+
+
+        # convert chunk size into bytes , chunk before decoding is twice the size of decoded chunk
+        chunkList = string.split(" ")
+        
+        result = b""
+
+        # decode each chunk
+        for i in chunkList:
+            decimal_from_base36 = self._base90decoder(i)
+            hex_from_decimal = hex(decimal_from_base36)
+            byte_from_hex = binascii.unhexlify(hex_from_decimal[2:])
+
+            result = result + byte_from_hex
+
+        return result 
 
 
 
@@ -1071,7 +1474,7 @@ def __test_Base36Encoder2():
 
 
     # big object to encode decode 
-    myByte = b"hello world" * 1024 * 1024 * 1
+    myByte = b"h" * 1024 * 1024
 
     print("myByte len = " , len(myByte) , "\n")
 
@@ -1117,6 +1520,103 @@ def __test_Base36Encoder2():
         print("\nerror")
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  _                  _             ____                          ___     ___    _____                              _                
+# | |_    ___   ___  | |_          | __ )    __ _   ___    ___   / _ \   / _ \  | ____|  _ __     ___    ___     __| |   ___   _ __  
+# | __|  / _ \ / __| | __|         |  _ \   / _` | / __|  / _ \ | (_) | | | | | |  _|   | '_ \   / __|  / _ \   / _` |  / _ \ | '__| 
+# | |_  |  __/ \__ \ | |_          | |_) | | (_| | \__ \ |  __/  \__, | | |_| | | |___  | | | | | (__  | (_) | | (_| | |  __/ | |    
+#  \__|  \___| |___/  \__|  _____  |____/   \__,_| |___/  \___|    /_/   \___/  |_____| |_| |_|  \___|  \___/   \__,_|  \___| |_|    
+#                          |_____|                                                                                                   
+
+
+def __test_Base90Encoder():
+
+    myByte = b"hello world"
+
+    obj = Base90Encoder()
+
+    stringFromByte = obj.encode(myByte)
+
+    print(f"stringFromByte = {stringFromByte}")
+
+    byteAgain = obj.decode(stringFromByte)
+
+    print(f"byte Again = {byteAgain}")
+
+
+
+
+
+
+def __test_Base90Encoder2():
+
+
+    # big object to encode decode 
+    myByte = b"h" * 1024 * 1024
+
+    print("myByte len = " , len(myByte) , "\n")
+
+    obj = Base90Encoder()
+
+    # creating the generator obj for the method
+    generatorObj_encode = obj.encode_yield(myByte)
+
+    # looping until generator obj returns
+    while(True):
+        try:
+            # generator obj yield current count - (on) and total count - (total steps)
+            currentCount , totalCount = next(generatorObj_encode)
+
+            # sample progress bar
+            printProgressBar(currentCount, totalCount, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        # as soon as the generator object returns StopIteration is raised
+        # except it as a var and var.value is the thing that generator object returned
+        except StopIteration as ex:
+
+            # getting the returned value
+            stringFromByte = ex.value
+            break
+
+    print("stringFromByte len = " , len(stringFromByte) , "\n")
+    
+    # similarly for decode
+    generatorObj_decode = obj.decode_yield(stringFromByte)
+
+    while(True):
+        try:
+            currentCount , totalCount = next(generatorObj_decode)
+            printProgressBar(currentCount, totalCount, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        except StopIteration as ex:
+            byteAgain = ex.value
+            break
+
+    print("byteAgain len = " , len(byteAgain) , "\n")
+
+    if(myByte == byteAgain):
+        print("\nok")
+    else:
+        print("\nerror")
+
+
+
 
 
 
@@ -1343,11 +1843,26 @@ def __test_byte2stringv2_2():
 
 
 
+
+def __main():
+    import time
+    start = time.perf_counter()
+
+    __test_Base90Encoder()
+
+    end = time.perf_counter()
+
+
+    print(f"\n\n\nTime taken = {end - start}")
+
+
+
+
     
 if __name__ == "__main__":
     # __test_string2bytev2()
     # __test()
     # __test_HexConvertor2()
-    __test_Base36Encoder2()
+    __main()
 
 
