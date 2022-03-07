@@ -1,4 +1,5 @@
 import binascii
+from numpy import base_repr
 
 
 #  _               _                 _                        _            _                  
@@ -391,7 +392,8 @@ class HexConvertor:
             yield currentYield , totalYield
             currentYield = currentYield + 1
 
-        yield totalYield , totalYield
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
         return result 
 
 
@@ -423,10 +425,32 @@ class HexConvertor:
             yield currentYield , totalYield
             currentYield = currentYield + 1
 
-        yield totalYield , totalYield
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
         return result 
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -511,8 +535,8 @@ class String2Byte_v2:
             yield currentYield , totalYield
             currentYield = currentYield + 1
         
-        
-        yield totalYield , totalYield
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
 
         return result
 
@@ -550,7 +574,8 @@ class String2Byte_v2:
             currentYield = currentYield + 1
 
 
-        yield totalYield , totalYield
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
         return result
 
 
@@ -639,8 +664,8 @@ class Byte2String_v2:
             yield currentYield , totalYield
             currentYield = currentYield + 1
         
-        
-        yield totalYield , totalYield
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
 
         return result
 
@@ -677,8 +702,8 @@ class Byte2String_v2:
             yield currentYield , totalYield
             currentYield = currentYield + 1
 
-
-        yield totalYield , totalYield
+        if(currentYield <= totalYield):
+            yield totalYield , totalYield
         return result
 
 
@@ -1014,6 +1039,101 @@ def __test_HexConvertor2():
 
 
 
+
+
+
+
+
+#  _                  _             ____                         _____    __     _____                              _                
+# | |_    ___   ___  | |_          | __ )    __ _   ___    ___  |___ /   / /_   | ____|  _ __     ___    ___     __| |   ___   _ __  
+# | __|  / _ \ / __| | __|  _____  |  _ \   / _` | / __|  / _ \   |_ \  | '_ \  |  _|   | '_ \   / __|  / _ \   / _` |  / _ \ | '__| 
+# | |_  |  __/ \__ \ | |_  |_____| | |_) | | (_| | \__ \ |  __/  ___) | | (_) | | |___  | | | | | (__  | (_) | | (_| | |  __/ | |    
+#  \__|  \___| |___/  \__|         |____/   \__,_| |___/  \___| |____/   \___/  |_____| |_| |_|  \___|  \___/   \__,_|  \___| |_|    
+                                                                                                                                   
+
+
+def __test_Base36Encoder():
+
+    myByte = b"hello world"
+
+    stringFromByte = Base36Encoder.encode(myByte)
+
+    print(f"stringFromByte = {stringFromByte}")
+
+    byteAgain = Base36Encoder.decode(stringFromByte)
+
+    print(f"byte Again = {byteAgain}")
+
+
+
+
+def __test_Base36Encoder2():
+
+
+    # big object to encode decode 
+    myByte = b"hello world" * 1024 * 1024 * 1
+
+    print("myByte len = " , len(myByte) , "\n")
+
+    # creating the generator obj for the method
+    generatorObj_encode = Base36Encoder.encode_yield(myByte)
+
+    # looping until generator obj returns
+    while(True):
+        try:
+            # generator obj yield current count - (on) and total count - (total steps)
+            currentCount , totalCount = next(generatorObj_encode)
+
+            # sample progress bar
+            printProgressBar(currentCount, totalCount, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        # as soon as the generator object returns StopIteration is raised
+        # except it as a var and var.value is the thing that generator object returned
+        except StopIteration as ex:
+
+            # getting the returned value
+            stringFromByte = ex.value
+            break
+
+    print("stringFromByte len = " , len(stringFromByte) , "\n")
+    
+    # similarly for decode
+    generatorObj_decode = Base36Encoder.decode_yield(stringFromByte)
+
+    while(True):
+        try:
+            currentCount , totalCount = next(generatorObj_decode)
+            printProgressBar(currentCount, totalCount, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        except StopIteration as ex:
+            byteAgain = ex.value
+            break
+
+    print("byteAgain len = " , len(byteAgain) , "\n")
+
+    if(myByte == byteAgain):
+        print("\nok")
+    else:
+        print("\nerror")
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #  _                  _                             _            ____    _               _                         ____   
 # | |_    ___   ___  | |_                     ___  | |_   _ __  |___ \  | |__    _   _  | |_    ___       __   __ |___ \  
 # | __|  / _ \ / __| | __|       _____       / __| | __| | '__|   __) | | '_ \  | | | | | __|  / _ \      \ \ / /   __) | 
@@ -1226,7 +1346,8 @@ def __test_byte2stringv2_2():
     
 if __name__ == "__main__":
     # __test_string2bytev2()
-    __test()
+    # __test()
     # __test_HexConvertor2()
+    __test_Base36Encoder2()
 
 
