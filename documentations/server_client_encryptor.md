@@ -45,6 +45,18 @@ from pySecureCryptos import server_client_encryptor
 ```
 
 
+<br>
+
+or
+
+<br>
+
+
+``` python
+from pySecureCryptos import server_client_encryptor_v2 as server_client_encryptor
+```
+
+for better string compression in string encryption. but is slightly slow.
 
 
 <br>
