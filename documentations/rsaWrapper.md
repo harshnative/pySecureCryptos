@@ -43,6 +43,23 @@ from pySecureCryptos import rsaWrapper as RW
 
 
 
+
+
+<br>
+
+or
+
+<br>
+
+
+``` python
+from pySecureCryptos import rsaWrapper_v2 as RW
+```
+
+for better key generation size ratios.
+
+
+
 <br>
 <br>
 <br>
