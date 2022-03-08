@@ -3,7 +3,7 @@ import pytest
 import repeatTimes
 import secrets
 import random
-import keyGeneration
+import keyGeneration_v2
 
 
 
@@ -74,22 +74,22 @@ def test_encrypt_byte():
     randomByte = getRandomByte()
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
     encryptedByte = obj.encrypt_byte(randomByte)
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -120,22 +120,22 @@ def test_encrypt_string():
     randomString = getRandomString()
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
     encryptedString = obj.encrypt_string(randomString)
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -161,11 +161,11 @@ def test_encrypt_byte_yield_1():
     randomByte = getRandomByte()
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -179,11 +179,11 @@ def test_encrypt_byte_yield_1():
             break
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -223,11 +223,11 @@ def test_encrypt_byte_yield_2():
     randomByte = getRandomByte()
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -241,11 +241,11 @@ def test_encrypt_byte_yield_2():
             break
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -281,22 +281,22 @@ def test_encrypt_byte_yield_3():
     randomByte = getRandomByte()
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
     encryptedByte = obj.encrypt_byte(randomByte)
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -337,11 +337,11 @@ def test_encrypt_string_yield_1():
     randomString = getRandomString()
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -355,11 +355,11 @@ def test_encrypt_string_yield_1():
             break
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -397,11 +397,11 @@ def test_encrypt_string_yield_2():
     randomString = getRandomString()
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -415,11 +415,11 @@ def test_encrypt_string_yield_2():
             break
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -458,11 +458,11 @@ def test_encrypt_string_yield_3():
     randomString = getRandomString()
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -470,11 +470,11 @@ def test_encrypt_string_yield_3():
 
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -514,11 +514,11 @@ def test_encrypt_lbyte_yield():
     randomByte = b"h" * 1024 * 1024 * 16
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -533,11 +533,11 @@ def test_encrypt_lbyte_yield():
 
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -575,11 +575,11 @@ def test_encrypt_lstring_yield():
     randomString = "h" * 1024 * 1024 * 16
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
@@ -594,11 +594,11 @@ def test_encrypt_lstring_yield():
 
 
     if(random.random() > 0.5):
-        publicKey = keyGeneration.GetKey.keyPublic
-        privateKey = keyGeneration.GetKey.keyPrivate
+        publicKey = keyGeneration_v2.GetKey.keyPublic
+        privateKey = keyGeneration_v2.GetKey.keyPrivate
     else:
-        publicKey = keyGeneration.GetKey.keyPublic_str
-        privateKey = keyGeneration.GetKey.keyPrivate_str
+        publicKey = keyGeneration_v2.GetKey.keyPublic_str
+        privateKey = keyGeneration_v2.GetKey.keyPrivate_str
 
     obj = rsaWrapper_v2.Encryptor(publicKey , privateKey)
 
