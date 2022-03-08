@@ -58,7 +58,7 @@ class KeyGenerator:
     # return private key in strings
     def get_privateKey_string(self) -> str:
         private_key = self.key.export_key()
-        hexPrivateKey = HexConvertor.encode(private_key)
+        hexPrivateKey = Base64_85.encode(private_key)
         return hexPrivateKey
 
     # return public key in bytes
@@ -69,7 +69,7 @@ class KeyGenerator:
     # return public key in strings
     def get_publicKey_string(self) -> str:
         public_key = self.key.public_key().export_key()
-        hexpublicKey = HexConvertor.encode(public_key)
+        hexpublicKey = Base64_85.encode(public_key)
         return hexpublicKey
 
 
@@ -124,9 +124,9 @@ class Encryptor:
 
         # if the keys are in str format , convert them back to bytes
         if(type(publicKey) == str):
-            publicKey = HexConvertor.decode(publicKey)
+            publicKey = Base64_85.decode(publicKey)
         if(type(privateKey) == str):
-            privateKey = HexConvertor.decode(privateKey)
+            privateKey = Base64_85.decode(privateKey)
 
         # convert the keys to RSA type
         self.publicKey = RSA.import_key(publicKey)
@@ -1258,5 +1258,5 @@ def __test_encryptor_string():
 if __name__ == "__main__":
     # __test_encryptor_byte_yield()
     # __test_encryptor_byte()
-    __test_encryptor_string_yield()
-    # __test_encryptor_string()
+    # __test_encryptor_string_yield()
+    __test_encryptor_string()

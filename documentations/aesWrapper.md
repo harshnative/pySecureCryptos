@@ -45,6 +45,23 @@ from pySecureCryptos import aesWrapper as AW
 
 
 
+
+<br>
+
+or
+
+<br>
+
+
+``` python
+from pySecureCryptos import aesWrapper_v2 as AW
+```
+
+for better string compression in string encryption. but is slightly slow.
+
+
+
+
 <br>
 <br>
 <br>

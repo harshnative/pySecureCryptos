@@ -1,1 +1,1 @@
-current_verison = 0.51
+current_verison = 0.52
