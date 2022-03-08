@@ -441,6 +441,303 @@ class Encryptor:
 
 
 
+    # function to encrypt a string object
+    # generator function
+    def encrypt_string_yield(self , string : str) -> str:
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
+        
+        result = ""
+
+        hashObj = hashlib.sha256()
+
+        len_string = len(string)
+
+        currentCount = 0
+
+        # number of chunks
+        totalYield = (len_string // self.aes_chunkSize) + 1
+
+
+        # divide data in chunks and encrypt
+        for i in range(0 , len_string , self.aes_chunkSize):
+
+            # divide
+            chunk = string[i : i+self.aes_chunkSize]
+            bytes_chunk = String2Byte_v2.encode(chunk)
+
+            # update hash
+            hashObj.update(bytes_chunk)
+
+            # encrypt
+            cipher = AES.new(self.aes_key, AES.MODE_EAX)
+            nonce = cipher.nonce
+
+            ciphertext, tag = cipher.encrypt_and_digest(bytes_chunk)
+
+            ciphertext_str = Base64_85.encode(ciphertext)
+            tag_str = Base64_85.encode(tag)
+            nonce_str = Base64_85.encode(nonce)
+
+
+            # add to result
+            result = result + ciphertext_str + ":-helper:-" + tag_str + ":-helper:-" + nonce_str + ":-sce_aesWrapper-:"
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        result = result[:len(":-sce_aesWrapper-:") * -1]
+
+        # add encrypted key to result
+        result = result + ":-encKey-:" + Base64_85.encode(self.enc_aes_key)
+
+        crypto_hash_object = Cryptodome_SHA256.new(hashObj.digest())
+
+        # add signature to result
+        signature = self.cipherSignature.sign(crypto_hash_object)
+
+        result = result + ":-signature-:" + Base64_85.encode(signature)
+
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+
+        return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    # function to decrypt the encrypted string    
+    def decrypt_string_yield(self , enc_string : str) -> str:
+
+        # type checking the parameters
+        if(type(enc_string) != str):
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+
+
+        enc_string , signature = enc_string.split(":-signature-:")
+        signature = Base64_85.decode(signature)
+
+        enc_string , encKey = enc_string.split(":-encKey-:")
+        encKey = Base64_85.decode(encKey)
+
+        aes_key = self.cipherPrivate.decrypt(encKey , None)
+
+        # split into chunks
+        chunkList = enc_string.split(":-sce_aesWrapper-:")
+
+        hashObj = hashlib.sha256()
+
+        result = ""
+
+        currentCount = 0
+
+        # number of chunks
+        totalYield = len(chunkList)
+
+
+        # divide data in chunks and encrypt
+        for i in chunkList:
+
+            cipherText , tag , nonce = i.split(":-helper:-")
+
+            cipherText = Base64_85.decode(cipherText)
+            tag = Base64_85.decode(tag)
+            nonce = Base64_85.decode(nonce)
+
+            cipher = AES.new(aes_key, AES.MODE_EAX, nonce=nonce)
+            plaintext = cipher.decrypt(cipherText)
+
+            hashObj.update(plaintext)
+
+            plaintext = String2Byte_v2.decode(plaintext)
+
+            try:
+                cipher.verify(tag)
+            except ValueError:
+                raise ValueError("Key incorrect or message corrupted")
+
+            result = result + plaintext
+
+
+
+            yield currentCount , totalYield
+            currentCount = currentCount + 1
+
+        crypto_hash_object = Cryptodome_SHA256.new(hashObj.digest())
+
+        try:
+            self.cipherSignatureVerify.verify(crypto_hash_object, signature)
+        except (ValueError, TypeError):
+            raise ValueError("The signature is not authentic")
+        
+
+        if(currentCount <= totalYield):
+            yield totalYield , totalYield
+
+        return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # function to encrypt a string object
+    # generator function
+    def encrypt_string(self , string : str) -> str:
+
+        # type checking the parameters
+        if(type(string) != str):
+            raise TypeError("string parameter expected to be of str type instead got {} type".format(type(string)))
+        
+        result = ""
+
+        hashObj = hashlib.sha256()
+
+        len_string = len(string)
+
+
+        # divide data in chunks and encrypt
+        for i in range(0 , len_string , self.aes_chunkSize):
+
+            # divide
+            chunk = string[i : i+self.aes_chunkSize]
+            bytes_chunk = String2Byte_v2.encode(chunk)
+
+            # update hash
+            hashObj.update(bytes_chunk)
+
+            # encrypt
+            cipher = AES.new(self.aes_key, AES.MODE_EAX)
+            nonce = cipher.nonce
+
+            ciphertext, tag = cipher.encrypt_and_digest(bytes_chunk)
+
+            ciphertext_str = Base64_85.encode(ciphertext)
+            tag_str = Base64_85.encode(tag)
+            nonce_str = Base64_85.encode(nonce)
+
+
+            # add to result
+            result = result + ciphertext_str + ":-helper:-" + tag_str + ":-helper:-" + nonce_str + ":-sce_aesWrapper-:"
+
+
+        result = result[:len(":-sce_aesWrapper-:") * -1]
+
+        # add encrypted key to result
+        result = result + ":-encKey-:" + Base64_85.encode(self.enc_aes_key)
+
+        crypto_hash_object = Cryptodome_SHA256.new(hashObj.digest())
+
+        # add signature to result
+        signature = self.cipherSignature.sign(crypto_hash_object)
+
+        result = result + ":-signature-:" + Base64_85.encode(signature)
+
+        return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    # function to decrypt the encrypted string    
+    def decrypt_string(self , enc_string : str) -> str:
+
+        # type checking the parameters
+        if(type(enc_string) != str):
+            raise TypeError("enc_string parameter expected to be of str type instead got {} type".format(type(enc_string)))
+
+
+        enc_string , signature = enc_string.split(":-signature-:")
+        signature = Base64_85.decode(signature)
+
+        enc_string , encKey = enc_string.split(":-encKey-:")
+        encKey = Base64_85.decode(encKey)
+
+        aes_key = self.cipherPrivate.decrypt(encKey , None)
+
+        # split into chunks
+        chunkList = enc_string.split(":-sce_aesWrapper-:")
+
+        hashObj = hashlib.sha256()
+
+        result = ""
+
+        # divide data in chunks and encrypt
+        for i in chunkList:
+
+            cipherText , tag , nonce = i.split(":-helper:-")
+
+            cipherText = Base64_85.decode(cipherText)
+            tag = Base64_85.decode(tag)
+            nonce = Base64_85.decode(nonce)
+
+            cipher = AES.new(aes_key, AES.MODE_EAX, nonce=nonce)
+            plaintext = cipher.decrypt(cipherText)
+
+            hashObj.update(plaintext)
+
+            plaintext = String2Byte_v2.decode(plaintext)
+
+            try:
+                cipher.verify(tag)
+            except ValueError:
+                raise ValueError("Key incorrect or message corrupted")
+
+            result = result + plaintext
+
+
+        crypto_hash_object = Cryptodome_SHA256.new(hashObj.digest())
+
+        try:
+            self.cipherSignatureVerify.verify(crypto_hash_object, signature)
+        except (ValueError, TypeError):
+            raise ValueError("The signature is not authentic")
+
+        return result
+
+
+
+
+
+
 
 
 
@@ -714,6 +1011,252 @@ def __test_encryptor_byte():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def __test_encryptor_string_yield():
+
+
+    print("generating server key")
+
+    keyObj_server = KeyGenerator()
+
+    publicKey_server = keyObj_server.get_publicKey_string()
+    privateKey_server = keyObj_server.get_privateKey_string()
+
+
+    print("generating client key")
+
+    keyObj_client = KeyGenerator()
+
+    publicKey_client = keyObj_client.get_publicKey_string()
+    privateKey_client = keyObj_client.get_privateKey_string()
+
+
+
+    print("encrypting message server")
+    encObj_server = Encryptor(publicKey_client , privateKey_server)
+
+    serverMessageSize = 1000 * 1000 * 64
+    myString_server = "h" * serverMessageSize
+
+    print("serverMessageSize" , len(myString_server))
+
+    genObj = encObj_server.encrypt_string_yield(myString_server)
+
+    print()
+    while(True):
+        try:
+            currentCount , totalYield = next(genObj)
+            # print(currentCount , totalYield)
+            printProgressBar(currentCount, totalYield, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        except StopIteration as ex:
+            encryptedString_server = ex.value
+            break
+    print()
+
+    print(f"encryptedString_server len = {len(encryptedString_server)}")
+
+
+
+
+    print("encrypting message client")
+    encObj_client = Encryptor(publicKey_server , privateKey_client)
+
+    clientMessageSize = 1000 * 1000 * 64
+    myString_client = "X" * clientMessageSize
+
+    print("clientMessageSize" , len(myString_client))
+
+    genObj = encObj_client.encrypt_string_yield(myString_client)
+
+    print()
+    while(True):
+        try:
+            currentCount , totalYield = next(genObj)
+            # print(currentCount , totalYield)
+            printProgressBar(currentCount, totalYield, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        except StopIteration as ex:
+            encryptedString_client = ex.value
+            break
+    print()
+
+    print(f"encryptedString len = {len(encryptedString_client)}")
+
+
+
+    print("\n\n\n")
+
+    print("client decrypting servers message")
+
+    genObj = encObj_client.decrypt_string_yield(encryptedString_server)
+    
+    print()
+    while(True):
+        try:
+            currentCount , totalYield = next(genObj)
+            # print(currentCount , totalYield)
+            printProgressBar(currentCount, totalYield, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        except StopIteration as ex:
+            decryptedString_client = ex.value
+            break
+    print()
+
+    print(f"decryptedString_client len = {len(decryptedString_client)}")
+
+    
+    if(decryptedString_client != myString_server):
+        print("\nerror")
+    else:
+        print("\nok")
+
+
+
+    print("server decrypting clients message")
+
+    genObj = encObj_server.decrypt_string_yield(encryptedString_client)
+    
+    print()
+    while(True):
+        try:
+            currentCount , totalYield = next(genObj)
+            # print(currentCount , totalYield)
+            printProgressBar(currentCount, totalYield, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        except StopIteration as ex:
+            decryptedString_server = ex.value
+            break
+    print()
+
+    print(f"decryptedString_server len = {len(decryptedString_server)}")
+
+    
+    if(decryptedString_server != myString_client):
+        print("\nerror")
+    else:
+        print("\nok")
+
+
+
+
+
+
+
+
+
+
+
+
+def __test_encryptor_string():
+
+
+    print("generating server key")
+
+    keyObj_server = KeyGenerator()
+
+    publicKey_server = keyObj_server.get_publicKey_string()
+    privateKey_server = keyObj_server.get_privateKey_string()
+
+
+    print("generating client key")
+
+    keyObj_client = KeyGenerator()
+
+    publicKey_client = keyObj_client.get_publicKey_string()
+    privateKey_client = keyObj_client.get_privateKey_string()
+
+
+
+    print("encrypting message server")
+    encObj_server = Encryptor(publicKey_client , privateKey_server)
+
+    myString_server = "hello world"
+
+    print("serverMessageSize" , len(myString_server))
+
+    encryptedString_server = encObj_server.encrypt_string(myString_server)
+
+
+    print(f"encryptedString_server len = {len(encryptedString_server)}")
+
+
+
+
+    print("encrypting message client")
+    encObj_client = Encryptor(publicKey_server , privateKey_client)
+
+    myString_client = "hello boi"
+
+    print("clientMessageSize" , len(myString_client))
+
+    encryptedString_client = encObj_client.encrypt_string(myString_client)
+
+    print(f"encryptedString len = {len(encryptedString_client)}")
+
+
+
+    print("\n\n\n")
+
+    print("client decrypting servers message")
+
+    decryptedString_client = encObj_client.decrypt_string(encryptedString_server)
+
+    print(f"decryptedString_client len = {len(decryptedString_client)}")
+
+    
+    if(decryptedString_client != myString_server):
+        print("\nerror")
+    else:
+        print("\nok")
+
+
+
+    print("server decrypting clients message")
+
+    decryptedString_server = encObj_server.decrypt_string(encryptedString_client)
+    
+    print(f"decryptedString_server len = {len(decryptedString_server)}")
+
+    
+    if(decryptedString_server != myString_client):
+        print("\nerror")
+    else:
+        print("\nok")
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     # __test_encryptor_byte_yield()
-    __test_encryptor_byte()
+    # __test_encryptor_byte()
+    # __test_encryptor_string_yield()
+    __test_encryptor_string()
