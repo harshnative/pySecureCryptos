@@ -106,3 +106,18 @@ initial public version
 # 0.51
 
 * added new base16 , base32 , base64 , base85 encoder decoders
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+# 0.52
+
+* added string encryptor in server client encryptor
+* added new base 85 encoder to aes wrapper_v2 , rsaWrapper_v2 , server_client_encryptor_v2.
