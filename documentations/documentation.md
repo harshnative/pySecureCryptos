@@ -46,6 +46,7 @@ pip install *tar.gz
 6. [version 0.48](https://pypi.org/project/pySecureCryptos/0.48/#files)
 7. [version 0.49](https://pypi.org/project/pySecureCryptos/0.49/#files)
 8. [version 0.51](https://pypi.org/project/pySecureCryptos/0.51/#files)
+9. [version 0.52](https://pypi.org/project/pySecureCryptos/0.51/#files)
 
 
 check out the change log [here](https://www.letscodeofficial.com/documentations/pySecureCryptos%20change%20logs#/)
