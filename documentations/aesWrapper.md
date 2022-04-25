@@ -5,8 +5,7 @@ God algo of symmetric encryption.
 can encrypt strings which are utf-8 compatible.
 
 
-
-
+NOTE - STRING ENCRYPTIONS ARE SLOW. it is good to convert your string object into bytes yourself using [Encoder Decoder](https://www.letscodeofficial.com/documentations/pySecureCryptos%20encoderDecoders#/) and store encrypted bytes instead of encrypted string.
 
 
 <br>
@@ -57,7 +56,7 @@ or
 from pySecureCryptos import aesWrapper_v2 as AW
 ```
 
-for better string compression in string encryption. but is slightly slow.
+for better security
 
 
 
