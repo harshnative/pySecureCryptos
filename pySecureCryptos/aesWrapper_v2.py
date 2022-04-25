@@ -1,7 +1,7 @@
 from Cryptodome.Cipher import AES
 from .encoderDecoders import *
 from .hashers_v2 import *
-
+from .verifier_fernetWrapper_v2 import Encryptor as FW_encrytor
 
 
 
@@ -28,7 +28,7 @@ from .hashers_v2 import *
 class Encryptor:
 
     # chunk size in MB
-    def __init__(self , password : str , chunkSize : int = 8):
+    def __init__(self , password : str , chunkSize : int = 16):
 
         # type checking the parameters
         if(type(password) != str):
@@ -47,6 +47,7 @@ class Encryptor:
 
         self.mode = AES.MODE_EAX
 
+        self.fernetObj = FW_encrytor(password)
 
 
 
@@ -94,7 +95,7 @@ class Encryptor:
 
             ciphertext, tag = cipher.encrypt_and_digest(chunk)
 
-            result = result + ciphertext + b":helper:" + tag + b":helper:" + nonce + b":-aesWrapper-:"
+            result = result + ciphertext + b":helper:" + self.fernetObj.encrypt_byte(tag) + b":helper:" + self.fernetObj.encrypt_byte(nonce) + b":-aesWrapper-:"
 
             yield currentCount , totalYield
             currentCount = currentCount + 1
@@ -145,6 +146,8 @@ class Encryptor:
         for i in chunkList:
 
             cipherText , tag , nonce = i.split(b":helper:")
+            tag = self.fernetObj.decrypt_byte(tag)
+            nonce = self.fernetObj.decrypt_byte(nonce)
 
             cipher = AES.new(self.key, AES.MODE_EAX, nonce=nonce)
             plaintext = cipher.decrypt(cipherText)
@@ -197,7 +200,7 @@ class Encryptor:
 
             ciphertext, tag = cipher.encrypt_and_digest(chunk)
 
-            result = result + ciphertext + b":helper:" + tag + b":helper:" + nonce + b":-aesWrapper-:"
+            result = result + ciphertext + b":helper:" + self.fernetObj.encrypt_byte(tag) + b":helper:" + self.fernetObj.encrypt_byte(nonce) + b":-aesWrapper-:"
 
         result = result[:len(b":-aesWrapper-:") * -1]
 
@@ -237,6 +240,8 @@ class Encryptor:
         for i in chunkList:
 
             cipherText , tag , nonce = i.split(b":helper:")
+            tag = self.fernetObj.decrypt_byte(tag)
+            nonce = self.fernetObj.decrypt_byte(nonce)
 
             cipher = AES.new(self.key, AES.MODE_EAX, nonce=nonce)
             plaintext = cipher.decrypt(cipherText)
@@ -285,14 +290,14 @@ class Encryptor:
             chunk = String2Byte_v2.encode(chunk)
 
             cipher = AES.new(self.key, AES.MODE_EAX)
-            nonce = Base64_85.encode(cipher.nonce)
+            nonce = HexConvertor.encode(cipher.nonce)
 
             ciphertext , tag = cipher.encrypt_and_digest(chunk)
 
-            ciphertext = Base64_85.encode(ciphertext)
-            tag = Base64_85.encode(tag)
+            ciphertext = HexConvertor.encode(ciphertext)
+            tag = HexConvertor.encode(tag)
 
-            result = result + ciphertext + ":helper:" + tag + ":helper:" + nonce + ":-aesWrapper-:"
+            result = result + ciphertext + ":helper:" + self.fernetObj.encrypt_string(tag) + ":helper:" + self.fernetObj.encrypt_string(nonce) + ":-aesWrapper-:"
 
             yield currentCount , totalYield
             currentCount = currentCount + 1
@@ -343,9 +348,12 @@ class Encryptor:
         for i in chunkList:
 
             cipherText , tag , nonce = i.split(":helper:")
-            cipherText = Base64_85.decode(cipherText)
-            tag = Base64_85.decode(tag)
-            nonce = Base64_85.decode(nonce)
+            tag = self.fernetObj.decrypt_string(tag)
+            nonce = self.fernetObj.decrypt_string(nonce)
+
+            cipherText = HexConvertor.decode(cipherText)
+            tag = HexConvertor.decode(tag)
+            nonce = HexConvertor.decode(nonce)
 
             cipher = AES.new(self.key, AES.MODE_EAX, nonce=nonce)
             plaintext = cipher.decrypt(cipherText)
@@ -395,14 +403,14 @@ class Encryptor:
             chunk = String2Byte_v2.encode(chunk)
 
             cipher = AES.new(self.key, AES.MODE_EAX)
-            nonce = Base64_85.encode(cipher.nonce)
+            nonce = HexConvertor.encode(cipher.nonce)
 
             ciphertext , tag = cipher.encrypt_and_digest(chunk)
 
-            ciphertext = Base64_85.encode(ciphertext)
-            tag = Base64_85.encode(tag)
+            ciphertext = HexConvertor.encode(ciphertext)
+            tag = HexConvertor.encode(tag)
 
-            result = result + ciphertext + ":helper:" + tag + ":helper:" + nonce + ":-aesWrapper-:"
+            result = result + ciphertext + ":helper:" + self.fernetObj.encrypt_string(tag) + ":helper:" + self.fernetObj.encrypt_string(nonce) + ":-aesWrapper-:"
 
         result = result[:len(":-aesWrapper-:") * -1]
 
@@ -442,9 +450,12 @@ class Encryptor:
         for i in chunkList:
 
             cipherText , tag , nonce = i.split(":helper:")
-            cipherText = Base64_85.decode(cipherText)
-            tag = Base64_85.decode(tag)
-            nonce = Base64_85.decode(nonce)
+            tag = self.fernetObj.decrypt_string(tag)
+            nonce = self.fernetObj.decrypt_string(nonce)
+
+            cipherText = HexConvertor.decode(cipherText)
+            tag = HexConvertor.decode(tag)
+            nonce = HexConvertor.decode(nonce)
 
             cipher = AES.new(self.key, AES.MODE_EAX, nonce=nonce)
             plaintext = cipher.decrypt(cipherText)
@@ -728,8 +739,8 @@ def __test_encryptor_string():
 
 if __name__ == "__main__":
     # __test_encryptor_byte_yield()
-    __test_encryptor_byte_yield()
+    # __test_encryptor_byte_yield()
     # __test_encryptor_byte()
     # __test_encryptor_byte()
-    # __test_encryptor_string_yield()
+    __test_encryptor_string_yield()
     # __test_encryptor_string()
