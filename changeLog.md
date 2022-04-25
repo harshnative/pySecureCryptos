@@ -121,3 +121,11 @@ initial public version
 
 * added string encryptor in server client encryptor
 * added new base 85 encoder to aes wrapper_v2 , rsaWrapper_v2 , server_client_encryptor_v2.
+
+
+
+
+
+# 0.52
+
+* changed aesWrapper_v2 to more secure AES encryption
